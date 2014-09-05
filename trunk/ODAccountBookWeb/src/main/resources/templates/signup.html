@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="description" content=""/>
+	    <meta name="author" content=""/>
+
+	    <title>오동가계부 가입하기</title>
+
+	    <link rel="stylesheet" type="text/css" href="style/lib/bootstrap-3.0.0/css/bootstrap.min.css" />
+		  <link rel="stylesheet" type="text/css" href="style/css/docs.css" />
+
+      <script type="text/javascript" src="style/lib/jquery-1.11.1.js"></script>
+      <script type="text/javascript" src="style/lib/bootstrap-3.0.0/js/bootstrap.js"></script>
+
+      <script type="text/javascript" src="style/js/egunUtility.js"></script>
+  </head>
+
+  <body style="background-color: #eee;">
+
+    <div class="container">
+
+      <form class="form-signup" id="signupForm">
+        <h2 class="form-signup-heading">이메일 주소를 입력하세요.</h2>
+        <input type="email" class="form-control" placeholder="이메일주소" id="email" />
+
+        <input type="password" class="form-control password" placeholder="비밀번호" id="password"/>
+        <input type="password" class="form-control password-confirm" placeholder="비밀번호확인" id="passwordConfirm"/>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">가입하기</button>
+
+        <div class="alert alert-danger" style="margin-top:10px; display:none;">
+          <strong>[!]</strong>
+        </div>
+
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+      $("#signupForm").submit(function() {
+
+        var email = $("#email").val();
+        var password1 = $("#password").val();
+        var password2 = $("#passwordConfirm").val();
+
+        if (email == "") {
+          $(".alert").html("<strong>[!]</strong> 이메일 주소를 입력하세요.").show();
+          return false;
+        } else {
+          $(".alert").hide();
+        }
+
+        if (password1 == "") {
+          $(".alert").html("<strong>[!]</strong> 비밀번호를 입력하세요.").show();
+          return false;
+        } else if (password1 != password2) {
+          $(".alert").html("<strong>[!]</strong> 비밀번호를 다시 확인하세요.").show();
+          return false;
+        } else {
+          $(".alert").hide();
+        }
+
+        var url = '/apis/users/signup';
+        var param = {
+          'email' : $("#email").val()
+          , 'password' : $("#password").val()
+        }
+
+        EgunUtility.doPost(url, param, function() {
+          location.href='/signin';
+        });
+
+        return false;
+      });
+
+    });
+
+    </script>
+
+	</body>
+</html>

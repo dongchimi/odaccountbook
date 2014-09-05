@@ -1,0 +1,68 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+group = 'org.dongchimi.odong'
+version = '1.0'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/libs-release" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.1.RELEASE")
+    }
+}
+
+jar {
+    baseName = 'ODAccountBook'
+    version =  'SNAPSHOT-0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.springsource.org/libs-milestone/" }
+    maven { url "http://repo.spring.io/libs-release" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+	
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web:1.1.0.RC1")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa:1.1.0.RC1")
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.1.0.RC1")
+	compile("mysql:mysql-connector-java:5.1.9")
+	compile("org.springframework.boot:spring-boot-starter-actuator:1.1.0.RC1")
+	testCompile("org.springframework.boot:spring-boot-starter-test:1.1.0.RC1")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    
+	//compile("org.springframework.boot:spring-boot-starter-tomcat:1.1.0.RC1")
+	//providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '1.1.0.RC1'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+war {
+    baseName = 'odaccountbook'
+    version = ''
+}
+
+configurations {
+    providedRuntime
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
