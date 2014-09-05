@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="description" content=""/>
+	    <meta name="author" content=""/>
+
+	    <title>오동가계부 호출 API</title>
+
+	    <!-- Bootstrap core CSS -->
+	    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+
+	    <!-- Custom styles for this template -->
+	    <link href="css/docs.css" rel="stylesheet"/>
+
+  </head>
+
+  <body style="background-color: #eee;">
+
+
+<h1>사용자</h1>
+  	<ul>
+  		<li>회원가입
+        <ul>
+          <li>POST</li>
+          <li>/apis/users/signup</li>
+          <li>파라미터
+            <pre>
+{
+  "email" : "email@gmail.com",
+  "password" : "password"
+}
+            </pre>
+          </li>
+          <li>결과
+            <pre>
+{
+  "success" : true,
+  "value" : null,
+  "errorMessage1" : null,
+  "errorMessage2" : null
+}
+            </pre>
+          </li>
+        </ul>
+      </li>
+
+      <li>이메일등록여부확인
+        <ul>
+          <li>GET</li>
+          <li>/apis/users/isExistEmail</li>
+          <li>파라미터
+            <pre>
+email={email}
+            </pre>
+          </li>
+<li>결과
+            <pre>
+{
+  "success" : true,
+  "value" : {"hasEmail" : false},
+  "errorMessage1" : null,
+  "errorMessage2" : null
+}
+            </pre>
+          </li>
+        </ul>
+      </li>
+
+
+			<li>로그인
+				<ul>
+					<li>POST</li>
+					<li>/apis/users/signin</li>
+					<li>파라미터
+						<pre>
+{
+	"email" : "email@gmail.com",
+	"password" : "password"
+}
+						</pre>
+					</li>
+					<li>결과
+						<pre>
+{
+	"success" : true,
+	"value" : null,
+	"errorMessage1" : null,
+	"errorMessage2" : null
+}
+						</pre>
+					</li>
+				</ul>
+			</li>
+  	</ul>
+
+	</body>
+</html>
