@@ -32,8 +32,6 @@ public class ODAccountBookController {
 		return "settings";
 	}
 	
-	
-	
 	@RequestMapping(value="/calendar", method=RequestMethod.GET)
 	String calendar() {
 		return "calendar";

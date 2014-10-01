@@ -820,7 +820,7 @@
 
 			$(function() {
 				// TODO 가계부 조회
-				getDefaultBook();
+				getCurrentAccountBook();
 
 				// back to top
 			    setTimeout(function () {
@@ -899,12 +899,15 @@
 				location.href = 'signin.html';
 			}
 
-			function getDefaultBook() {
-				var url = '/apis/books/getDefaultBookWithThisMonthLogs';
+			/**
+			 * 로그인 한 사용자의 현재 가계부 정보를 조회
+			 */
+			function getCurrentAccountBook() {
+				var url = '/apis/books/getCurrentAccountBookWithThisMonthLogs';
 				var param = {};
 
 				EgunUtility.doGet(url, param, function(book) {
-					console.log(book);
+					
 				});
 			}
 
