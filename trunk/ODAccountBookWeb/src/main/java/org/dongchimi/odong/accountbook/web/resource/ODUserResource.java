@@ -7,6 +7,7 @@ import org.dongchimi.odong.accountbook.service.ODUserService;
 import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResultBuilder;
+import org.dongchimi.odong.accountbook.web.util.SessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,8 @@ public class ODUserResource {
 		if (user == null) {
 			return ODRequestResultBuilder.getFailRequestResult(new ODException("사용자 정보가 없습니다."));
 		}
-		session.setAttribute("signinUser", user);
+		session.setAttribute(SessionManager.SESSION_KEY_SIGN_IN_USER, user);
+		session.setAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID, user.getDefaultBookOid());
 		return ODRequestResultBuilder.getSuccessRequestResult(user);
 	}
 }
