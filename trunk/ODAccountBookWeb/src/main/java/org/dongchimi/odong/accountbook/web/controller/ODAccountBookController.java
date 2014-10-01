@@ -7,36 +7,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ODAccountBookController {
-	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	String index() {
 		return "signin";
 	}
-	
-	@RequestMapping(value="/signup", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	String signup() {
 		return "signup";
 	}
-	
-	@RequestMapping(value="/signupSendEMail", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/signupSendEMail", method = RequestMethod.GET)
 	String signupSendEMail() {
 		return "signupSendEMail";
 	}
 
-	@RequestMapping(value="/signin", method=RequestMethod.GET)
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	String signin() {
 		return "signin";
 	}
-	@RequestMapping(value="/settings", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/settings", method = RequestMethod.GET)
 	public String settings(Model model) {
 		return "settings";
 	}
-	
-	@RequestMapping(value="/calendar", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/assets", method = RequestMethod.GET)
+	public String assets(Model model) {
+		return "assets";
+	}
+
+	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
 	String calendar() {
 		return "calendar";
 	}
-	@RequestMapping(value="/apis", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/apis", method = RequestMethod.GET)
 	String apis() {
 		return "apis";
 	}

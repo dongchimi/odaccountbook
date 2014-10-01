@@ -1,0 +1,615 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="description" content=""/>
+	    <meta name="author" content=""/>
+
+	    <title>오동가계부</title>
+
+	    <link rel="stylesheet" type="text/css" href="style/lib/bootstrap-3.0.0/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="style/css/docs.css" />
+
+		<script type="text/javascript" src="style/lib/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="style/lib/bootstrap-3.0.0/js/bootstrap.js"></script>
+
+		<script type="text/javascript" src="style/js/lunarCalendar.js"></script>
+		<script type="text/javascript" src="style/js/docs.js"></script>
+
+		<script type="text/javascript" src="style/js/egunUtility.js"></script>
+
+  	</head>
+
+	<body>
+
+		<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+		  <div class="container">
+		    <div class="navbar-header">
+		    	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+		      <a href="#" class="navbar-brand">오동가계부</a>
+		    </div>
+		    <div class="navbar-collapse collapse bs-navbar-collapse">
+	          <ul class="nav navbar-nav">
+	            <li>
+		          <a href="calendar.html"><span class="glyphicon glyphicon-pencil"></span> 가계부</a>
+		        </li>
+		        <li>
+		          <a href="#"><span class="glyphicon glyphicon-credit-card"></span> 카드</a>
+		        </li>
+		        <li>
+		          <a href="#"><span class="glyphicon glyphicon-stats"></span> 예결산</a>
+		        </li>
+		        <li class="active">
+		          <a href="assets.html"><span class="glyphicon glyphicon-usd"></span> 자산</a>
+		        </li>
+		        <li>
+		          <a href="settings.html"><span class="glyphicon glyphicon-wrench"></span> 설정</a>
+		        </li>
+	          </ul>
+	          <form class="navbar-form navbar-right">
+	            <button type="submit" class="btn btn-primary" onclick="location.href='signin.html'; return false;">로그아웃</button>
+	          </form>
+	        </div>
+		  </div>
+		</header>
+
+
+	    <div class="container bs-docs-container">
+	    	<div class="row" style="margin-top:10px;">
+		    	<div class="col-md-2">
+		          <div class="bs-sidebar hidden-print affix-top">
+		            <ul class="nav bs-sidenav">
+		            	<li class="active"><a href="#">자산관리</a></li>
+		            	<li><a href="#">자산통계</a></li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="col-md-4">
+		        	<ul class="nav nav-pills">
+				        <li class="active"><a href="#cash" data-toggle="tab">현금자산</a></li>
+				        <li><a href="#finance" data-toggle="tab">금융자산</a></li>
+				        <li><a href="#fixed_asset" data-toggle="tab">고정자산</a></li>
+				        <li><a href="#debt" data-toggle="tab">부채</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade active in" id="cash">
+							<div class="panel-heading">
+					        	<h1 class="panel-title">
+					        		현금자산
+					            </h1>
+					        </div>
+
+					        <table class="table">
+						        <tbody>
+							        <tr>
+							          	<td>
+							          		<div>내지갑</div>
+							          	</td>
+							          	<td>
+							          		<div class="money_out">3,500</div>
+							          	</td>
+							        </tr>
+							        <tr>
+							          	<td>
+							          		<div>오리양지갑</div>
+							          	</td>
+							          	<td>
+							          		<div class="money_out">1,000,000</div>
+							          	</td>
+							        </tr>
+							        <tr>
+							          	<td>
+							          		<div>동치미지갑</div>
+							          	</td>
+							          	<td>
+							          		<div class="money_out">100</div>
+							          	</td>
+							        </tr>
+						        </tbody>
+						    </table>
+						</div>
+					</div>
+		        </div>
+		        <div class="col-md-6">
+		        	<nav class="navbar navbar-default" role="navigation">
+				        <div class="navbar-header">
+				          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+				            <span class="sr-only">Toggle navigation</span>
+				            <span class="icon-bar"></span>
+				            <span class="icon-bar"></span>
+				            <span class="icon-bar"></span>
+				          </button>
+				          <button type="button" class="btn btn-default navbar-btn" data-toggle="button" style="margin-left:10px;" onclick="showHideCalendar();">달력</button>
+				        </div>
+				        <div class="collapse navbar-collapse navbar-ex2-collapse navbar-right">
+				          <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#smsModal">SMS<span class="badge">2</span></button>
+				          <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#writeModal">내역추가</button>
+				        </div>
+				    </nav>
+
+					<div class="contents">
+					</div>
+				</div>
+	    	</div>
+	    </div>
+
+		<!-- Modal : 자산관리 -->
+		<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="writeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">자산관리</h4>
+					</div>
+					<div class="modal-body">
+						<div style="margin-bottom:20px;">
+							<ul class="nav nav-pills" id="myTab">
+						        <li class="active"><a href="#cash" data-toggle="tab">현금자산</a></li>
+						        <li><a href="#finance" data-toggle="tab">금융자산</a></li>
+						        <li><a href="#fixed_asset" data-toggle="tab">고정자산</a></li>
+						        <li><a href="#debt" data-toggle="tab">부채</a></li>
+							</ul>
+						</div>
+				      	<div id="myTabContent" class="tab-content">
+				      		<div class="tab-pane fade active in" id="cash">
+				      			<form class="form-horizontal" role="form">
+								  <div class="form-group">
+								    <label for="date" class="col-lg-2 control-label">날짜</label>
+								    <div class="col-lg-9">
+								    	<input type="date" class="form-control" id="date" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="description" class="col-lg-2 control-label">내역</label>
+								    <div class="col-lg-9">
+								    	<input type="text" class="form-control" id="description" placeholder="내역" autocomplete="true" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="money" class="col-lg-2 control-label">금액</label>
+								    <div class="col-lg-9">
+								    	<input type="number" class="form-control" id="money" step="100" placeholder="0" pattern="[0-9]*"/>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="accounts" class="col-lg-2 control-label">계좌</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="계좌"> -->
+								    	<select class="form-control" id="accounts"></select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="category1" class="col-lg-2 control-label">분류</label>
+								    <div class="col-lg-4">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="분류"> -->
+								    	<select class="form-control" id="category1">
+										  <option>고정수입</option>
+										  <option>기타수입</option>
+										</select>
+								    </div>
+								    <div class="col-lg-5">
+								    	<select class="form-control" id="category2" disabled="true">
+										  <option>소분류없음</option>
+										  <option>급여</option>
+										  <option>상여</option>
+										  <option>사업소득</option>
+										</select>
+									</div>
+								  </div>
+								  <div class="form-group">
+								    <label for="user" class="col-lg-2 control-label">사용자</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="사용자"> -->
+								    	<select class="form-control" id="user">
+										  <option>오동</option>
+										  <option>오리양</option>
+										  <option>동치미군</option>
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="memo" class="col-lg-2 control-label">메모</label>
+								    <div class="col-lg-9">
+								    	<textarea class="form-control" style="resize:none;" rows="3" id="memo"></textarea>
+								    </div>
+								  </div>
+								</form>
+				      		</div>
+				      		<div class="tab-pane fade" id="finance">
+				      			<form class="form-horizontal" role="form">
+								  <div class="form-group">
+								    <label for="date" class="col-lg-2 control-label">날짜</label>
+								    <div class="col-lg-9">
+								    	<input type="date" class="form-control" id="date" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="description" class="col-lg-2 control-label">내역</label>
+								    <div class="col-lg-9">
+								    	<input type="text" class="form-control" id="description" placeholder="내역" autocomplete="true" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="money" class="col-lg-2 control-label">금액</label>
+								    <div class="col-lg-9">
+								    	<input type="number" class="form-control" id="money" step="100" placeholder="0" pattern="[0-9]*"/>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="accounts" class="col-lg-2 control-label">계좌</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="계좌"> -->
+								    	<select class="form-control" id="accounts">
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="category1" class="col-lg-2 control-label">분류</label>
+								    <div class="col-lg-4">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="분류"> -->
+								    	<select class="form-control" id="category1">
+										  <option>고정수입</option>
+										  <option>기타수입</option>
+										</select>
+								    </div>
+								    <div class="col-lg-5">
+								    	<select class="form-control" id="category2" disabled="true">
+										  <option>소분류없음</option>
+										  <option>급여</option>
+										  <option>상여</option>
+										  <option>사업소득</option>
+										</select>
+									</div>
+								  </div>
+								  <div class="form-group">
+								    <label for="user" class="col-lg-2 control-label">사용자</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="사용자"> -->
+								    	<select class="form-control" id="user">
+										  <option>오동</option>
+										  <option>오리양</option>
+										  <option>동치미군</option>
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="memo" class="col-lg-2 control-label">메모</label>
+								    <div class="col-lg-9">
+								    	<textarea class="form-control" style="resize:none;" rows="3" id="memo"></textarea>
+								    </div>
+								  </div>
+								</form>
+				      		</div>
+				      		<div class="tab-pane fade" id="fixed_asset">
+				      			<form class="form-horizontal" role="form">
+								  <div class="form-group">
+								    <label for="date" class="col-lg-2 control-label">날짜</label>
+								    <div class="col-lg-9">
+								    	<input type="date" class="form-control" id="date" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="category1" class="col-lg-2 control-label">분류</label>
+								    <div class="col-lg-4">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="분류"> -->
+								    	<select class="form-control" id="category1">
+										  <option>고정수입</option>
+										  <option>기타수입</option>
+										</select>
+								    </div>
+								    <div class="col-lg-5">
+								    	<select class="form-control" id="category2" disabled="true">
+										  <option>소분류없음</option>
+										  <option>급여</option>
+										  <option>상여</option>
+										  <option>사업소득</option>
+										</select>
+									</div>
+								  </div>
+								  <div class="form-group">
+								    <label for="accounts" class="col-lg-2 control-label">출금</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="계좌"> -->
+								    	<select class="form-control" id="accounts">
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="accounts" class="col-lg-2 control-label">입금</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="계좌"> -->
+								    	<select class="form-control" id="accounts">
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="money" class="col-lg-2 control-label">금액</label>
+								    <div class="col-lg-9">
+								    	<input type="number" class="form-control" id="money" step="100" placeholder="0" pattern="[0-9]*"/>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="user" class="col-lg-2 control-label">사용자</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="사용자"> -->
+								    	<select class="form-control" id="user">
+										  <option>오동</option>
+										  <option>오리양</option>
+										  <option>동치미군</option>
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="memo" class="col-lg-2 control-label">메모</label>
+								    <div class="col-lg-9">
+								    	<textarea class="form-control" style="resize:none;" rows="3" id="memo"></textarea>
+								    </div>
+								  </div>
+								</form>
+				      		</div>
+				      		<div class="tab-pane fade" id="debt">
+				      			<form class="form-horizontal" role="form">
+								  <div class="form-group">
+								    <label for="date" class="col-lg-2 control-label">날짜</label>
+								    <div class="col-lg-9">
+								    	<input type="date" class="form-control" id="date" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="accounts" class="col-lg-2 control-label">출금</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="계좌"> -->
+								    	<select class="form-control" id="accounts">
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="accounts" class="col-lg-2 control-label">입금</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="계좌"> -->
+								    	<select class="form-control" id="accounts">
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="money" class="col-lg-2 control-label">금액</label>
+								    <div class="col-lg-9">
+								    	<input type="number" class="form-control" id="money" step="100" placeholder="0" pattern="[0-9]*"/>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="user" class="col-lg-2 control-label">사용자</label>
+								    <div class="col-lg-9">
+								    	<!-- <input type="text" class="form-control" id="indescription" placeholder="사용자"> -->
+								    	<select class="form-control" id="user">
+										  <option>오동</option>
+										  <option>오리양</option>
+										  <option>동치미군</option>
+										</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="memo" class="col-lg-2 control-label">메모</label>
+								    <div class="col-lg-9">
+								    	<textarea class="form-control" style="resize:none;" rows="3" id="memo"></textarea>
+								    </div>
+								  </div>
+								</form>
+				      		</div>
+				      	</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary" id="btnSave">저장</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<!-- Modal : SMS -->
+		<div class="modal fade" id="smsModal" tabindex="-1" role="dialog" aria-labelledby="smsModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">SMS</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel panel-default">
+					        <div class="panel-heading">
+					          <h3 class="panel-title">SMS 등록 <small>SMS를 붙여넣으세요.</small></h3>
+					        </div>
+					        <div class="panel-body">
+					          <textarea class="form-control" style="resize:none;" rows="3" id="txa_sms"></textarea>
+					        </div>
+					        <div class="panel-footer">
+					        	<button type="button" class="btn btn-default">모아두기</button>
+					        	<button type="button" class="btn btn-default">바로작성</button>
+					        </div>
+					    </div>
+					    <div class="panel panel-default">
+					        <!-- Default panel contents -->
+					        <div class="panel-heading">
+					        	<h3 class="panel-title">SMS 내역 <small>작성할 SMS를 선택하세요.</small></h3>
+					        </div>
+
+					        <!-- Table -->
+					        <table class="table table-hover">
+					          <tbody>
+					            <tr>
+					              <td>
+					              	<input type="checkbox"/>
+					              </td>
+					              <td>2014.06.18</td>
+					              <td>신한카드승인강원미님 06/18 14:22 (일시불)41,700원 쿠팡 누적201,970원</td>
+					            </tr>
+					            <tr>
+					              <td>
+					              	<input type="checkbox"/>
+					              </td>
+					              <td>2014.06.18</td>
+					              <td>신한카드승인강원미님 06/18 14:22 (일시불)41,700원 쿠팡 누적201,970원</td>
+					            </tr>
+					          </tbody>
+					        </table>
+
+					        <div class="panel-footer">
+					        	<button type="button" class="btn btn-default">선택삭제</button>
+					        </div>
+				        </div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<script type="text/javascript">
+
+			$(function() {
+				// TODO 가계부 조회
+				getDefaultBook();
+
+				// back to top
+			    setTimeout(function () {
+			      var $sideBar = $('.bs-sidebar')
+			      var $calendar = $('.bs-calender')
+
+			      $sideBar.affix({
+			        offset: {
+			          top: function () {
+			            var offsetTop      = $sideBar.offset().top
+			            var sideBarMargin  = parseInt($sideBar.children(0).css('margin-top'), 10)
+			            var navOuterHeight = $('.bs-docs-nav').height()
+
+			            return (this.top = offsetTop - navOuterHeight - sideBarMargin)
+			          }
+			        }
+			      })
+			      $calendar.affix({
+			        offset: {
+			          top: function () {
+			            var offsetTop      = $calendar.offset().top
+			            var calendarMargin  = parseInt($calendar.children(0).css('margin-top'), 10)
+			            var navOuterHeight = $('.bs-docs-nav').height()
+
+			            return (this.top = offsetTop - navOuterHeight - calendarMargin)
+			          }
+			        }
+			      })
+			    }, 100)
+
+				makeMiniDiary();
+
+				$('#writeModal').on('show.bs.modal', function () {
+					$("input[type=date]").each(function() {
+						$(this).attr("value", "2014-06-17");
+					});
+
+/*
+					$accounts = $("select[id=accounts]");
+					$.getJSON('data/accounts.json', function(data) {
+						$accounts.loadAccounts(data);
+			        });
+
+			        $category1 = $("select[id=category1]");
+
+			        var type = $("#myTabContent").children("div[class~=active]").attr('id');
+
+			        $.getJSON('data/categories.json', function(data) {
+						//$category1.loadCategory1(data, type);
+						$.each("data."+type, function(index, options) {
+							$.each(options, function(index, option) {
+								console.log(option.name);
+							})
+
+						});
+			        });
+*/
+				});
+
+				$('#money').on('blur',function(){
+					// TODO 천단위 콤마
+				});
+
+				$('#btnSave').on('click', function(){
+					btnSave();
+				});
+
+			});
+
+			// TODO 자주사용하는 작성 목록을 선택했을 때 값을 넘겨주어야 함.
+			function selectFavorite(id) {
+
+			}
+
+			function logout() {
+				location.href = 'signin.html';
+			}
+
+			function getDefaultBook() {
+				var url = '/apis/books/getDefaultBookWithThisMonthLogs';
+				var param = {};
+
+				EgunUtility.doGet(url, param, function(book) {
+					console.log(book);
+				});
+			}
+
+			function btnSave() {
+				var url = '/apis/booklogs/registerBookLog';
+				var param = {
+					'bookOid' : '1',
+					'howType' : 'IN'
+				};
+
+				EgunUtility.doPost(url, param, function() {
+					alert("저장이 완료되었습니다.");
+				});
+			}
+/*
+			(function($) {
+			  $.fn.emptySelect = function() {
+			    return this.each(function(){
+			      if (this.tagName=='SELECT') this.options.length = 0;
+			    });
+			  }
+
+			  $.fn.loadAccounts = function(optionsDataArray) {
+			    return this.emptySelect().each(function(){
+			      if (this.tagName=='SELECT') {
+			        var selectElement = this;
+			        $.each(optionsDataArray,function(index,optionData){
+			          var option = new Option(optionData.name, optionData.id);
+
+			          selectElement.add(option,null);
+			        });
+			      }
+			    });
+			  }
+
+			  $.fn.loadCategory1 = function(optionsDataArray, type) {
+			    return this.emptySelect().each(function(){
+			      if (this.tagName=='SELECT') {
+			        var selectElement = this;
+			        $.each("optionsDataArray."+type,function(index,optionData){
+				          var option = new Option(optionData.name, optionData.id);
+				          selectElement.add(option,null);
+			        });
+			      }
+			    });
+			  }
+			})(jQuery);
+*/
+		</script>
+
+	</body>
+</html>
