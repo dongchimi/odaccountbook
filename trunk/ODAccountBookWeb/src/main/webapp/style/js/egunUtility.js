@@ -17,6 +17,35 @@ EgunUtility.doPost = function (url, paramObj, callback) {
     return EgunUtility.showfailMessage(response);
   });
 };
+
+/**
+ * 반드시 'application/json' 타입으로 호출하는 POST 통신
+ * 
+ * @author <a href="mailto:dklee@gn-soft.co.kr">이동규</a>
+ * @since 2015.03.12
+ */
+EgunUtility.doNativePost = function(url, paramObj, callback) {
+  $.ajax({
+    url : url,
+    dataType : 'json',
+    type : 'POST',
+    contentType : 'application/json',
+    data : JSON.stringify(paramObj),
+    success : function(response) {
+      if (EgunUtility.isSuccessResponse(response)) {
+        if (EgunUtility.hasResponseData(response)) {
+          callback(response.value);
+        }
+        else {
+          if (callback != undefined && callback != null) {
+            callback();
+          }
+        }
+      }
+      return EgunUtility.showfailMessage(response);
+    }
+  });
+};
          
 EgunUtility.doGet = function (url, paramObj, callback) {
   $.get(url, paramObj, function (response) {
