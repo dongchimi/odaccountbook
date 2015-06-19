@@ -1,0 +1,675 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="description" content=""/>
+	    <meta name="author" content=""/>
+
+	    <title>오동가계부</title>
+
+	    <!-- Bootstrap Core CSS -->
+    	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+		<!-- MetisMenu CSS -->
+    	<link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+
+    	<!-- DataTables CSS -->
+	    <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
+
+	    <!-- DataTables Responsive CSS -->
+	    <link href="bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet" />
+
+		<!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="style/css/sb-admin-2.css" />
+
+		<!-- Custom Fonts -->
+    	<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+  	</head>
+
+	<body>
+
+		<div id="wrapper">
+
+			<!-- Navigation -->
+        	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand" href="index.html">오동가계부</a>
+	            </div>
+	            <!-- /.navbar-header -->
+
+	            <ul class="nav navbar-top-links navbar-right">
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-messages">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a class="text-center" href="#">
+	                                <strong>SMS 더보기</strong>
+	                                <i class="fa fa-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-messages -->
+	                </li>
+	                <!-- /.dropdown -->
+
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-alerts">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-comment fa-fw"></i> New Comment
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+	                                    <span class="pull-right text-muted small">12 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-tasks fa-fw"></i> New Task
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a class="text-center" href="#">
+	                                <strong>See All Alerts</strong>
+	                                <i class="fa fa-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-alerts -->
+	                </li>
+	                <!-- /.dropdown -->
+
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-user">
+	                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 내정보</a>
+	                        </li>
+	                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li><a href="signin"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-user -->
+	                </li>
+	                <!-- /.dropdown -->
+	            </ul>
+	            <!-- /.navbar-top-links -->
+
+	            <div class="navbar-default sidebar" role="navigation">
+	                <div class="sidebar-nav navbar-collapse">
+	                    <ul class="nav" id="side-menu">
+	                        <li class="sidebar-search">
+	                            <div class="input-group custom-search-form">
+	                                <input type="text" class="form-control" placeholder="Search..." />
+	                                <span class="input-group-btn">
+		                                <button class="btn btn-default" type="button">
+		                                    <i class="fa fa-search"></i>
+		                                </button>
+		                            </span>
+	                            </div>
+	                            <!-- /input-group -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-table fa-fw"></i> 가계부<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="#">가계부관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">가계부통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> 카드<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="#">카드관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">카드통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 예결산<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="flot">결산관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="morris">예산관리</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-won fa-fw"></i> 자산<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="#">자산관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">자산통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>	                        
+	                        <li class="active">
+	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 설정<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level in">
+	                            	<li>
+                                        <a href="settings">가계부설정</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">사용자설정</a>
+                                    </li>
+	                                <li class="active">
+	                                    <a href="#">기초자료 <span class="fa arrow"></span></a>
+	                                    <ul class="nav nav-third-level">
+	                                        <li>
+	                                            <a href="#">월고정금액</a>
+	                                        </li>
+	                                        <li class="active">
+	                                            <a href="settings-category">분류</a>
+	                                        </li>
+	                                    </ul>
+	                                    <!-- /.nav-third-level -->
+	                                </li>	                                
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                    </ul>
+	                </div>
+	                <!-- /.sidebar-collapse -->
+	            </div>
+	            <!-- /.navbar-static-side -->
+	        </nav>
+
+	        <div id="page-wrapper">
+                <div class="row">
+	                <div class="col-md-12">
+	                    <h1 class="page-header">분류설정</h1>
+	                </div>
+	                <!-- /.col-lg-12 -->
+	            </div>
+                <!-- /.row -->
+                <div class="row">
+	                <div class="col-lg-4">
+	                    <div class="panel panel-default">
+	                    	<div class="panel-heading">
+	                            수입
+	                            <div class="pull-right">
+	                            	<button type="button" class="btn btn-primary btn-xs btn-save-order" data-howtype="IN">저장</button>
+	                            </div>
+	                        </div>
+	                        <div class="panel-body">
+	                        	<ul class="list-group" id="sortable-income"></ul>
+
+								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" data-howtype="IN">
+	                                <i class="fa fa-plus fa-fw"></i> 등록
+	                            </button>
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-4 -->
+	                <div class="col-lg-4">
+	                    <div class="panel panel-default">
+	                    	<div class="panel-heading">
+	                            지출
+	                            <div class="pull-right">
+	                            	<button type="button" class="btn btn-primary btn-xs btn-save-order" data-howtype="OUT">저장</button>
+	                            </div>
+	                        </div>
+	                        <div class="panel-body">
+	                        	<ul class="list-group" id="sortable-out"></ul>
+
+								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" data-howtype="OUT">
+	                                <i class="fa fa-plus fa-fw"></i> 등록
+	                            </button>
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-4 -->
+	                <div class="col-lg-4">
+	                    <div class="panel panel-default">
+	                    	<div class="panel-heading">
+	                            저축
+	                            <div class="pull-right">
+	                            	<button type="button" class="btn btn-primary btn-xs btn-save-order" data-howtype="SAVING">저장</button>
+	                            </div>
+	                        </div>
+	                        <div class="panel-body">
+	                        	<ul class="list-group" id="sortable-save"></ul>
+
+								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" data-howtype="SAVING">
+	                                <i class="fa fa-plus fa-fw"></i> 등록
+	                            </button>
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-4 -->
+
+	                <!-- Modal -->
+                    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">분류등록</h4>
+                                </div>
+                                <form role="form" id="categoryForm">
+                                	<div class="modal-body">
+                                    	<div class="form-group">
+                                            <label>구분</label>
+                                            <div class="btn-group" data-toggle="buttons">
+											  	<label class="btn btn-default active">
+											    	<input type="radio" value="ITEM" name="categoryType" autocomplete="off" checked="true" /> 항목
+											  	</label>
+											  	<label class="btn btn-default">
+											    	<input type="radio" value="GROUP" name="categoryType" autocomplete="off"/> 그룹
+											  	</label>
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>항목명</label>
+                                            <input class="form-control" type="text" id="name"/>
+                                        </div>
+                                        <!--
+                                        <div class="form-group">
+                                            <label>사용시작일</label>
+                                            <input class="form-control" type="date" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>사용종료일</label>
+                                            <input class="form-control" type="date" />
+                                        </div>
+                                        -->
+                                        <div class="form-group">
+                                            <label>메모</label>
+                                            <input class="form-control" type="text" id="memo" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                                        <button type="submit" class="btn btn-primary">확인</button>
+                                    </div>
+                                </form>
+                        	</div>                                        
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+			    </div>
+	            <!-- /.row -->
+	        </div>
+	        <!-- /#page-wrapper -->
+
+	    </div>
+    	<!-- /#wrapper -->
+
+		<script type="text/javascript" src="style/js/egunUtility.js"></script>
+		
+		<script type="text/javascript" src="style/lib/jquery-1.11.1.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+    	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<!-- Metis Menu Plugin JavaScript -->
+    	<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    	<!-- DataTables JavaScript -->
+	    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	    <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+		<!-- Custom Theme JavaScript -->
+    	<script src="style/js/sb-admin-2.js"></script>
+
+		<script type="text/javascript">
+		<!--//
+
+			$(function() {
+
+				var firstCategories = {
+					IN : new Array()
+					, OUT : new Array()
+					, SAVING : new Array()
+				};
+
+				var url = '/apis/category/getAccountBookCategories';
+		        var param = { 'howType' : 'IN' }
+		        EgunUtility.doGet(url, param, function(result) {
+		        	getCategoriesCallBack(result, 'sortable-income');
+		        	firstCategories.IN = result;
+		        });
+
+		        param.howType = 'OUT';
+		        EgunUtility.doGet(url, param, function(result) {
+		        	getCategoriesCallBack(result, 'sortable-out');
+		        	firstCategories.OUT = result;
+		        });
+
+		        param.howType = 'SAVING';
+		        EgunUtility.doGet(url, param, function(result) {
+		        	getCategoriesCallBack(result, 'sortable-save');
+		        	firstCategories.SAVING = result;
+		        });
+
+		        var getCategoriesCallBack = function(categories, appendUl) {
+					var append_html = '';
+		        	for (var i=0; i<categories.length; i++) {
+		        		append_html += buildCategoryRow(categories[i]);
+
+		        		$("#"+appendUl).next().data("parent", categories[i].oId);
+
+		        		if (categories[i].subCategories == null) continue;
+
+		        		for (var subIdx=0; subIdx<categories[i].subCategories.length; subIdx++) {
+		        			append_html += buildCategoryRow(categories[i].subCategories[subIdx], categories[i].oId);
+		        		}
+		        	}
+
+		        	$("#"+appendUl).append(append_html);
+
+				    $("#"+appendUl).sortable({
+				      	revert: true,
+				      	containment: 'parent',
+				      	stop : function(evenet, ui) {
+				      		if ($(this).find('li:first-child').data('type') != 'ITEM') return;
+
+				      		alert("항목은 그룹에 포함되어야 합니다.");
+				      		$(this).sortable( "cancel" );
+				      	}
+				    });
+
+				    $("#"+appendUl+" > li").on("mouseover", function() {
+				    	$(this).find("div").show();
+				    }).on("mouseleave", function() {
+				    	$(this).find("div").hide();
+				    });	
+
+				    $("#"+appendUl).find("div > button.btn-modify").on('click', function() {
+				    	$(this).data('id', $(this).parent().parent().data("id"));		    		
+			    	});
+
+				    $("#"+appendUl).find("div > button.btn-delete").on('click', function() {
+			    		if (!confirm("삭제하시겠습니까?\n\n그룹을 삭제하는 경우 하위 항목은 그룹없음 항목으로 등록됩니다.")) return;
+
+			    		var url = '/apis/category/deleteAccountBookCategory';
+			    		var param = {
+			    			oId : $(this).parent().parent().data("id")
+			    		};
+
+			    		EgunUtility.doPost(url, param, function() {
+				        	location.href='/settings-category';
+				        });
+			    	});
+				}
+
+				$( "ul, li" ).disableSelection();
+			    
+			    $('#categoryModal').on('show.bs.modal', function (event) {
+				  	var button = $(event.relatedTarget);
+				  	var howType = button.data('howtype');
+				  	var categoryId = button.data('id');
+				  	var parentCategoryId = button.data('parent');
+				  	if (parentCategoryId == null) {
+					  	parentCategoryId = $('li[data-id='+categoryId+']').data('parent');
+					}				  	
+
+				  	var modal = $(this);
+				  	modal.find('.modal-body input#name').data('howType', howType);
+				  	modal.find('.modal-body input#name').data('parentCategoryId', parentCategoryId);				  	
+				  	modal.find('.modal-body input#name').data('categoryId', '');
+
+				  	modal.find('.modal-body input[type=radio]').parent().removeClass('disabled').show();
+				  	modal.find('.modal-body input#name').val('');
+	  				modal.find('.modal-body input#memo').val('');
+
+				  	if (categoryId != null) {
+				  		var category = eval("firstCategories."+howType);
+				  		var modifyTargetCategory = {};
+				  		for (var i=0; i<category.length; i++) {
+				  			if (categoryId == category[i].oId) {
+				  				modifyTargetCategory = category[i];
+				  				break;
+				  			} else {
+					  			for (var subIdx=0; subIdx<category[i].subCategories.length; subIdx++) {
+					  				if (categoryId != category[i].subCategories[subIdx].oId) continue;
+
+					  				modifyTargetCategory = category[i].subCategories[subIdx];
+					  				break;
+					  			}
+					  		}
+				  		}
+				  		
+				  		modal.find('.modal-body input[type=radio]').parent().addClass('disabled');
+				  		modal.find('.modal-body input[type=radio][value!='+modifyTargetCategory.categoryType+']').parent().hide();
+				  		modal.find('.modal-body input#name').val(modifyTargetCategory.name);
+		  				modal.find('.modal-body input#memo').val(modifyTargetCategory.memo);
+
+		  				modal.find('.modal-body input#name').data('categoryId', categoryId);
+			  		}
+				});
+
+			    $('#categoryForm').submit(function() {
+
+			    	var url;
+			    	var param;
+
+			    	var categoryId = $("#categoryForm input#name").data('categoryId');
+			    	var categoryName = $("#categoryForm input#name").val();
+			    	var categoryMemo = $("#categoryForm input#memo").val();
+
+			    	if (categoryId == null || categoryId.length == 0) {
+				    	var categoryType = $("#categoryForm input[type=radio]:checked").val();
+
+				    	url = '/apis/category/setAccountBookCategory';
+				        param = {
+				        	'howType' : $("#categoryForm input#name").data('howType')
+				          	, 'categoryType' : categoryType
+				          	, 'name' : categoryName
+				          	, 'memo' : categoryMemo
+				          	, 'parentCategoryId' : categoryType == 'ITEM' ? $("#categoryForm input#name").data('parentCategoryId') : null
+				        }
+				    } else {
+				    	url = '/apis/category/updateAccountBookCategory';
+				        param = {
+				          	'name' : categoryName
+				          	, 'memo' : categoryMemo
+				          	, 'categoryId' : categoryId
+				        }
+				    }
+
+			        EgunUtility.doPost(url, param, function() {
+			        	location.href='/settings-category';
+			        });
+			    });
+
+			    $("button.btn-save-order").on('click', function() {
+			    	var howType = $(this).data('howtype');
+			    	
+			    	var url = '/apis/category/setAccountBookCategoryOrders';
+			    	var param = getCategoriesOrder(howType);
+
+			    	EgunUtility.doNativePost(url, param, function() {
+			        	location.href='/settings-category';
+			        });
+			    });
+
+				var getCategoriesOrder = function(howType) {
+					var categories = eval("firstCategories."+howType);
+
+					var param = new Array();
+
+					var targetUl;
+					if (howType == 'IN') {
+						targetUl = 'sortable-income';
+					} else if (howType == 'OUT') {
+						targetUl = 'sortable-out';
+					} else if (howType == 'SAVING') {
+						targetUl = 'sortable-save';
+					} else {
+						return;
+					}
+
+			    	$('#'+targetUl+' > li').each(function(order) {
+			    		if ($(this).data('type') == 'GROUP') {
+			    			for (var i=0; i<categories.length; i++) {
+			    				if (categories[i].oId != $(this).data('id')) continue;
+
+			    				categories[i].sortNumber = order;
+
+			    				var paramCategory = JSON.parse(JSON.stringify(categories[i]));
+			    				paramCategory.subCategories = new Array();
+
+			    				param.push(paramCategory);
+			    			}
+			    		}
+
+			    		if ($(this).data('type') == 'ITEM') {
+			    			for (var i=0; i<categories.length; i++) {
+			    				if (categories[i].subCategories == null) continue;
+
+			    				for (var subIdx=0; subIdx<categories[i].subCategories.length; subIdx++) {
+			    					if (categories[i].subCategories[subIdx].oId != $(this).data('id')) continue;
+
+			    					categories[i].subCategories[subIdx].sortNumber = order;
+
+			    					var paramCategory = JSON.parse(JSON.stringify(param.pop()));
+			    					paramCategory.subCategories.push(JSON.parse(JSON.stringify(categories[i].subCategories[subIdx])));
+
+			    					param.push(paramCategory);
+			    				}
+			    			}
+			    		}
+			    	});
+
+					return param;
+				}
+			});
+
+			var buildCategoryRow = function(category, parentId) {
+				var temp_html = '';
+				
+				if (category.categoryType == 'GROUP') {
+					temp_html += '<li class="list-group-item list-group-item-success" data-type="'+category.categoryType+'" data-id="'+category.oId+'">';
+				} else {
+					temp_html += '<li class="list-group-item item-children" data-type="ITEM" data-id="'+category.oId+'" data-parent="'+parentId+'">';
+				}
+
+				temp_html += category.name;
+				temp_html += buildCategoryButtonDiv(category.name, category.howType);
+    			temp_html += '</li>';
+
+    			return temp_html;
+			}
+
+			var buildCategoryButtonDiv = function(name, howType) {
+				var temp_html = '';
+
+				temp_html += '<div class="pull-right" style="display:none;">';
+    			temp_html += '<button type="button" class="btn btn-default btn-xs btn-modify" data-toggle="modal" data-target="#categoryModal" data-howtype="'+howType+'">수정</button>';
+
+    			if (name == '그룹없음') {
+	    			temp_html += '<button type="button" class="btn btn-default btn-xs disabled">삭제</button>';
+	    		} else {
+	    			temp_html += '<button type="button" class="btn btn-default btn-xs btn-delete">삭제</button>';
+	    		}
+
+    			temp_html += '</div>';
+
+    			return temp_html;
+			}
+
+		//-->
+		</script>
+
+	</body>
+</html>
