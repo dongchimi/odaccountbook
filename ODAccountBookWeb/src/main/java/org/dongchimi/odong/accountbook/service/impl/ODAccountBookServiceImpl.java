@@ -16,4 +16,9 @@ public class ODAccountBookServiceImpl implements ODAccountBookService {
 	public ODAccountBook getODAccountBook(long oid) {
 		return bookRepository.findOne(oid);
 	}
+
+	@Override
+	public void modifyAccountBook(ODAccountBook accountBook) {
+		bookRepository.save(accountBook);
+	}
 }

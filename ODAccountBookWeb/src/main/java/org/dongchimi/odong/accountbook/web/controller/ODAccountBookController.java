@@ -47,4 +47,9 @@ public class ODAccountBookController {
 	String apis() {
 		return "apis";
 	}
+	
+	@RequestMapping(value = "/settings-category", method = RequestMethod.GET)
+	public String settingsCategory(Model model) {
+		return "settings-category";
+	}
 }

@@ -2,24 +2,388 @@
 <html lang="ko">
 	<head>
 	    <meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content=""/>
 	    <meta name="author" content=""/>
 
 	    <title>오동가계부</title>
 
-	    <link rel="stylesheet" type="text/css" href="style/lib/bootstrap-3.0.0/css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/docs.css" />
+	    <!-- Bootstrap Core CSS -->
+    	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-		<script type="text/javascript" src="style/lib/jquery-1.11.1.js"></script>
-		<script type="text/javascript" src="style/lib/bootstrap-3.0.0/js/bootstrap.js"></script>
+		<!-- MetisMenu CSS -->
+    	<link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+
+		<!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="style/css/sb-admin-2.css" />
+
+		<!-- Custom Fonts -->
+    	<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
   	</head>
 
 	<body>
 
+		<div id="wrapper">
+
+			<!-- Navigation -->
+        	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand" href="index.html">오동가계부</a>
+	            </div>
+	            <!-- /.navbar-header -->
+
+	            <ul class="nav navbar-top-links navbar-right">
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-messages">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a class="text-center" href="#">
+	                                <strong>SMS 더보기</strong>
+	                                <i class="fa fa-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-messages -->
+	                </li>
+	                <!-- /.dropdown -->
+
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-alerts">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-comment fa-fw"></i> New Comment
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+	                                    <span class="pull-right text-muted small">12 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-tasks fa-fw"></i> New Task
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a class="text-center" href="#">
+	                                <strong>See All Alerts</strong>
+	                                <i class="fa fa-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-alerts -->
+	                </li>
+	                <!-- /.dropdown -->
+
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-user">
+	                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 내정보</a>
+	                        </li>
+	                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li><a href="signin"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-user -->
+	                </li>
+	                <!-- /.dropdown -->
+	            </ul>
+	            <!-- /.navbar-top-links -->
+
+	            <div class="navbar-default sidebar" role="navigation">
+	                <div class="sidebar-nav navbar-collapse">
+	                    <ul class="nav" id="side-menu">
+	                        <li class="sidebar-search">
+	                            <div class="input-group custom-search-form">
+	                                <input type="text" class="form-control" placeholder="Search..." />
+	                                <span class="input-group-btn">
+		                                <button class="btn btn-default" type="button">
+		                                    <i class="fa fa-search"></i>
+		                                </button>
+		                            </span>
+	                            </div>
+	                            <!-- /input-group -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-table fa-fw"></i> 가계부<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="#">가계부관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">가계부통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> 카드<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="#">카드관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">카드통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 예결산<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="flot.html">결산관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="morris.html">예산관리</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-won fa-fw"></i> 자산<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="#">자산관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">자산통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>	                        
+	                        <li class="active">
+	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 설정<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level in">
+	                            	<li>
+                                        <a href="settings" class="active">가계부설정</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">사용자설정</a>
+                                    </li>
+	                                <li>
+	                                    <a href="#">기초자료 <span class="fa arrow"></span></a>
+	                                    <ul class="nav nav-third-level">
+	                                        <li>
+	                                            <a href="#">월고정금액</a>
+	                                        </li>
+	                                        <li>
+	                                            <a href="settings-category">분류</a>
+	                                        </li>
+	                                    </ul>
+	                                    <!-- /.nav-third-level -->
+	                                </li>	                                
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                    </ul>
+	                </div>
+	                <!-- /.sidebar-collapse -->
+	            </div>
+	            <!-- /.navbar-static-side -->
+	        </nav>
+
+	        <div id="page-wrapper">
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header">가계부설정</h1>
+	                </div>
+	                <!-- /.col-lg-12 -->
+	            </div>
+                <!-- /.row -->
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <div class="panel panel-default" id="accountbook">
+	                        <div class="panel-body">
+	                            <div class="row">
+	                                <div class="col-lg-6">
+	                                    <form role="form" id="accountBookForm">
+	                                        <div class="form-group">
+	                                            <label>가계부명</label>
+	                                            <input type="text" class="form-control" id="description" placeholder="가계부명을 입력하세요" />
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>월시작일</label>
+	                                            <select class="form-control" id="startdate">
+							    				</select>
+							    				<p class="help-block">매월 가계부가 시작되는 날짜를 설정합니다</p>
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>휴일시</label>
+	                                            <select class="form-control" id="holidayOption">
+												  	<option value="THE_DAY">당일</option>
+												  	<option value="NEXT_DAY">다음영업일</option>
+												  	<option value="PREVIOUS_DAY">이전영업일</option>
+												</select>
+												<p class="help-block">월시작일이 휴일인 경우 시작일을 설정합니다</p>
+	                                        </div>
+	                                        <div class="form-group">
+	                                            <label>메모</label>
+	                                            <textarea class="form-control" style="resize:none;" rows="3" id="memo"></textarea>
+	                                        </div>
+	                                        <button type="submit" class="btn btn-default">저장</button>
+                                        	<button type="reset" class="btn btn-default">취소</button>
+	                                    </form>
+	                                </div>
+	                                <!-- /.col-lg-6 (nested) -->
+
+	                            </div>
+                            	<!-- /.row (nested) -->
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-12 -->
+	                
+		        	<!--
+				    	<div class="col-sm-3 col-md-2 sidebar">
+				            <ul class="nav nav-sidebar">
+				            	<li class="active"><a href="#" data-toggle="modal" data-target="#accountbook">가계부설정</a></li>
+				            	<li><a href="#" data-toggle="modal" data-target="#user">사용자설정</a></li>
+				            	<li><a href="#" data-toggle="modal" data-target="#init-data">기초자료</a></li>
+				            	<li><a href="#" data-toggle="modal" data-target="#backup">가져오기/내보내기</a></li>
+				            </ul>
+				        </div>
+				        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				        	<h1 class="page-header">Dashboard</h1>
+				        	<div class="row">
+				        	</div>
+				        	<h2 class="sub-header">title</h2>
+				        	<div class="bs-docs-section">
+							    <div class="page-header">
+							      <h1>가계부 설정</h1>
+							    </div>
+
+							    <div class="bs-callout bs-callout-info">
+							      <p>- 가계부명을 입력합니다.</p>
+							      <p>- 월시작일을 설정합니다.</p>
+							    </div>
+
+							</div>
+					        <div class="bs-docs-section">
+							    <div class="page-header">
+							      <h1>사용자설정 <small></small></h1>
+							    </div>
+
+							    <div class="bs-callout bs-callout-info">
+							      <p>- 사용자를 등록합니다.</p>
+							    </div>
+						    </div>
+						    <div class="bs-docs-section">
+							    <div class="page-header">
+							      <h1>기초자료</h1>
+							    </div>
+
+							    <div class="bs-callout bs-callout-info">
+							      <p>- 월고정금액을 관리합니다.</p>
+							      <p>- 반복사용금액을 관리합니다.</p>
+							      <p>- 분류를 관리합니다.</p>
+							    </div>
+						    </div>
+
+						    <div class="bs-docs-section">
+							    <div class="page-header">
+							      <h1>가져오기/내보내기</h1>
+							    </div>
+
+							    <div class="bs-callout bs-callout-info">
+							      <p>- 엑셀 업로드/엑셀 다운로드</p>
+							    </div>
+
+						    </div>
+
+						    <div style="margin-bottom:500px;"></div>
+						</div>
+			    	</div>
+				    -->
+			    </div>
+	            <!-- /.row -->
+	        </div>
+	        <!-- /#page-wrapper -->
+
+	    </div>
+    	<!-- /#wrapper -->
+
+		<!--
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 		<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
-		  <div class="container">
+		  <div class="container-fluid">
 		    <div class="navbar-header">
 		    	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
 			        <span class="sr-only">Toggle navigation</span>
@@ -30,7 +394,7 @@
 		      <a href="#" class="navbar-brand">오동가계부</a>
 		    </div>
 		    <div class="navbar-collapse collapse bs-navbar-collapse">
-	          <ul class="nav navbar-nav">
+	          <ul class="nav navbar-nav navbar-right">
 	            <li>
 		          <a href="calendar.html"><span class="glyphicon glyphicon-pencil"></span> 가계부</a>
 		        </li>
@@ -53,79 +417,19 @@
 	        </div>
 		  </div>
 		</header>
-
-
-	    <div class="container bs-docs-container">
-	    	<div class="row" style="margin-top:10px;">
-		    	<div class="col-md-2">
-		          <div class="bs-sidebar hidden-print affix-top">
-		            <ul class="nav bs-sidenav">
-		            	<li><a href="#" data-toggle="modal" data-target="#accountbook">가계부설정</a></li>
-		            	<li><a href="#" data-toggle="modal" data-target="#user">사용자설정</a></li>
-		            	<li><a href="#" data-toggle="modal" data-target="#init-data">기초자료</a></li>
-		            	<li><a href="#" data-toggle="modal" data-target="#backup">가져오기/내보내기</a></li>
-		            </ul>
-		          </div>
-		        </div>
-		        <div class="col-md-10" role="main">
-		        	<div class="bs-docs-section">
-					    <div class="page-header">
-					      <h1>가계부 설정</h1>
-					    </div>
-
-					    <div class="bs-callout bs-callout-info">
-					      <p>- 가계부명을 입력합니다.</p>
-					      <p>- 월시작일을 설정합니다.</p>
-					    </div>
-
-					</div>
-			        <div class="bs-docs-section">
-					    <div class="page-header">
-					      <h1>사용자설정 <small></small></h1>
-					    </div>
-
-					    <div class="bs-callout bs-callout-info">
-					      <p>- 사용자를 등록합니다.</p>
-					    </div>
-				    </div>
-				    <div class="bs-docs-section">
-					    <div class="page-header">
-					      <h1>기초자료</h1>
-					    </div>
-
-					    <div class="bs-callout bs-callout-info">
-					      <p>- 월고정금액을 관리합니다.</p>
-					      <p>- 반복사용금액을 관리합니다.</p>
-					      <p>- 분류를 관리합니다.</p>
-					    </div>
-				    </div>
-
-				    <div class="bs-docs-section">
-					    <div class="page-header">
-					      <h1>가져오기/내보내기</h1>
-					    </div>
-
-					    <div class="bs-callout bs-callout-info">
-					      <p>- 엑셀 업로드/엑셀 다운로드</p>
-					    </div>
-
-				    </div>
-
-				    <div style="margin-bottom:500px;"></div>
-				</div>
-	    	</div>
-	    </div>
+		</nav>
+		-->
 
 	    <!-- Modal : 가계부 설정 -->
-		<div class="modal fade" id="accountbook" tabindex="-1" role="dialog" aria-labelledby="accountbookLabel" aria-hidden="true">
+		<!-- <div class="modal fade" id="accountbook" tabindex="-1" role="dialog" aria-labelledby="accountbookLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						<h4 class="modal-title">가계부 설정</h4>
 					</div>
-					<div class="modal-body">
-		      			<form class="form-horizontal" role="form">
+	      			<form class="form-horizontal" role="form" id="accountBookForm">
+						<div class="modal-body">
 		      			  <div class="form-group">
 						    <label for="startdate" class="col-lg-2 control-label">가계부명</label>
 						    <div class="col-lg-9">
@@ -135,23 +439,15 @@
 						  <div class="form-group">
 						    <label for="startdate" class="col-lg-2 control-label">월시작일</label>
 						    <div class="col-lg-3">
-							    <select class="form-control">
-								  <option>1</option>
-								  <option>2</option>
-								  <option>3</option>
-								  <option>4</option>
-								  <option>5</option>
-								  <option>...</option>
-								  <option>28</option>
-								  <option>말일</option>
-								</select>
+							    <select class="form-control" id="startdate">
+							    </select>
 							</div>
 							<label for="startdate" class="col-lg-2 control-label">휴일시</label>
 							<div class="col-lg-4">
-							    <select class="form-control">
-								  <option>당일</option>
-								  <option>다음영업일</option>
-								  <option>이전영업일</option>
+							    <select class="form-control" id="holidayOption">
+								  <option value="THE_DAY">당일</option>
+								  <option value="NEXT_DAY">다음영업일</option>
+								  <option value="PREVIOUS_DAY">이전영업일</option>
 								</select>
 							</div>
 						  </div>
@@ -162,15 +458,15 @@
 						    	<textarea class="form-control" style="resize:none;" rows="3" id="memo"></textarea>
 						    </div>
 						  </div>
-						</form>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							<button type="submit" class="btn btn-primary">저장</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div> -->
 
 		<!-- Modal : 사용자 설정 -->
 		<div class="modal fade" id="user" tabindex="-1" role="dialog" aria-labelledby="userLabel" aria-hidden="true">
@@ -1041,54 +1337,68 @@
 		</div><!-- /.modal -->
 
 
+		<script type="text/javascript" src="style/js/egunUtility.js"></script>
+		
+		<script type="text/javascript" src="style/lib/jquery-1.11.1.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+    	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<!-- Metis Menu Plugin JavaScript -->
+    	<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+		<!-- Custom Theme JavaScript -->
+    	<script src="style/js/sb-admin-2.js"></script>
+
 		<script type="text/javascript">
-
+<!--//
 			$(function() {
-				var $window = $(window)
-			    var $body   = $(document.body)
+				
+			    getCurrentAccountBook();
 
-			    var navHeight = $('.navbar').outerHeight(true) + 10
+			    $("#accountBookForm").submit(function() {
+			    	var url = '/apis/books/setAccountBook';
+			        var param = {
+			          'name' : $("#accountbook #description").val()
+			          , 'baseDay' : $("#accountbook #startdate").val()
+			          , 'holidayOption' : $("#accountbook #holidayOption").val()
+			          , 'memo' : $("#accountbook #memo").val()
+			        }
 
-			    $body.scrollspy({
-			      target: '.bs-sidebar',
-			      offset: navHeight
-			    })
-
-			    $window.on('load', function () {
-			      $body.scrollspy('refresh')
-			    })
-
-			    $('.bs-docs-container [href=#]').click(function (e) {
-			      e.preventDefault()
-			    })
-
-				// back to top
-			    setTimeout(function () {
-			      var $sideBar = $('.bs-sidebar')
-
-			      $sideBar.affix({
-				        offset: {
-				          top: function () {
-				            var offsetTop      = $sideBar.offset().top
-				            var sideBarMargin  = parseInt($sideBar.children(0).css('margin-top'), 10)
-				            var navOuterHeight = $('.bs-docs-nav').height()
-
-				            return (this.top = offsetTop - navOuterHeight - sideBarMargin)
-				          }
-				        }
-				      })
-			    }, 100);
-
-			    $(":radio[name='category1']").click(function() {
-			    	//alert($(this).val());
-			    })
+			        EgunUtility.doPost(url, param, function() {
+			          location.href='/settings';
+			        });
+			    });
 
 			});
+
+			/**
+			 * 로그인 한 사용자의 현재 가계부 정보를 조회
+			 */
+			function getCurrentAccountBook() {
+				var url = '/apis/books/getCurrentAccountBookWithThisMonthLogs';
+				var param = {};
+
+				EgunUtility.doGet(url, param, function(book) {
+					$("#accountbook #description").val(book.name);
+					$("#accountbook #memo").val(book.memo);
+					$("#accountbook #holidayOption option[value="+book.holidayOptionType+"]").prop("selected", "true");
+
+					var options = '';
+				    for (var idx=1; idx<29; idx++) {
+			    		options += "<option value='"+idx+"'>"+idx+"</option>";
+				    }
+				    options += "<option value='31'>말일</option>";
+
+				    $("#accountbook #startdate").html(options);
+				    $("#accountbook #startdate option[value="+book.baseDay+"]").prop("selected", "true");
+				});
+			}
 
 			function editCategory1() {
 
 			}
-
+//-->
 		</script>
 
 	</body>

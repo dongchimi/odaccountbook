@@ -851,7 +851,7 @@
 			      })
 			    }, 100)
 
-				makeMiniDiary();
+				// makeMiniDiary();
 
 				$('#writeModal').on('show.bs.modal', function () {
 					$("input[type=date]").each(function() {
@@ -907,7 +907,7 @@
 				var param = {};
 
 				EgunUtility.doGet(url, param, function(book) {
-					
+					makeMiniDiary(book.baseDay);
 				});
 			}
 
