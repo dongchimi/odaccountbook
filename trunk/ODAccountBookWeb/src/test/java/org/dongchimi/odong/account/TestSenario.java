@@ -129,21 +129,21 @@ public class TestSenario {
 	
 	/** 자산별 목록 조회 */
 //	@Test
-	public void testSearchAssetByUser() {
-		AssetService assetService = new AssetService();
-		assetService.makeMock(buildTestSenarioUsers());
-		List<Asset> foundAssets = assetService.findAssetsByUser("dongkyu");
-		// 출력
-		for ( Asset asset : foundAssets) {
-			System.out.println(asset.getNickName() + ", " + asset.getName() + ", " + asset.getBalance());
-		}
-		System.out.println();
-		foundAssets = assetService.findAssetsByUser("wonmi");
-		// 출력
-		for ( Asset asset : foundAssets) {
-			System.out.println(asset.getNickName() + ", " + asset.getName() + ", " + asset.getBalance());
-		}
-	}
+//	public void testSearchAssetByUser() {
+//		AssetService assetService = new AssetService();
+//		assetService.makeMock(buildTestSenarioUsers());
+//		List<Asset> foundAssets = assetService.findAssetsByUser("dongkyu");
+//		// 출력
+//		for ( Asset asset : foundAssets) {
+//			System.out.println(asset.getNickName() + ", " + asset.getName() + ", " + asset.getBalance());
+//		}
+//		System.out.println();
+//		foundAssets = assetService.findAssetsByUser("wonmi");
+//		// 출력
+//		for ( Asset asset : foundAssets) {
+//			System.out.println(asset.getNickName() + ", " + asset.getName() + ", " + asset.getBalance());
+//		}
+//	}
 	
 	/** 카드별 목록 조회 */
 //	@Test
