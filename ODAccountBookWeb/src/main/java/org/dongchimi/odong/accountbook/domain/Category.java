@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.util.CollectionUtils;
 
@@ -56,19 +55,20 @@ public class Category {
     @JsonBackReference
     private Category parentCategory;
 
-//    /** 가계부 */
-//    @OneToOne(cascade = CascadeType.ALL, targetEntity = ODAccountBook.class)
-//    private ODAccountBook relatedBook;
+    // 가계부ID
+    @Column
+    private long accountBookOid;
 
     public Category() {
     }
 
-    public Category(String howTypeName, String categoryTypeName, String name,
-            String memo) {
+    public Category(String howTypeName, String categoryTypeName, String name, String memo,
+            long accountBookOid) {
         this.howType = HowType.toHowType(howTypeName);
         this.categoryType = CategoryType.toCategoryType(categoryTypeName);
         this.name = name;
         this.memo = memo;
+        this.accountBookOid = accountBookOid;
         this.sortNumber = 999;
     }
 
@@ -142,6 +142,14 @@ public class Category {
 
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
+    }
+
+    public long getAccountBookOid() {
+        return accountBookOid;
+    }
+
+    public void setAccountBookOid(long accountBookOid) {
+        this.accountBookOid = accountBookOid;
     }
 
 }

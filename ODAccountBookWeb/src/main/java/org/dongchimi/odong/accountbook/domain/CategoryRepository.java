@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	public List<Category> findByHowTypeAndCategoryTypeOrderBySortNumberAsc(HowType howType, CategoryType categoryType);
+	public List<Category> findByAccountBookOidAndHowTypeAndCategoryTypeOrderBySortNumberAsc(long accountBookOid, HowType howType, CategoryType categoryType);
 	
-	public List<Category> findByCategoryTypeOrderBySortNumberAsc(CategoryType categoryType);
+	public List<Category> findByAccountBookOidAndCategoryTypeOrderBySortNumberAsc(long accountBookOid, CategoryType categoryType);
 
     public Category findByHowTypeAndCategoryTypeAndName(HowType howType, CategoryType categoryType, String name);
 }

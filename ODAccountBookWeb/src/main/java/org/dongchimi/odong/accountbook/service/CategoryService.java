@@ -39,7 +39,7 @@ public interface CategoryService {
 	 * 
 	 * @return
 	 */
-	public List<Category> findCategories();
+	public List<Category> findCategories(long accountBookOid);
 	
 	/**
 	 * 유형에 따른 분류를 조회한다.
@@ -47,7 +47,7 @@ public interface CategoryService {
 	 * @param howType
 	 * @return
 	 */
-	public List<Category> findCategoriesByHowType(HowType howType);
+	public List<Category> findCategoriesByHowType(long accountBookOid, HowType howType);
 	
 	/**
 	 * 분류를 수정한다.
@@ -61,7 +61,7 @@ public interface CategoryService {
 	 * 
 	 * @param categories
 	 */
-	public void modifyCategoriesOrder(List<Category> categories);
+	public void modifyCategoriesOrder(long accountBookOid, List<Category> categories);
 	
 	/**
 	 * 분류를 삭제한다.
