@@ -4,41 +4,41 @@ import java.util.List;
 
 import org.dongchimi.odong.accountbook.domain.CategoryType;
 import org.dongchimi.odong.accountbook.domain.HowType;
-import org.dongchimi.odong.accountbook.domain.ODAccountBookCategory;
-import org.dongchimi.odong.accountbook.domain.ODAccountBookCategoryRepository;
-import org.dongchimi.odong.accountbook.service.ODAccountBookCategoryService;
+import org.dongchimi.odong.accountbook.domain.Category;
+import org.dongchimi.odong.accountbook.domain.CategoryRepository;
+import org.dongchimi.odong.accountbook.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Component
-public class ODAccountBookCategoryServiceImpl implements ODAccountBookCategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private ODAccountBookCategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Override
-    public void registerCategory(ODAccountBookCategory category) {
+    public void registerCategory(Category category) {
         categoryRepository.save(category);
     }
 
     @Override
-    public ODAccountBookCategory getCategory(long oId) {
+    public Category getCategory(long oId) {
         return categoryRepository.findOne(oId);
     }
 
     @Override
-    public ODAccountBookCategory getCategoryByNameAndCategoryType(HowType howType, CategoryType categoryType, String name) {
+    public Category getCategoryByNameAndCategoryType(HowType howType, CategoryType categoryType, String name) {
         return categoryRepository.findByHowTypeAndCategoryTypeAndName(howType, categoryType, name);
     }
 
     @Override
-    public List<ODAccountBookCategory> findCategories() {
+    public List<Category> findCategories() {
         return categoryRepository.findByCategoryTypeOrderBySortNumberAsc(CategoryType.GROUP);
     }
 
     @Override
-    public List<ODAccountBookCategory> findCategoriesByHowType(HowType howType) {
+    public List<Category> findCategoriesByHowType(HowType howType) {
         return categoryRepository.findByHowTypeAndCategoryTypeOrderBySortNumberAsc(howType,
                 CategoryType.GROUP);
     }
@@ -49,15 +49,15 @@ public class ODAccountBookCategoryServiceImpl implements ODAccountBookCategorySe
     }
 
     @Override
-    public void modifyCategory(ODAccountBookCategory category) {
+    public void modifyCategory(Category category) {
         categoryRepository.save(category);
     }
 
     @Override
-    public void modifyCategoriesOrder(List<ODAccountBookCategory> categories) {
-        List<ODAccountBookCategory> beforeCategories = this.findCategoriesByHowType(categories.get(
+    public void modifyCategoriesOrder(List<Category> categories) {
+        List<Category> beforeCategories = this.findCategoriesByHowType(categories.get(
                 0).getHowType());
-        for (ODAccountBookCategory beforeCategory : beforeCategories) {
+        for (Category beforeCategory : beforeCategories) {
             this.removeSubCategories(beforeCategory);
         }
         
@@ -65,10 +65,10 @@ public class ODAccountBookCategoryServiceImpl implements ODAccountBookCategorySe
     }
     
     @Override
-    public void removeSubCategories(ODAccountBookCategory category) {
+    public void removeSubCategories(Category category) {
         if (CollectionUtils.isEmpty(category.getSubCategories())) return;
         
-        for (ODAccountBookCategory subCategory : category.getSubCategories()) {
+        for (Category subCategory : category.getSubCategories()) {
             subCategory.setParentCategory(null);
         }
         
