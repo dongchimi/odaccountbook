@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.dongchimi.odong.accountbook.domain.CategoryType;
 import org.dongchimi.odong.accountbook.domain.HowType;
-import org.dongchimi.odong.accountbook.domain.ODAccountBookCategory;
+import org.dongchimi.odong.accountbook.domain.Category;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ODAccountBookCategoryService {
+public interface CategoryService {
 
 	/**
 	 * 분류를 등록한다.
 	 * 
 	 * @param category
 	 */
-	public void registerCategory(ODAccountBookCategory category);
+	public void registerCategory(Category category);
 	
 	/**
 	 * 분류를 조회한다.
@@ -23,7 +23,7 @@ public interface ODAccountBookCategoryService {
 	 * @param oId
 	 * @return
 	 */
-	public ODAccountBookCategory getCategory(long oId);
+	public Category getCategory(long oId);
 	
 	/**
 	 * 분류명으로 분류를 조회한다.
@@ -32,14 +32,14 @@ public interface ODAccountBookCategoryService {
 	 * @param name
 	 * @return
 	 */
-	public ODAccountBookCategory getCategoryByNameAndCategoryType(HowType howType, CategoryType categoryType, String name);
+	public Category getCategoryByNameAndCategoryType(HowType howType, CategoryType categoryType, String name);
 	
 	/**
 	 * 모든 분류를 조회한다.
 	 * 
 	 * @return
 	 */
-	public List<ODAccountBookCategory> findCategories();
+	public List<Category> findCategories();
 	
 	/**
 	 * 유형에 따른 분류를 조회한다.
@@ -47,11 +47,21 @@ public interface ODAccountBookCategoryService {
 	 * @param howType
 	 * @return
 	 */
-	public List<ODAccountBookCategory> findCategoriesByHowType(HowType howType);
+	public List<Category> findCategoriesByHowType(HowType howType);
 	
-	public void modifyCategory(ODAccountBookCategory category);
+	/**
+	 * 분류를 수정한다.
+	 * 
+	 * @param category
+	 */
+	public void modifyCategory(Category category);
 	
-	public void modifyCategoriesOrder(List<ODAccountBookCategory> categories);
+	/**
+	 * 분류순서를 수정한다.
+	 * 
+	 * @param categories
+	 */
+	public void modifyCategoriesOrder(List<Category> categories);
 	
 	/**
 	 * 분류를 삭제한다.
@@ -60,5 +70,10 @@ public interface ODAccountBookCategoryService {
 	 */
 	public void removeCategory(long oId);
 	
-	public void removeSubCategories(ODAccountBookCategory category);
+	/**
+	 * 하위 분류를 삭제한다.
+	 * 
+	 * @param category
+	 */
+	public void removeSubCategories(Category category);
 }

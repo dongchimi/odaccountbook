@@ -12,14 +12,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity(name = "TB_ODACCOUNT_BOOK_CATEGORY")
-public class ODAccountBookCategory {
+@Entity(name = "TB_CATEGORY")
+public class Category {
 
     @Id
     @GeneratedValue
@@ -45,18 +46,24 @@ public class ODAccountBookCategory {
     @Column
     private int sortNumber;
 
+    /** 하위분류 */
     @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<ODAccountBookCategory> subCategories;
+    private List<Category> subCategories;
 
+    /** 상위분류 */
     @ManyToOne
     @JsonBackReference
-    private ODAccountBookCategory parentCategory;
+    private Category parentCategory;
 
-    public ODAccountBookCategory() {
+//    /** 가계부 */
+//    @OneToOne(cascade = CascadeType.ALL, targetEntity = ODAccountBook.class)
+//    private ODAccountBook relatedBook;
+
+    public Category() {
     }
 
-    public ODAccountBookCategory(String howTypeName, String categoryTypeName, String name,
+    public Category(String howTypeName, String categoryTypeName, String name,
             String memo) {
         this.howType = HowType.toHowType(howTypeName);
         this.categoryType = CategoryType.toCategoryType(categoryTypeName);
@@ -65,14 +72,14 @@ public class ODAccountBookCategory {
         this.sortNumber = 999;
     }
 
-    public void addSubCategories(ODAccountBookCategory category) {
+    public void addSubCategories(Category category) {
         if (CollectionUtils.isEmpty(this.subCategories)) {
-            this.subCategories = new ArrayList<ODAccountBookCategory>();
+            this.subCategories = new ArrayList<Category>();
         }
 
         this.subCategories.add(category);
     }
-    
+
     public Long getoId() {
         return oId;
     }
@@ -121,19 +128,19 @@ public class ODAccountBookCategory {
         this.howType = howType;
     }
 
-    public List<ODAccountBookCategory> getSubCategories() {
+    public List<Category> getSubCategories() {
         return subCategories;
     }
 
-    public void setSubCategories(List<ODAccountBookCategory> subCategories) {
+    public void setSubCategories(List<Category> subCategories) {
         this.subCategories = subCategories;
     }
 
-    public ODAccountBookCategory getParentCategory() {
+    public Category getParentCategory() {
         return parentCategory;
     }
 
-    public void setParentCategory(ODAccountBookCategory parentCategory) {
+    public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
     }
 

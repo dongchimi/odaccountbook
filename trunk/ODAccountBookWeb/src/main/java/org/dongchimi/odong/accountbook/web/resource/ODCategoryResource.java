@@ -6,16 +6,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.dongchimi.odong.accountbook.domain.Category;
 import org.dongchimi.odong.accountbook.domain.CategoryType;
 import org.dongchimi.odong.accountbook.domain.HowType;
-import org.dongchimi.odong.accountbook.domain.ODAccountBookCategory;
-import org.dongchimi.odong.accountbook.service.ODAccountBookCategoryService;
+import org.dongchimi.odong.accountbook.service.CategoryService;
 import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResultBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,13 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/apis/category")
-public class ODAccoutBookCategoryResource {
+public class ODCategoryResource {
 
-    // private static final Logger logger =
-    // LoggerFactory.getLogger(ODAccoutBookCategoryResource.class);
+    // private static final Logger logger = LoggerFactory.getLogger(ODAccoutBookCategoryResource.class);
 
     @Autowired
-    private ODAccountBookCategoryService categoryService;
+    private CategoryService categoryService;
 
     /**
      * 분류 등록
@@ -48,17 +46,15 @@ public class ODAccoutBookCategoryResource {
             @RequestParam String categoryType, @RequestParam String name,
             @RequestParam String memo, @RequestParam String parentCategoryId) {
 
-        ODAccountBookCategory registeredCategory = categoryService
-                .getCategoryByNameAndCategoryType(HowType.toHowType(howType),
-                        CategoryType.toCategoryType(categoryType), name);
+        Category registeredCategory = categoryService.getCategoryByNameAndCategoryType(
+                HowType.toHowType(howType), CategoryType.toCategoryType(categoryType), name);
 
         if (registeredCategory != null) {
             return ODRequestResultBuilder.getFailRequestResult(new ODException("이미 등록된 분류가 있습니다."));
         }
 
-        ODAccountBookCategory parentCategory = null;
-        ODAccountBookCategory category = new ODAccountBookCategory(howType, categoryType, name,
-                memo);
+        Category parentCategory = null;
+        Category category = new Category(howType, categoryType, name, memo);
 
         if (!parentCategoryId.isEmpty()) {
             parentCategory = categoryService.getCategory(Long.parseLong(parentCategoryId));
@@ -68,8 +64,7 @@ public class ODAccoutBookCategoryResource {
             parentCategory.addSubCategories(category);
         } else {
             if (CategoryType.ITEM.toString().equals(categoryType)) {
-                parentCategory = new ODAccountBookCategory(howType, CategoryType.GROUP.toString(),
-                        "그룹없음", "");
+                parentCategory = new Category(howType, CategoryType.GROUP.toString(), "그룹없음", "");
 
                 category.setParentCategory(parentCategory);
 
@@ -84,11 +79,20 @@ public class ODAccoutBookCategoryResource {
         return ODRequestResultBuilder.getSuccessRequestResult();
     }
 
+    /**
+     * 분류 수정
+     * 
+     * @param session
+     * @param name
+     * @param memo
+     * @param categoryId
+     * @return
+     */
     @RequestMapping(value = "/updateAccountBookCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult updateAccountBookCategory(HttpSession session, @RequestParam String name,
             @RequestParam String memo, @RequestParam String categoryId) {
 
-        ODAccountBookCategory category = categoryService.getCategory(Long.parseLong(categoryId));
+        Category category = categoryService.getCategory(Long.parseLong(categoryId));
 
         category.setName(name);
         category.setMemo(memo);
@@ -107,7 +111,7 @@ public class ODAccoutBookCategoryResource {
      */
     @RequestMapping(value = "/setAccountBookCategoryOrders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult setAccountBookCategoryOrders(HttpSession session,
-            @RequestBody List<ODAccountBookCategory> categories) {
+            @RequestBody List<Category> categories) {
 
         categoryService.modifyCategoriesOrder(categories);
 
@@ -122,17 +126,17 @@ public class ODAccoutBookCategoryResource {
     @RequestMapping(value = "/getAccountBookCategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult getAccountBookCategories(HttpSession session, @RequestParam String howType) {
 
-        List<ODAccountBookCategory> categories = null;
+        List<Category> categories = null;
         if (howType.isEmpty()) {
             categories = categoryService.findCategories();
         } else {
             categories = categoryService.findCategoriesByHowType(HowType.toHowType(howType));
         }
 
-        for (ODAccountBookCategory category : categories) {
-            Collections.sort(category.getSubCategories(), new Comparator<ODAccountBookCategory>() {
+        for (Category category : categories) {
+            Collections.sort(category.getSubCategories(), new Comparator<Category>() {
                 @Override
-                public int compare(ODAccountBookCategory o1, ODAccountBookCategory o2) {
+                public int compare(Category o1, Category o2) {
                     if (o1.getSortNumber() > o2.getSortNumber()) {
                         return 1;
                     } else if (o1.getSortNumber() < o2.getSortNumber()) {
@@ -157,25 +161,25 @@ public class ODAccoutBookCategoryResource {
     @RequestMapping(value = "/deleteAccountBookCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult deleteAccoutBookCategory(HttpSession session, long oId) {
 
-        ODAccountBookCategory deleteTargetCategory = categoryService.getCategory(oId);
+        Category deleteTargetCategory = categoryService.getCategory(oId);
 
         if (deleteTargetCategory.getParentCategory() != null) {
-            ODAccountBookCategory parentCategory = categoryService.getCategory(deleteTargetCategory
+            Category parentCategory = categoryService.getCategory(deleteTargetCategory
                     .getParentCategory().getoId());
             parentCategory.getSubCategories().remove(deleteTargetCategory);
 
             categoryService.modifyCategory(parentCategory);
         } else {
-            ODAccountBookCategory noGroupCategory = categoryService
-                    .getCategoryByNameAndCategoryType(deleteTargetCategory.getHowType(),
-                            deleteTargetCategory.getCategoryType(), "그룹없음");
+            Category noGroupCategory = categoryService.getCategoryByNameAndCategoryType(
+                    deleteTargetCategory.getHowType(), deleteTargetCategory.getCategoryType(),
+                    "그룹없음");
             if (noGroupCategory == null) {
-                noGroupCategory = new ODAccountBookCategory(deleteTargetCategory.getHowType()
-                        .toString(), CategoryType.GROUP.toString(), "그룹없음", "");
+                noGroupCategory = new Category(deleteTargetCategory.getHowType().toString(),
+                        CategoryType.GROUP.toString(), "그룹없음", "");
             }
 
-            List<ODAccountBookCategory> subCategories = deleteTargetCategory.getSubCategories();
-            for (ODAccountBookCategory subCategory : subCategories) {
+            List<Category> subCategories = deleteTargetCategory.getSubCategories();
+            for (Category subCategory : subCategories) {
                 subCategory.setParentCategory(noGroupCategory);
                 noGroupCategory.addSubCategories(subCategory);
             }
