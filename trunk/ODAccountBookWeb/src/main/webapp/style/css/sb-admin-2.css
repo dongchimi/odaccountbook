@@ -362,3 +362,7 @@ table.dataTable thead .sorting:after {
 .item-children {
     padding-left : 25px;
 }
+
+.rigth {
+    text-align : right;
+}
