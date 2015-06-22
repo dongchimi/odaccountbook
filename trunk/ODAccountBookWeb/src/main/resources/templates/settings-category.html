@@ -549,6 +549,7 @@
 
 			    	if (categoryId == null || categoryId.length == 0) {
 				    	var categoryType = $("#categoryForm input[type=radio]:checked").val();
+				    	var parentCategoryId = categoryType == 'ITEM' ? $("#categoryForm input#name").data('parentCategoryId') : "";
 
 				    	url = '/apis/category/setAccountBookCategory';
 				        param = {
@@ -556,7 +557,7 @@
 				          	, 'categoryType' : categoryType
 				          	, 'name' : categoryName
 				          	, 'memo' : categoryMemo
-				          	, 'parentCategoryId' : categoryType == 'ITEM' ? $("#categoryForm input#name").data('parentCategoryId') : null
+				          	, 'parentCategoryId' : parentCategoryId != null ? parentCategoryId : ""
 				        }
 				    } else {
 				    	url = '/apis/category/updateAccountBookCategory';

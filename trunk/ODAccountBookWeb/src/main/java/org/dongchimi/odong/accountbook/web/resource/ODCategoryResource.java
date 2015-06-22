@@ -13,6 +13,7 @@ import org.dongchimi.odong.accountbook.service.CategoryService;
 import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResultBuilder;
+import org.dongchimi.odong.accountbook.web.util.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,8 @@ public class ODCategoryResource {
             @RequestParam String categoryType, @RequestParam String name,
             @RequestParam String memo, @RequestParam String parentCategoryId) {
 
+        Long currentAccountBookOid = (Long) session.getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
+        
         Category registeredCategory = categoryService.getCategoryByNameAndCategoryType(
                 HowType.toHowType(howType), CategoryType.toCategoryType(categoryType), name);
 
@@ -54,7 +57,7 @@ public class ODCategoryResource {
         }
 
         Category parentCategory = null;
-        Category category = new Category(howType, categoryType, name, memo);
+        Category category = new Category(howType, categoryType, name, memo, currentAccountBookOid);
 
         if (!parentCategoryId.isEmpty()) {
             parentCategory = categoryService.getCategory(Long.parseLong(parentCategoryId));
@@ -64,7 +67,7 @@ public class ODCategoryResource {
             parentCategory.addSubCategories(category);
         } else {
             if (CategoryType.ITEM.toString().equals(categoryType)) {
-                parentCategory = new Category(howType, CategoryType.GROUP.toString(), "그룹없음", "");
+                parentCategory = new Category(howType, CategoryType.GROUP.toString(), "그룹없음", "", currentAccountBookOid);
 
                 category.setParentCategory(parentCategory);
 
@@ -112,8 +115,10 @@ public class ODCategoryResource {
     @RequestMapping(value = "/setAccountBookCategoryOrders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult setAccountBookCategoryOrders(HttpSession session,
             @RequestBody List<Category> categories) {
+        
+        Long currentAccountBookOid = (Long) session.getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
 
-        categoryService.modifyCategoriesOrder(categories);
+        categoryService.modifyCategoriesOrder(currentAccountBookOid, categories);
 
         return ODRequestResultBuilder.getSuccessRequestResult();
     }
@@ -126,11 +131,13 @@ public class ODCategoryResource {
     @RequestMapping(value = "/getAccountBookCategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult getAccountBookCategories(HttpSession session, @RequestParam String howType) {
 
+        Long currentAccountBookOid = (Long) session.getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
+        
         List<Category> categories = null;
         if (howType.isEmpty()) {
-            categories = categoryService.findCategories();
+            categories = categoryService.findCategories(currentAccountBookOid);
         } else {
-            categories = categoryService.findCategoriesByHowType(HowType.toHowType(howType));
+            categories = categoryService.findCategoriesByHowType(currentAccountBookOid, HowType.toHowType(howType));
         }
 
         for (Category category : categories) {
@@ -161,6 +168,8 @@ public class ODCategoryResource {
     @RequestMapping(value = "/deleteAccountBookCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult deleteAccoutBookCategory(HttpSession session, long oId) {
 
+        Long currentAccountBookOid = (Long) session.getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
+        
         Category deleteTargetCategory = categoryService.getCategory(oId);
 
         if (deleteTargetCategory.getParentCategory() != null) {
@@ -175,7 +184,7 @@ public class ODCategoryResource {
                     "그룹없음");
             if (noGroupCategory == null) {
                 noGroupCategory = new Category(deleteTargetCategory.getHowType().toString(),
-                        CategoryType.GROUP.toString(), "그룹없음", "");
+                        CategoryType.GROUP.toString(), "그룹없음", "", currentAccountBookOid);
             }
 
             List<Category> subCategories = deleteTargetCategory.getSubCategories();

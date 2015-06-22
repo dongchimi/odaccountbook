@@ -33,13 +33,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> findCategories() {
-        return categoryRepository.findByCategoryTypeOrderBySortNumberAsc(CategoryType.GROUP);
+    public List<Category> findCategories(long accountBookOid) {
+        return categoryRepository.findByAccountBookOidAndCategoryTypeOrderBySortNumberAsc(accountBookOid, CategoryType.GROUP);
     }
 
     @Override
-    public List<Category> findCategoriesByHowType(HowType howType) {
-        return categoryRepository.findByHowTypeAndCategoryTypeOrderBySortNumberAsc(howType,
+    public List<Category> findCategoriesByHowType(long accountBookOid, HowType howType) {
+        return categoryRepository.findByAccountBookOidAndHowTypeAndCategoryTypeOrderBySortNumberAsc(accountBookOid, howType,
                 CategoryType.GROUP);
     }
 
@@ -54,8 +54,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void modifyCategoriesOrder(List<Category> categories) {
-        List<Category> beforeCategories = this.findCategoriesByHowType(categories.get(
+    public void modifyCategoriesOrder(long accountBookOid, List<Category> categories) {
+        List<Category> beforeCategories = this.findCategoriesByHowType(accountBookOid, categories.get(
                 0).getHowType());
         for (Category beforeCategory : beforeCategories) {
             this.removeSubCategories(beforeCategory);
