@@ -502,21 +502,27 @@
 						$('#sel_assetType').html(html);
 			        });
 
-			        url = "/apis/booklogs/getAccountBookLog";
-			        var selectedIdx = $(event.target).data('selectedIdx');
-			        var param = {
-			        	oid : tb_accountbook.fnGetData()[selectedIdx].oid
-			        }
-
-			        EgunUtility.doGet(url, param, function(result) {
-						
-			        });
-
-			     //    var button = $(event.relatedTarget);
-			     //    var selectedIdx = button.data('selectedIdx');
-
 			        var modal = $(this);
 			        modal.find('.modal-body input#dt_date').val(formatDate(new Date()));
+			        
+			        // 수정
+			        var selectedIdx = $(event.target).data('selectedIdx');
+			        if (selectedIdx != null) {
+			        	url = "/apis/booklogs/getAccountBookLog";
+
+			        	var param = {
+				        	oid : tb_accountbook.fnGetData()[selectedIdx].oid
+				        }
+
+				        EgunUtility.doGet(url, param, function(result) {
+							modal.find('.modal-body #sel_howType option[value='+result.how.code+']').prop("selected", true);
+							modal.find('.modal-body input#dt_date').val(result.whenDate);
+							modal.find('.modal-body input#txt_what').val(result.what);
+							modal.find('.modal-body input#txt_howmuch').val(result.howmuch);							
+				        });
+			        }
+
+			        
 			     //    if (selectedIdx != null) {
 			     //    	var asset = tb_accountbook.fnGetData()[selectedIdx];
 			        	
