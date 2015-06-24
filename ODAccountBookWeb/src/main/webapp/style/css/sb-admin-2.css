@@ -366,3 +366,7 @@ table.dataTable thead .sorting:after {
 .rigth {
     text-align : right;
 }
+
+table.dataTable tbody tr.selected {
+  background-color: #b0bed9;
+}
