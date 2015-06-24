@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="TB_ODACCOUNT_BOOK_AUTH")
 public class ODAccountBookAuth {
@@ -19,14 +18,14 @@ public class ODAccountBookAuth {
 	private Long oid;
 	
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value="ODAccountBookAuth-ODUser")
 	private ODUser user;
     
     // 기본 가계부 권한 여부
     private boolean isDefaultBookAuth;
 	
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = ODAccountBook.class)
-    @JsonManagedReference
+    @JsonBackReference(value="ODAccountBookAuth-ODAccountBook")
 	private ODAccountBook relatedBook;
 	
     @Enumerated(EnumType.STRING)
@@ -37,7 +36,7 @@ public class ODAccountBookAuth {
 		auth.setUser(user);
 		auth.setRelatedBook(book);
 		auth.authType = AuthType.READ_WRITE;
-		book.addAuth(auth);
+//		book.addAuth(auth);
 		return auth;
 	}
 	

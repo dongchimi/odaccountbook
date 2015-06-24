@@ -1,9 +1,17 @@
 package org.dongchimi.odong.accountbook.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "TB_ASSET")
 public class Asset {
@@ -22,11 +30,8 @@ public class Asset {
 
     // 자산유형
     @Column
+    @Enumerated(EnumType.STRING)
     private AssetType assetType;
-
-    // 잔액
-    @Column(nullable = true)
-    private int balance;
 
     // 메모
     @Column
@@ -36,9 +41,13 @@ public class Asset {
     @Column
     private long accountBookOid;
 
-    // 가계부
-    // @ManyToOne(cascade = CascadeType.ALL, targetEntity = ODAccountBook.class)
-    // private ODAccountBook relatedBook;
+    @OneToMany
+    @JsonManagedReference
+    private List<ODAccountBookLog> accountBookLogs;
+
+    // 잔액
+    @Transient
+    private int balance;
 
     // 연관된 체크카드
     // @OneToOne(cascade = CascadeType.ALL, targetEntity = Card.class)
@@ -52,11 +61,10 @@ public class Asset {
         this.name = name;
         this.nickName = nickName;
     }
-    
-    public Asset(AssetType assetType, String name, int balance, String memo, long accountBookOid) {
+
+    public Asset(AssetType assetType, String name, String memo, long accountBookOid) {
         this.assetType = assetType;
         this.name = name;
-        this.balance = balance;
         this.memo = memo;
         this.accountBookOid = accountBookOid;
     }
@@ -93,22 +101,6 @@ public class Asset {
         this.balance = balance;
     }
 
-    // public ODAccountBook getRelatedBook() {
-    // return relatedBook;
-    // }
-    //
-    // public void setRelatedBook(ODAccountBook relatedBook) {
-    // this.relatedBook = relatedBook;
-    // }
-
-    // public Card getRelatedCard() {
-    // return relatedCard;
-    // }
-    //
-    // public void setRelatedCard(Card relatedCard) {
-    // this.relatedCard = relatedCard;
-    // }
-
     public Long getOid() {
         return oid;
     }
@@ -139,6 +131,14 @@ public class Asset {
 
     public void setAccountBookOid(long accountBookOid) {
         this.accountBookOid = accountBookOid;
+    }
+
+    public List<ODAccountBookLog> getAccountBookLogs() {
+        return accountBookLogs;
+    }
+
+    public void setAccountBookLogs(List<ODAccountBookLog> accountBookLogs) {
+        this.accountBookLogs = accountBookLogs;
     }
 
 }

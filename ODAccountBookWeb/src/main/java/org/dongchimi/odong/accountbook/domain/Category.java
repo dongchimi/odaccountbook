@@ -3,15 +3,14 @@ package org.dongchimi.odong.accountbook.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.springframework.util.CollectionUtils;
 
@@ -23,7 +22,7 @@ public class Category {
 
     @Id
     @GeneratedValue
-    private Long oId;
+    private Long oid;
 
     /** 수입,지출,저축 구분 */
     @Enumerated(EnumType.STRING)
@@ -45,30 +44,39 @@ public class Category {
     @Column
     private int sortNumber;
 
+    /** 상위분류ID */
+    @Column(nullable = true)
+    private Long parentCategoryOid;
+
+    /** 가계부ID */
+    @Column
+    private Long accountBookOid;
+
+    @OneToMany
+    @JsonManagedReference
+    private List<ODAccountBookLog> accountBookLogs;
+
     /** 하위분류 */
-    @OneToMany(cascade = CascadeType.ALL)
+    @Transient
     @JsonManagedReference
     private List<Category> subCategories;
 
     /** 상위분류 */
-    @ManyToOne
+    @Transient
     @JsonBackReference
     private Category parentCategory;
-
-    // 가계부ID
-    @Column
-    private long accountBookOid;
 
     public Category() {
     }
 
-    public Category(String howTypeName, String categoryTypeName, String name, String memo,
-            long accountBookOid) {
-        this.howType = HowType.toHowType(howTypeName);
-        this.categoryType = CategoryType.toCategoryType(categoryTypeName);
+    public Category(HowType howType, CategoryType categoryType, String name, String memo,
+            Long accountBookOid, Long parentCategoryOid) {
+        this.howType = howType;
+        this.categoryType = categoryType;
         this.name = name;
         this.memo = memo;
         this.accountBookOid = accountBookOid;
+        this.parentCategoryOid = parentCategoryOid;
         this.sortNumber = 999;
     }
 
@@ -80,12 +88,12 @@ public class Category {
         this.subCategories.add(category);
     }
 
-    public Long getoId() {
-        return oId;
+    public Long getOid() {
+        return oid;
     }
 
-    public void setoId(Long oId) {
-        this.oId = oId;
+    public void setOid(Long oid) {
+        this.oid = oid;
     }
 
     public CategoryType getCategoryType() {
@@ -136,6 +144,22 @@ public class Category {
         this.subCategories = subCategories;
     }
 
+    public Long getParentCategoryOid() {
+        return parentCategoryOid;
+    }
+
+    public void setParentCategoryOid(Long parentCategoryOid) {
+        this.parentCategoryOid = parentCategoryOid;
+    }
+
+    public Long getAccountBookOid() {
+        return accountBookOid;
+    }
+
+    public void setAccountBookOid(Long accountBookOid) {
+        this.accountBookOid = accountBookOid;
+    }
+
     public Category getParentCategory() {
         return parentCategory;
     }
@@ -144,12 +168,12 @@ public class Category {
         this.parentCategory = parentCategory;
     }
 
-    public long getAccountBookOid() {
-        return accountBookOid;
+    public List<ODAccountBookLog> getAccountBookLogs() {
+        return accountBookLogs;
     }
 
-    public void setAccountBookOid(long accountBookOid) {
-        this.accountBookOid = accountBookOid;
+    public void setAccountBookLogs(List<ODAccountBookLog> accountBookLogs) {
+        this.accountBookLogs = accountBookLogs;
     }
 
 }

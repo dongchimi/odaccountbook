@@ -10,5 +10,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 	
 	public List<Category> findByAccountBookOidAndCategoryTypeOrderBySortNumberAsc(long accountBookOid, CategoryType categoryType);
 
-    public Category findByHowTypeAndCategoryTypeAndName(HowType howType, CategoryType categoryType, String name);
+	public List<Category> findByParentCategoryOidOrderBySortNumberAsc(long parentCategoryOid);
+	
+    public Category findByAccountBookOidAndHowTypeAndCategoryTypeAndName(long accountBookOid, HowType howType, CategoryType categoryType, String name);
+
 }

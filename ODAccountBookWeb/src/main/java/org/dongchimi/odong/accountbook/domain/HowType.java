@@ -1,31 +1,40 @@
 package org.dongchimi.odong.accountbook.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum HowType {
-	IN("수입"), //
-	OUT("지출"), //
-	SAVING("저축"), //
-	TRANSFER("이체");
+    IN("IN", "수입"), //
+    OUT("OUT", "지출"), //
+    SAVING("SAVING", "저축"), //
+    TRANSFER("TRANSFER", "이체");
 
-	private String koreaName;
+    private String code;
+    private String koreaName;
 
-	private HowType(String koreaName) {
-		this.koreaName = koreaName;
-	}
+    private HowType(String code, String koreaName) {
+        this.code = code;
+        this.koreaName = koreaName;
+    }
 
-	public static HowType toHowType(String howTypeName) {
-		if (IN.toString().equals(howTypeName)) {
-			return HowType.IN;
-		} else if (OUT.toString().equals(howTypeName)) {
-			return HowType.OUT;
-		} else if (SAVING.toString().equals(howTypeName)) {
-			return HowType.SAVING;
-		} else {
-			return HowType.TRANSFER;
-		}
-	}
+    public static HowType toHowType(String howTypeName) {
+        if (IN.getCode().equals(howTypeName)) {
+            return HowType.IN;
+        } else if (OUT.getCode().equals(howTypeName)) {
+            return HowType.OUT;
+        } else if (SAVING.getCode().equals(howTypeName)) {
+            return HowType.SAVING;
+        } else {
+            return HowType.TRANSFER;
+        }
+    }
 
-	public String getKoreaName() {
-		return koreaName;
-	}
+    public String getCode() {
+        return code;
+    }
+
+    public String getKoreaName() {
+        return koreaName;
+    }
 
 }

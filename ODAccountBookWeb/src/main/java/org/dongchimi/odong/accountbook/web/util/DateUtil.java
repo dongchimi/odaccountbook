@@ -32,4 +32,9 @@ public class DateUtil {
 		startDateCalendar.add(Calendar.DATE, -1);
 		return DateUtils.format(startDateCalendar, "YYYYMMdd", Locale.KOREA);
 	}
+	
+	public static String getTodayForBaseFormat() {
+	    Calendar now = DateUtils.createNow();
+	    return DateUtils.format(now, "yyyy-MM-dd", Locale.KOREA);
+	}
 }

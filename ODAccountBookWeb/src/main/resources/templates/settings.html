@@ -183,7 +183,7 @@
 	                            <a href="#"><i class="fa fa-table fa-fw"></i> 가계부<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="#">가계부관리</a>
+	                                    <a href="accountbook">가계부관리</a>
 	                                </li>
 	                                <li>
 	                                    <a href="#">가계부통계</a>
@@ -1388,7 +1388,7 @@
 				    for (var idx=1; idx<29; idx++) {
 			    		options += "<option value='"+idx+"'>"+idx+"</option>";
 				    }
-				    options += "<option value='31'>말일</option>";
+				    options += "<option value='0'>말일</option>";
 
 				    $("#accountbook #startdate").html(options);
 				    $("#accountbook #startdate option[value="+book.baseDay+"]").prop("selected", "true");

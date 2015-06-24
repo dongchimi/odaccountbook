@@ -52,4 +52,9 @@ public class ODAccountBookController {
 	public String settingsCategory(Model model) {
 		return "settings-category";
 	}
+	
+	@RequestMapping(value = "/accountbook", method = RequestMethod.GET)
+    public String accountbook(Model model) {
+        return "accountbook";
+    }
 }

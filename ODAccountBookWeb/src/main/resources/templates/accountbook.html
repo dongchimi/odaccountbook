@@ -185,10 +185,10 @@
 	                            </div>
 	                            <!-- /input-group -->
 	                        </li>
-	                        <li>
+	                        <li class="active">
 	                            <a href="#"><i class="fa fa-table fa-fw"></i> 가계부<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
-	                                <li>
+	                                <li class="active">
 	                                    <a href="accountbook">가계부관리</a>
 	                                </li>
 	                                <li>
@@ -267,59 +267,34 @@
 	        <div id="page-wrapper">
                 <div class="row">
 	                <div class="col-md-12">
-	                    <h1 class="page-header">자산관리</h1>
+	                    <h1 class="page-header">가계부관리</h1>
 	                </div>
 	                <!-- /.col-lg-12 -->
 	            </div>
                 <!-- /.row -->
                 <div class="row">
-	                <div class="col-lg-4">
+	                <div class="col-lg-12">
 	                    <div class="panel panel-default">
 	                    	<div class="panel-heading">
-	                            자산
+	                            <span class="glyphicon glyphicon-chevron-left"></span>
+	                            <span id="sp_date">2015.06.01 ~ 2015.06.30</span>
+	                            <span class="glyphicon glyphicon-chevron-right"></span>
 	                            <div class="pull-right">
-	                            	<button type="button" class="btn btn-primary btn-xs btn-modify disabled" data-toggle="modal" data-target="#assetModal">수정</button>
-	                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
+	                            	<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#accountbookModal">등록</button>
 	                            </div>
 	                        </div>
 	                        <div class="panel-body">
 	                        	<div class="dataTable_wrapper">
-	                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
+	                                <table class="table table-striped table-bordered table-hover" id="tb_accountbook">
 	                                    <thead>
 	                                        <tr>
-	                                            <th>유형</th>
-	                                            <th>자산명</th>
-	                                            <th>잔액</th>
-	                                        </tr>
-	                                    </thead>
-	                                </table>
-	                            </div>
-	                            <!-- /.table-responsive -->
-
-								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#assetModal">
-	                                <i class="fa fa-plus fa-fw"></i> 등록
-	                            </button>
-	                        </div>
-	                        <!-- /.panel-body -->
-	                    </div>
-	                    <!-- /.panel -->
-	                </div>
-	                <!-- /.col-lg-4 -->
-	                <div class="col-lg-8">
-	                    <div class="panel panel-default">
-	                    	<div class="panel-heading" id="dv_asset_name">
-	                        </div>
-	                        <!-- /.panel-heading -->
-	                        <div class="panel-body">
-	                            <div class="dataTable_wrapper">
-	                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-	                                    <thead>
-	                                        <tr>
-	                                            <th>일자</th>
+	                                            <th>날짜</th>
 	                                            <th>내역</th>
 	                                            <th>금액</th>
-	                                            <th>잔액</th>
-	                                            <th>비고</th>
+	                                            <th>대분류</th>
+	                                            <th>소분류</th>
+	                                            <th>계좌</th>
+	                                            <th>메모</th>
 	                                        </tr>
 	                                    </thead>
 	                                </table>
@@ -330,45 +305,78 @@
 	                    </div>
 	                    <!-- /.panel -->
 	                </div>
-	                <!-- /.col-lg-8 -->
+	                <!-- /.col-lg-12 -->
 
 	                <!-- Modal -->
-                    <div class="modal fade" id="assetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal" id="accountbookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">자산등록</h4>
+                                    <h4 class="modal-title" id="myModalLabel">가계부작성</h4>
                                 </div>
-                                <form role="form" id="assetForm">
+                                <form role="form" id="accountbookForm">
                                 	<div class="modal-body">
-                                    	<div class="form-group">
-                                            <label>자산유형</label>
-                                            <select class="form-control" id="sel_assetType">
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>자산명</label>
-                                            <input class="form-control" type="text" id="name"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>잔액</label>
-                                            <input class="form-control" type="number" id="balance" value="0"/>
-                                        </div>                                        
-                                        <!--
-                                        <div class="form-group">
-                                            <label>사용시작일</label>
-                                            <input class="form-control" type="date" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>사용종료일</label>
-                                            <input class="form-control" type="date" />
-                                        </div>
-                                        -->
-                                        <div class="form-group">
-                                            <label>메모</label>
-                                            <input class="form-control" type="text" id="memo" />
-                                        </div>
+                                		<div class="container-fluid">
+                                			<div class="row">
+								              	<div class="col-sm-12">
+									                <div class="form-group">
+			                                            <label>유형</label>
+			                                            <select class="form-control" id="sel_howType">
+			                                            </select>
+			                                        </div>
+			                                        <div class="row">
+			                                        	<div class="col-sm-6">
+					                                        <div class="form-group">
+					                                            <label>날짜</label>
+					                                            <input class="form-control" type="date" id="dt_date"/>
+					                                        </div>
+					                                    </div>
+					                                    <div class="col-sm-6">
+					                                    	<div class="form-group">
+					                                            <label>내역</label>
+					                                            <input class="form-control" type="text" id="txt_what"/>
+					                                        </div>
+					                                    </div>
+			                                        </div>
+			                                        <div class="row">
+			                                        	<div class="col-sm-6">
+					                                        <div class="form-group">
+					                                            <label>금액</label>
+					                                            <input class="form-control" type="number" style="text-align:right;" step="1" id="txt_howmuch"/>
+					                                        </div>
+					                                    </div>
+					                                    <div class="col-sm-6">
+					                                    	<div class="form-group">
+					                                            <label>계좌</label>
+					                                            <select class="form-control" id="sel_assetType">
+					                                            </select>
+					                                        </div>
+					                                    </div>
+			                                        </div>			                                        
+			                                        <div class="row">
+			                                        	<div class="col-sm-6">
+					                                        <div class="form-group">
+					                                            <label>대분류</label>
+					                                            <select class="form-control" id="sel_category">
+					                                            </select>
+					                                        </div>
+					                                    </div>
+					                                    <div class="col-sm-6">
+					                                    	<div class="form-group">
+					                                            <label>소분류</label>
+					                                            <select class="form-control" id="sel_subCategory">
+					                                            </select>
+					                                        </div>
+					                                    </div>
+			                                        </div>
+			                                        <div class="form-group">
+			                                            <label>메모</label>
+			                                            <input class="form-control" type="text" id="memo" />
+			                                        </div>
+								              	</div>
+								            </div>
+                                		</div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
@@ -412,7 +420,9 @@
 
 			$(function() {
 
-				var tb_assets = $('#tb_assets').dataTable({
+				setBaseDay();
+
+				var tb_accountbook = $('#tb_accountbook').dataTable({
 					processing : true,
 					serverSide: true,
 			        ordering: false,
@@ -421,11 +431,13 @@
 			        ajax: function ( data, callback, settings ) {
 						
 						var params = {
-							start : data.start
+							start : data.start,
+							fromDate : '2015-06-01',
+							toDate : '2015-06-31'
 						};
 
 						return $.ajax({
-							url : "/apis/assets/getAssets",
+							url : "/apis/booklogs/getAccountBookLogs",
 							data : params,
 							dataType: "json",
 							success: function(json) {
@@ -441,9 +453,13 @@
 						});
 					},
 			        columns : [
-			        	{ "data": "assetType.koreaName" },
-			            { "data": "name" },
-			            { "data": "balance", "sClass": "rigth", render: $.fn.dataTable.render.number( ',', '.', 0, '' ) }
+			        	{ "data": "whenDate" },
+			            { "data": "what" },
+			            { "data": "howmuch", "sClass": "rigth", render: $.fn.dataTable.render.number( ',', '.', 0, '' ) },
+			            { "data": "categoryName" },
+			            { "data": "subCategoryName" },
+			            { "data": "assetName" },
+			            { "data": "memo" }
 			        ],
 			        dom: "rtiS",
 			        deferRender: true,
@@ -452,88 +468,123 @@
 			            loadingIndicator: true
 			        },
 			        language: {
-			            zeroRecords: "등록된 자산이 없습니다."
+			            zeroRecords: "내역이 없습니다."
 			        }
 				});
 
-				$('#tb_assets tbody').on( 'click', 'tr', function () {
-			        if ( $(this).hasClass('selected') ) {
-			            $(this).removeClass('selected');
-			        }
-			        else {
-			            tb_assets.$('tr.selected').removeClass('selected');
-			            $(this).addClass('selected');
+				$('#tb_accountbook tbody').on( 'dblclick', 'tr', function () {
+			        var selectedIdx = $(this).index();
+		            //tb_accountbook.fnGetData()[selectedIdx]
 
-			            var selectedIdx = $(this).index();
-			            $('#dv_asset_name').html((tb_assets.fnGetData()[selectedIdx].name));
+		            $('#accountbookModal').data('selectedIdx', selectedIdx);
+		            $('#accountbookModal').modal('show');
+			    });
 
-			            $("button.btn-modify").data("selectedIdx", selectedIdx).removeClass("disabled");
-			            $("button.btn-remove").data("selectedIdx", selectedIdx).removeClass("disabled");
-			        }
-			    } );
-
-				$('#dataTables-example').dataTable({
-					"scrollY": "400px",
-			        "scrollCollapse": true,
-			        "paging": false,
-			        "jQueryUI": true,
-			        "searching" : false,
-			        "ordering" : false,
-			        info : false,
-			        language: {
-			            zeroRecords: "등록된 내역이 없습니다."
-			        }
-				});
-
-				$('#assetModal').on('show.bs.modal', function (event) {
-					var url = "/apis/assets/getAssetTypes";
+				$('#accountbookModal').on('show.bs.modal', function (event) {
+					var url = "/apis/booklogs/getHowTypes";
 
 					EgunUtility.doGet(url, {}, function(result) {
 						var html = '';
 						for (var i=0; i<result.length; i++) {
 							html += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
 						}
+						$('#sel_howType').html(html);
+						$('#sel_howType').trigger('change');
+			        });
+
+			        url = "/apis/assets/getAssets";
+
+			        EgunUtility.doGet(url, {}, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].oid+'>'+result[i].name+'</option>';
+						}
 						$('#sel_assetType').html(html);
 			        });
 
-			        var button = $(event.relatedTarget);
-			        var selectedIdx = button.data('selectedIdx');
+			        url = "/apis/booklogs/getAccountBookLog";
+			        var selectedIdx = $(event.target).data('selectedIdx');
+			        var param = {
+			        	oid : tb_accountbook.fnGetData()[selectedIdx].oid
+			        }
+
+			        EgunUtility.doGet(url, param, function(result) {
+						
+			        });
+
+			     //    var button = $(event.relatedTarget);
+			     //    var selectedIdx = button.data('selectedIdx');
 
 			        var modal = $(this);
-			        if (selectedIdx != null) {
-			        	var asset = tb_assets.fnGetData()[selectedIdx];
+			        modal.find('.modal-body input#dt_date').val(formatDate(new Date()));
+			     //    if (selectedIdx != null) {
+			     //    	var asset = tb_accountbook.fnGetData()[selectedIdx];
 			        	
-			        	modal.find('.modal-body #sel_assetType[value='+asset.assetType.code+']').prop("selected", true);
-					  	modal.find('.modal-body input#name').val(asset.name).data('assetOid', asset.oid);
-					  	modal.find('.modal-body input#balance').val(asset.balance);
-		  				modal.find('.modal-body input#memo').val(asset.memo);
-			        } else {
-			        	modal.find('.modal-body #sel_assetType:first').prop("selected", true);
-					  	modal.find('.modal-body input#name').val('').data('assetOid', '');
-					  	modal.find('.modal-body input#balance').val('');
-		  				modal.find('.modal-body input#memo').val('');
-			        }
+			     //    	modal.find('.modal-body #sel_assetType[value='+asset.assetType.code+']').prop("selected", true);
+					  	// modal.find('.modal-body input#name').val(asset.name).data('assetOid', asset.oid);
+					  	// modal.find('.modal-body input#balance').val(asset.balance);
+		  				// modal.find('.modal-body input#memo').val(asset.memo);
+			     //    } else {
+			     //    	modal.find('.modal-body #sel_assetType:first').prop("selected", true);
+					  	// modal.find('.modal-body input#name').val('').data('assetOid', '');
+					  	// modal.find('.modal-body input#balance').val('');
+		  				// modal.find('.modal-body input#memo').val('');
+			     //    }
+				});
+				
+				var category;
+				$('#sel_howType').on('change', function() {
+					var url = "/apis/category/getAccountBookCategories";
+					var param = {
+						"howType" : $(this).val()
+					};
+
+					EgunUtility.doGet(url, param, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].oid+'>'+result[i].name+'</option>';
+						}
+						$('#sel_category').html(html);
+
+						category = result;
+						$('#sel_category').trigger('change');
+			        });
 				});
 
-				$('#assetForm').submit(function() {
+				$('#sel_category').on('change', function() {
+					var html = '';
+					for (var i=0; i<category.length; i++) {
+						var thisCategory = category[i];
+						if (thisCategory.oid != $(this).val()) continue;
 
-			    	var url = '/apis/assets/setAsset';
-			    	var param = {
-			    		'assetTypeCode' : $('#assetForm #sel_assetType').val()
-			    		, 'name' : $('#assetForm #name').val()
-			    		, 'balance' : $('#assetForm #balance').val()
-			    		, 'memo' : $('#assetForm #memo').val()
-			    		, 'oid' : $('#assetForm #name').data('assetOid')
+						for (var subIdx=0; subIdx<thisCategory.subCategories.length; subIdx++) {
+							html += '<option value='+thisCategory.subCategories[subIdx].oid+'>'+thisCategory.subCategories[subIdx].name+'</option>';
+						}
+					}
+					$('#sel_subCategory').html(html);
+				});
+
+				$('#accountbookForm').submit(function() {
+
+			    	var url = '/apis/booklogs/setAccountBookLog';
+			    	var bookLog = {
+			    		'whenDate' : $('#dt_date').val()
+			    		, 'what' : $('#txt_what').val()
+			    		, 'howmuch' : $('#txt_howmuch').val()
+			    		, 'how' : $('#sel_howType').val()
+			    		, 'relatedAsset' : { 'oid' : $('#sel_assetType').val() }
+			    		, 'relatedCategory' : { 'oid' : $('#sel_subCategory').val() }
+			    		, 'memo' : $('#memo').val()
 			    	};
 
-			        EgunUtility.doPost(url, param, function() {
-			        	location.href='/assets';
+			        EgunUtility.doNativePost(url, bookLog, function() {
+			        	location.href='/accountbook';
 			        });
 			    });
 
 			    $("button.btn-remove").on('click', function(){
 			    	var selectedIdx = $(this).data("selectedIdx");
-			    	var asset = tb_assets.fnGetData()[selectedIdx];
+			    	var asset = tb_accountbook.fnGetData()[selectedIdx];
 
 			    	var url = '/apis/assets/deleteAsset';
 			    	var param = {
@@ -545,6 +596,48 @@
 			        });
 			    });
 			});
+
+			/**
+			 * 로그인 한 사용자의 현재 가계부 정보를 조회
+			 */
+			var setBaseDay = function() {
+				var url = '/apis/books/getCurrentAccountBookWithThisMonthLogs';
+				var param = {};
+
+				EgunUtility.doGet(url, param, function(book) {
+					var currentDate = new Date();
+
+					$('#sp_date').html(makePrintDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), book.baseDay))+ "~" +makePrintDate(new Date(currentDate.getFullYear(), currentDate.getMonth()+1, book.baseDay-1)));
+				});
+			}
+
+			// 출력용 날짜 만들기 (YYYYMMDD)
+			var makePrintDate = function(date) {
+			    var str = date.getFullYear() + ".";
+			    str += makeStrTwoLenght(date.getMonth() + 1) + ".";
+			    str += makeStrTwoLenght(date.getDate());
+			    return str;
+			}
+
+			// 두자리수 날짜 만들기
+			var makeStrTwoLenght = function(value) {
+			    if (value < 10) {
+			        value = "0" + value;
+			    }
+			    return value;
+			}
+
+			var formatDate = function(date) {
+			    var d = new Date(date);
+			    var month = '' + (d.getMonth() + 1);
+			    var day = '' + d.getDate();
+			    var year = d.getFullYear();
+
+			    if (month.length < 2) month = '0' + month;
+			    if (day.length < 2) day = '0' + day;
+
+			    return [year, month, day].join('-');
+			}
 
 		//-->
 		</script>
