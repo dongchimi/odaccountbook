@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ODUserService {
-	void registerODUser(ODUser user);
+	
+    public ODUser registerODUser(ODUser user);
 	
 	List<ODUser> findODUserAll();
 	boolean isExistingEmail(String email);

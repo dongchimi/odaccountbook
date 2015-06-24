@@ -67,7 +67,7 @@ public class ODAccountBookResource {
 		Long currentAccountBookOid = (Long) session.getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
 		
 		ODAccountBook accountBook = new ODAccountBook();
-		accountBook.setoId(currentAccountBookOid);
+		accountBook.setOid(currentAccountBookOid);
 		accountBook.setName(name);
 		accountBook.setBaseDay(baseDay);
 		accountBook.setHolidayOptionType(HolidayOptionType.toHolidayOptionType(holidayOption));

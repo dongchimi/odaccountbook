@@ -18,12 +18,12 @@ public enum AssetType {
         this.koreaName = koreaName;
     }
 
-    public static AssetType toAssetType(String assetTypeName) {
-        if ("CASH".equals(assetTypeName)) {
+    public static AssetType toAssetType(String assetTypeCode) {
+        if (CASH_ASSETS.getCode().equals(assetTypeCode)) {
             return CASH_ASSETS;
-        } else if ("FINANCIAL".equals(assetTypeName)) {
+        } else if (FINANCIAL_ASSETS.getCode().equals(assetTypeCode)) {
             return FINANCIAL_ASSETS;
-        } else if ("FIXED".equals(assetTypeName)) {
+        } else if (FIXED_ASSETS.getCode().equals(assetTypeCode)) {
             return FIXED_ASSETS;
         } else {
             return DEBT;

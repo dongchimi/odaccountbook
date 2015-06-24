@@ -189,7 +189,7 @@
 	                            <a href="#"><i class="fa fa-table fa-fw"></i> 가계부<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="#">가계부관리</a>
+	                                    <a href="accountbook">가계부관리</a>
 	                                </li>
 	                                <li>
 	                                    <a href="#">가계부통계</a>
@@ -446,12 +446,12 @@
 		        	for (var i=0; i<categories.length; i++) {
 		        		append_html += buildCategoryRow(categories[i]);
 
-		        		$("#"+appendUl).next().data("parent", categories[i].oId);
+		        		$("#"+appendUl).next().data("parent", categories[i].oid);
 
 		        		if (categories[i].subCategories == null) continue;
 
 		        		for (var subIdx=0; subIdx<categories[i].subCategories.length; subIdx++) {
-		        			append_html += buildCategoryRow(categories[i].subCategories[subIdx], categories[i].oId);
+		        			append_html += buildCategoryRow(categories[i].subCategories[subIdx], categories[i].oid);
 		        		}
 		        	}
 
@@ -475,7 +475,7 @@
 				    });	
 
 				    $("#"+appendUl).find("div > button.btn-modify").on('click', function() {
-				    	$(this).data('id', $(this).parent().parent().data("id"));		    		
+				    		$(this).data('id', $(this).parent().parent().data("id"));
 			    	});
 
 				    $("#"+appendUl).find("div > button.btn-delete").on('click', function() {
@@ -483,7 +483,7 @@
 
 			    		var url = '/apis/category/deleteAccountBookCategory';
 			    		var param = {
-			    			oId : $(this).parent().parent().data("id")
+			    			oid : $(this).parent().parent().data("id")
 			    		};
 
 			    		EgunUtility.doPost(url, param, function() {
@@ -501,11 +501,11 @@
 				  	var parentCategoryId = button.data('parent');
 				  	if (parentCategoryId == null) {
 					  	parentCategoryId = $('li[data-id='+categoryId+']').data('parent');
-					}				  	
+					}
 
 				  	var modal = $(this);
 				  	modal.find('.modal-body input#name').data('howType', howType);
-				  	modal.find('.modal-body input#name').data('parentCategoryId', parentCategoryId);				  	
+				  	modal.find('.modal-body input#name').data('parentCategoryId', parentCategoryId);
 				  	modal.find('.modal-body input#name').data('categoryId', '');
 
 				  	modal.find('.modal-body input[type=radio]').parent().removeClass('disabled').show();
@@ -516,12 +516,12 @@
 				  		var category = eval("firstCategories."+howType);
 				  		var modifyTargetCategory = {};
 				  		for (var i=0; i<category.length; i++) {
-				  			if (categoryId == category[i].oId) {
+				  			if (categoryId == category[i].oid) {
 				  				modifyTargetCategory = category[i];
 				  				break;
 				  			} else {
 					  			for (var subIdx=0; subIdx<category[i].subCategories.length; subIdx++) {
-					  				if (categoryId != category[i].subCategories[subIdx].oId) continue;
+					  				if (categoryId != category[i].subCategories[subIdx].oid) continue;
 
 					  				modifyTargetCategory = category[i].subCategories[subIdx];
 					  				break;
@@ -557,7 +557,7 @@
 				          	, 'categoryType' : categoryType
 				          	, 'name' : categoryName
 				          	, 'memo' : categoryMemo
-				          	, 'parentCategoryId' : parentCategoryId != null ? parentCategoryId : ""
+				          	, 'parentCategoryOid' : parentCategoryId
 				        }
 				    } else {
 				    	url = '/apis/category/updateAccountBookCategory';
@@ -600,33 +600,38 @@
 						return;
 					}
 
+					var lastGroupOid = null;
 			    	$('#'+targetUl+' > li').each(function(order) {
+			    		
 			    		if ($(this).data('type') == 'GROUP') {
 			    			for (var i=0; i<categories.length; i++) {
-			    				if (categories[i].oId != $(this).data('id')) continue;
+			    				if (categories[i].oid != $(this).data('id')) continue;
 
 			    				categories[i].sortNumber = order;
+			    				lastGroupOid = categories[i].oid;
 
-			    				var paramCategory = JSON.parse(JSON.stringify(categories[i]));
-			    				paramCategory.subCategories = new Array();
+			    				// var paramCategory = JSON.parse(JSON.stringify(categories[i]));
+			    				// paramCategory.subCategories = new Array();
 
-			    				param.push(paramCategory);
+			    				param.push(buildCategoryForParameter(categories[i]));
 			    			}
 			    		}
 
 			    		if ($(this).data('type') == 'ITEM') {
 			    			for (var i=0; i<categories.length; i++) {
-			    				if (categories[i].subCategories == null) continue;
+			    				var thisCategory = categories[i];
+			    				if (thisCategory.subCategories == null) continue;
 
-			    				for (var subIdx=0; subIdx<categories[i].subCategories.length; subIdx++) {
-			    					if (categories[i].subCategories[subIdx].oId != $(this).data('id')) continue;
+			    				for (var subIdx=0; subIdx<thisCategory.subCategories.length; subIdx++) {
+			    					if (thisCategory.subCategories[subIdx].oid != $(this).data('id')) continue;
 
-			    					categories[i].subCategories[subIdx].sortNumber = order;
+			    					thisCategory.subCategories[subIdx].sortNumber = order;
+			    					thisCategory.subCategories[subIdx].parentCategoryOid = lastGroupOid;
 
-			    					var paramCategory = JSON.parse(JSON.stringify(param.pop()));
-			    					paramCategory.subCategories.push(JSON.parse(JSON.stringify(categories[i].subCategories[subIdx])));
+			    					// var paramCategory = JSON.parse(JSON.stringify(param.pop()));
+			    					// paramCategory.subCategories.push(JSON.parse(JSON.stringify(categories[i].subCategories[subIdx])));
 
-			    					param.push(paramCategory);
+			    					param.push(buildCategoryForParameter(thisCategory.subCategories[subIdx]));
 			    				}
 			    			}
 			    		}
@@ -636,17 +641,27 @@
 				}
 			});
 
+			var buildCategoryForParameter = function(category) {
+				var paramCategory = {};
+
+				paramCategory.oid = category.oid;
+				paramCategory.sortNumber = category.sortNumber;
+				paramCategory.parentCategoryOid = category.parentCategoryOid;
+
+				return paramCategory;
+			}
+
 			var buildCategoryRow = function(category, parentId) {
 				var temp_html = '';
 				
 				if (category.categoryType == 'GROUP') {
-					temp_html += '<li class="list-group-item list-group-item-success" data-type="'+category.categoryType+'" data-id="'+category.oId+'">';
+					temp_html += '<li class="list-group-item list-group-item-success" data-type="'+category.categoryType+'" data-id="'+category.oid+'">';
 				} else {
-					temp_html += '<li class="list-group-item item-children" data-type="ITEM" data-id="'+category.oId+'" data-parent="'+parentId+'">';
+					temp_html += '<li class="list-group-item item-children" data-type="ITEM" data-id="'+category.oid+'" data-parent="'+parentId+'">';
 				}
 
 				temp_html += category.name;
-				temp_html += buildCategoryButtonDiv(category.name, category.howType);
+				temp_html += buildCategoryButtonDiv(category.name, category.howType.code);
     			temp_html += '</li>';
 
     			return temp_html;

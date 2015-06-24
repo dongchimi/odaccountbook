@@ -15,7 +15,7 @@ public interface CategoryService {
 	 * 
 	 * @param category
 	 */
-	public void registerCategory(Category category);
+	public Category registerCategory(Category category);
 	
 	/**
 	 * 분류를 조회한다.
@@ -23,7 +23,7 @@ public interface CategoryService {
 	 * @param oId
 	 * @return
 	 */
-	public Category getCategory(long oId);
+	public Category getCategory(long oid);
 	
 	/**
 	 * 분류명으로 분류를 조회한다.
@@ -32,7 +32,7 @@ public interface CategoryService {
 	 * @param name
 	 * @return
 	 */
-	public Category getCategoryByNameAndCategoryType(HowType howType, CategoryType categoryType, String name);
+	public Category getCategoryByAccountBookOidAndHowTypeAndCategoryTypeAndName(long accountBookOid, HowType howType, CategoryType categoryType, String name);
 	
 	/**
 	 * 모든 분류를 조회한다.
@@ -47,7 +47,15 @@ public interface CategoryService {
 	 * @param howType
 	 * @return
 	 */
-	public List<Category> findCategoriesByHowType(long accountBookOid, HowType howType);
+	public List<Category> findGroupCategoriesByAccountBookOidAndHowType(long accountBookOid, HowType howType);
+	
+	/**
+	 * 상위분류ID로 하위분류를 조회한다.
+	 * 
+	 * @param parentCategoryOid
+	 * @return
+	 */
+	public List<Category> findCategoriesByParentCategoryOid(long parentCategoryOid);
 	
 	/**
 	 * 분류를 수정한다.
@@ -61,14 +69,14 @@ public interface CategoryService {
 	 * 
 	 * @param categories
 	 */
-	public void modifyCategoriesOrder(long accountBookOid, List<Category> categories);
+	public void modifyCategoriesOrder(List<Category> categories);
 	
 	/**
 	 * 분류를 삭제한다.
 	 * 
 	 * @param oId
 	 */
-	public void removeCategory(long oId);
+	public void removeCategory(long oid);
 	
 	/**
 	 * 하위 분류를 삭제한다.

@@ -20,8 +20,18 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public void registerAsset(Asset asset) {
-        assetRepository.save(asset);
+    public Asset registerAsset(Asset asset) {
+        return assetRepository.save(asset);
+    }
+
+    @Override
+    public void removeAsset(long oid) {
+        assetRepository.delete(oid);
+    }
+
+    @Override
+    public Asset getAsset(long oid) {
+        return assetRepository.findOne(oid);
     }
 
 }

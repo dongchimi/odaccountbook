@@ -19,7 +19,7 @@
   <body style="background-color: #eee;">
 
 
-<h1>사용자</h1>
+    <h1>사용자</h1>
   	<ul>
   		<li>회원가입
         <ul>
@@ -94,6 +94,33 @@ email={email}
 				</ul>
 			</li>
   	</ul>
+
+    <h1>분류</h1>
+    <ul>
+      <li>목록 조회
+        <ul>
+          <li>GET</li>
+          <li>/apis/category/getAccountBookCategories</li>
+          <li>파라미터
+            <pre>
+{
+  "howType" : "IN"
+}
+            </pre>
+          </li>
+          <li>결과
+            <pre>
+{
+  "success" : true,
+  "value" : [{"oId" : 1, "howType" : "IN", "name" : 분류명, "memo" : 메모, "sortNumber" : 1}],
+  "errorMessage1" : null,
+  "errorMessage2" : null
+}
+            </pre>
+          </li>
+        </ul>
+      </li>
+    </ul>
 
 	</body>
 </html>

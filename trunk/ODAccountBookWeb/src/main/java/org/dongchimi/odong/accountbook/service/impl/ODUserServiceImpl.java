@@ -15,8 +15,8 @@ public class ODUserServiceImpl implements ODUserService {
 	ODUserRepository odUserRepository;
 
 	@Override
-	public void registerODUser(ODUser user) {
-		odUserRepository.save(user);
+	public ODUser registerODUser(ODUser user) {
+		return odUserRepository.save(user);
 	}
 	
 	@Override
