@@ -1,9 +1,11 @@
 package org.dongchimi.odong.accountbook.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dongchimi.odong.accountbook.domain.Asset;
 import org.dongchimi.odong.accountbook.domain.AssetRepository;
+import org.dongchimi.odong.accountbook.dto.AssetDto;
 import org.dongchimi.odong.accountbook.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +17,20 @@ public class AssetServiceImpl implements AssetService {
     private AssetRepository assetRepository;
 
     @Override
-    public List<Asset> findAssets(long accountBookOid) {
-        return assetRepository.findByAccountBookOid(accountBookOid);
+    public List<AssetDto> findAssetDtos(long accountBookOid) {
+        List<Asset> assets = assetRepository.findByAccountBookOid(accountBookOid);
+
+        List<AssetDto> assetDtos = new ArrayList<AssetDto>();
+        for (Asset asset : assets) {
+            assetDtos.add(AssetDto.toAssetDto(asset));
+        }
+
+        return assetDtos;
+    }
+
+    @Override
+    public AssetDto getAssetDto(long oid) {
+        return AssetDto.toAssetDto(assetRepository.findOne(oid));
     }
 
     @Override
@@ -27,11 +41,6 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public void removeAsset(long oid) {
         assetRepository.delete(oid);
-    }
-
-    @Override
-    public Asset getAsset(long oid) {
-        return assetRepository.findOne(oid);
     }
 
 }

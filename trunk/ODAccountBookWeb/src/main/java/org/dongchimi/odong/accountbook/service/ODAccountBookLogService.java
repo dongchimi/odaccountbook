@@ -3,7 +3,7 @@ package org.dongchimi.odong.accountbook.service;
 import java.util.List;
 
 import org.dongchimi.odong.accountbook.domain.ODAccountBookLog;
-import org.dongchimi.odong.accountbook.service.dto.ODAccountBookLogDto;
+import org.dongchimi.odong.accountbook.dto.ODAccountBookLogDto;
 import org.springframework.stereotype.Service;
 
 @Service

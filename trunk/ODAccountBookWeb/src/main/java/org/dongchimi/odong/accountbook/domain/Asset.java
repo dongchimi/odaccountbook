@@ -1,17 +1,12 @@
 package org.dongchimi.odong.accountbook.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "TB_ASSET")
 public class Asset {
@@ -40,10 +35,6 @@ public class Asset {
     // 가계부ID
     @Column
     private long accountBookOid;
-
-    @OneToMany
-    @JsonManagedReference
-    private List<ODAccountBookLog> accountBookLogs;
 
     // 잔액
     @Transient
@@ -75,14 +66,6 @@ public class Asset {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void out(String when, String what, int howmuch, String who) {
-        this.balance -= howmuch;
-    }
-
-    public void in(String when, String what, int howmuch, String who) {
-        this.balance += howmuch;
     }
 
     public String getNickName() {
@@ -131,14 +114,6 @@ public class Asset {
 
     public void setAccountBookOid(long accountBookOid) {
         this.accountBookOid = accountBookOid;
-    }
-
-    public List<ODAccountBookLog> getAccountBookLogs() {
-        return accountBookLogs;
-    }
-
-    public void setAccountBookLogs(List<ODAccountBookLog> accountBookLogs) {
-        this.accountBookLogs = accountBookLogs;
     }
 
 }

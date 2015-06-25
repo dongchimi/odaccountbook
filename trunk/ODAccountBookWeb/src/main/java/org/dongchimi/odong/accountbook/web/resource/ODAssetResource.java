@@ -1,19 +1,13 @@
 package org.dongchimi.odong.accountbook.web.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.dongchimi.odong.accountbook.domain.Asset;
 import org.dongchimi.odong.accountbook.domain.AssetType;
-import org.dongchimi.odong.accountbook.domain.Category;
-import org.dongchimi.odong.accountbook.domain.HowType;
-import org.dongchimi.odong.accountbook.domain.ODAccountBookLog;
-import org.dongchimi.odong.accountbook.domain.ODUser;
+import org.dongchimi.odong.accountbook.dto.AssetDto;
 import org.dongchimi.odong.accountbook.service.AssetService;
 import org.dongchimi.odong.accountbook.service.CategoryService;
 import org.dongchimi.odong.accountbook.service.ODAccountBookLogService;
-import org.dongchimi.odong.accountbook.web.util.DateUtil;
 import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResultBuilder;
@@ -52,12 +46,11 @@ public class ODAssetResource {
                 .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
 
         if (currentAccountBookOid == null) {
-            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인"));
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요."));
         }
 
-        List<Asset> assets = assetService.findAssets(currentAccountBookOid);
-
-        return ODRequestResultBuilder.getSuccessRequestResult(assets);
+        return ODRequestResultBuilder.getSuccessRequestResult(assetService
+                .findAssetDtos(currentAccountBookOid));
     }
 
     /**
@@ -83,40 +76,50 @@ public class ODAssetResource {
 
         Long currentAccountBookOid = (Long) session
                 .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
-        ODUser currentUser = (ODUser) session.getAttribute(SessionManager.SESSION_KEY_SIGN_IN_USER);
+
+        if (currentAccountBookOid == null) {
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요."));
+        }
 
         Asset asset = null;
         if (StringUtils.isEmpty(oid)) {
             // 등록
-            asset = new Asset(AssetType.toAssetType(assetTypeCode), name, memo, currentAccountBookOid);
+            asset = new Asset(AssetType.toAssetType(assetTypeCode), name, memo,
+                    currentAccountBookOid);
         } else {
             // 수정
-            asset = assetService.getAsset(Long.parseLong(oid));
+            AssetDto assetDto = assetService.getAssetDto(Long.parseLong(oid));
 
-            asset.setAssetType(AssetType.toAssetType(assetTypeCode));
-            asset.setName(name);
-            asset.setMemo(memo);           
+            assetDto.setAssetType(AssetType.toAssetType(assetTypeCode));
+            assetDto.setName(name);
+            assetDto.setMemo(memo);
+
+            asset = assetDto.toAsset();
         }
 
-        Asset registeredAsset = assetService.registerAsset(asset);
+        assetService.registerAsset(asset);
 
-        // TODO
-//        if (balance != 0) {
-//            HowType howType = HowType.IN;
-//            if (balance < 0) {
-//                howType = HowType.OUT;
-//            }
-//
-//            ODAccountBookLog accountBookLog = new ODAccountBookLog(currentAccountBookOid, howType,
-//                    DateUtil.getTodayForBaseFormat(), "잔액수정", balance, currentUser.getOid());
-//            accountBookLog.setRelatedAsset(registeredAsset);
-//
-//            List<Category> categories = categoryService
-//                    .findGroupCategoriesByAccountBookOidAndHowType(currentAccountBookOid, howType);
-//            accountBookLog.setRelatedCategory(categories.get(categories.size() - 1));
-//
-//            accountBookLogService.registerAccountBookLog(accountBookLog);
-//        }
+        // TODO 잔액이 0이 아닌 경우 가계부내역 등록하기
+        // if (balance != 0) {
+        // HowType howType = HowType.IN;
+        // if (balance < 0) {
+        // howType = HowType.OUT;
+        // }
+        //
+        // ODAccountBookLog accountBookLog = new
+        // ODAccountBookLog(currentAccountBookOid, howType,
+        // DateUtil.getTodayForBaseFormat(), "잔액수정", balance,
+        // currentUser.getOid());
+        // accountBookLog.setRelatedAsset(registeredAsset);
+        //
+        // List<Category> categories = categoryService
+        // .findGroupCategoriesByAccountBookOidAndHowType(currentAccountBookOid,
+        // howType);
+        // accountBookLog.setRelatedCategory(categories.get(categories.size() -
+        // 1));
+        //
+        // accountBookLogService.registerAccountBookLog(accountBookLog);
+        // }
 
         return ODRequestResultBuilder.getSuccessRequestResult();
     }

@@ -3,6 +3,7 @@ package org.dongchimi.odong.accountbook.service;
 import java.util.List;
 
 import org.dongchimi.odong.accountbook.domain.Asset;
+import org.dongchimi.odong.accountbook.dto.AssetDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,7 @@ public interface AssetService {
      * 
      * @param currentAccountBookOid
      */
-    public List<Asset> findAssets(long accountBookOid);
+    public List<AssetDto> findAssetDtos(long accountBookOid);
 
     /**
      * 자산을 조회한다.
@@ -21,7 +22,7 @@ public interface AssetService {
      * @param parseLong
      * @return
      */
-    public Asset getAsset(long oid);
+    public AssetDto getAssetDto(long oid);
     
     /**
      * 자산을 등록한다.
@@ -29,7 +30,7 @@ public interface AssetService {
      * @param asset
      */
     public Asset registerAsset(Asset asset);
-
+    
     /**
      * 자산을 삭제한다.
      * 

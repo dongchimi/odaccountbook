@@ -1,18 +1,11 @@
 package org.dongchimi.odong.accountbook.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "TB_ODUSER")
 public class ODUser {
@@ -33,53 +26,12 @@ public class ODUser {
     @Column
     private String password;
 
-    // 가계부권한
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = ODAccountBookAuth.class)
-    @JsonManagedReference
-    private List<ODAccountBookAuth> accountBookAuths = new ArrayList<ODAccountBookAuth>(1);
-
     public ODUser() {
     }
 
     public ODUser(String email, String password) {
         this.email = email;
         this.password = password;
-
-        addNewAccountBookAuth();
-    }
-
-    public void addNewAccountBookAuth() {
-        ODAccountBook book = new ODAccountBook("기본가계부");
-        ODAccountBookAuth newAuth = ODAccountBookAuth.createReadWriteAccountBookAuth(this, book);
-        newAuth.setDefaultBookAuth(true);
-        accountBookAuths.add(newAuth);
-    }
-
-    public Long getDefaultBookOid() {
-        for (ODAccountBookAuth auth : accountBookAuths) {
-            if (auth.isDefaultBookAuth()) {
-                return auth.getRelatedBook().getOid();
-            }
-        }
-        return null;
-    }
-
-    public ODAccountBook getDefaultBook() {
-        for (ODAccountBookAuth auth : accountBookAuths) {
-            if (auth.isDefaultBookAuth()) {
-                return auth.getRelatedBook();
-            }
-        }
-        return null;
-    }
-
-    public ODAccountBook getAccountBookByOid(Long bookOid) {
-        for (ODAccountBookAuth auth : accountBookAuths) {
-            if (auth.getRelatedBook().getOid().equals(bookOid)) {
-                return auth.getRelatedBook();
-            }
-        }
-        return null;
     }
 
     /**
@@ -103,10 +55,10 @@ public class ODUser {
     // from.out(when, buildTranferName(to), howmuch, name);
     // to.in(when, buildTranferName(from), howmuch, name);
     // }
-
-    private String buildTranferName(Asset asset) {
-        return "이체 -> " + asset.getNickName();
-    }
+    //
+    // private String buildTranferName(Asset asset) {
+    // return "이체 -> " + asset.getNickName();
+    // }
 
     public boolean equaslsPassword(String password) {
         return StringUtils.trimAllWhitespace(this.password).equals(
@@ -147,14 +99,6 @@ public class ODUser {
 
     public void setOid(Long oid) {
         this.oid = oid;
-    }
-
-    public List<ODAccountBookAuth> getAccountBookAuths() {
-        return accountBookAuths;
-    }
-
-    public void setAccountBookAuths(List<ODAccountBookAuth> accountBookAuths) {
-        this.accountBookAuths = accountBookAuths;
     }
 
 }

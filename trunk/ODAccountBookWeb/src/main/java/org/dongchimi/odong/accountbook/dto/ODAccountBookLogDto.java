@@ -1,4 +1,4 @@
-package org.dongchimi.odong.accountbook.service.dto;
+package org.dongchimi.odong.accountbook.dto;
 
 import java.io.Serializable;
 
@@ -21,6 +21,9 @@ public class ODAccountBookLogDto implements Serializable {
     /** 얼마나 */
     private int howmuch;
 
+    /** 메모 */
+    private String memo;
+
     /** 대분류 */
     private String categoryName;
 
@@ -30,20 +33,15 @@ public class ODAccountBookLogDto implements Serializable {
     /** 계좌 */
     private String assetName;
 
-    /** 메모 */
-    private String memo;
-    
     public static ODAccountBookLogDto toODAccountBookLogDto(ODAccountBookLog accountBookLog) {
         ODAccountBookLogDto dto = new ODAccountBookLogDto();
-        
+
         dto.setOid(accountBookLog.getOid());
         dto.setWhenDate(accountBookLog.getWhenDate());
         dto.setWhat(accountBookLog.getWhat());
         dto.setHowmuch(accountBookLog.getHowmuch());
-        dto.setSubCategoryName(accountBookLog.getRelatedCategory().getName());
-        dto.setAssetName(accountBookLog.getRelatedAsset().getName());
         dto.setMemo(accountBookLog.getMemo());
-        
+
         return dto;
     }
 
