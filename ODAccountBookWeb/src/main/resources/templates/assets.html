@@ -487,7 +487,6 @@
 
 				$('#assetModal').on('show.bs.modal', function (event) {
 					var url = "/apis/assets/getAssetTypes";
-
 					EgunUtility.doGet(url, {}, function(result) {
 						var html = '';
 						for (var i=0; i<result.length; i++) {
@@ -495,15 +494,17 @@
 						}
 						$('#sel_assetType').html(html);
 			        });
+				});
 
-			        var button = $(event.relatedTarget);
+				$('#assetModal').on('shown.bs.modal', function (event) {
+					var button = $(event.relatedTarget);
 			        var selectedIdx = button.data('selectedIdx');
 
 			        var modal = $(this);
 			        if (selectedIdx != null) {
 			        	var asset = tb_assets.fnGetData()[selectedIdx];
 			        	
-			        	modal.find('.modal-body #sel_assetType[value='+asset.assetType.code+']').prop("selected", true);
+			        	modal.find('.modal-body #sel_assetType option[value='+asset.assetType.code+']').prop("selected", true);
 					  	modal.find('.modal-body input#name').val(asset.name).data('assetOid', asset.oid);
 					  	modal.find('.modal-body input#balance').val(asset.balance);
 		  				modal.find('.modal-body input#memo').val(asset.memo);

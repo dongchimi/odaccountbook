@@ -5,8 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ODAccountBookService {
-//	void registerODAccountBook(ODAccountBook book);
-	ODAccountBook getODAccountBook(long oid);
+    
+	public ODAccountBook registerAccountBook(ODAccountBook book);
+	
+	public ODAccountBook getODAccountBook(long oid);
 
-	void modifyAccountBook(ODAccountBook accountBook);
+	public void modifyAccountBook(ODAccountBook accountBook);
+	
 }

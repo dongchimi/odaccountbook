@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.dongchimi.odong.accountbook.domain.Category;
 import org.dongchimi.odong.accountbook.domain.CategoryType;
 import org.dongchimi.odong.accountbook.domain.HowType;
+import org.dongchimi.odong.accountbook.dto.CategoryDto;
 import org.dongchimi.odong.accountbook.service.CategoryService;
 import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ODCategoryResource {
 
     // private static final Logger logger =
-    // LoggerFactory.getLogger(ODAccoutBookCategoryResource.class);
+    // LoggerFactory.getLogger(ODCategoryResource.class);
 
     @Autowired
     private CategoryService categoryService;
@@ -50,21 +51,21 @@ public class ODCategoryResource {
         Long currentAccountBookOid = (Long) session
                 .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
         if (currentAccountBookOid == null) {
-            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요"));
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요."));
         }
 
-        Category registeredCategory = categoryService
-                .getCategoryByAccountBookOidAndHowTypeAndCategoryTypeAndName(currentAccountBookOid,
-                        howType, categoryType, name);
+        CategoryDto registeredCategory = categoryService
+                .getCategoryByHowTypeAndCategoryTypeAndName(currentAccountBookOid, howType,
+                        categoryType, name);
         if (registeredCategory != null) {
-            return ODRequestResultBuilder.getFailRequestResult(new ODException("이미 등록된 분류가 있습니다"));
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("이미 등록된 분류가 있습니다."));
         }
 
         // 상위분류ID가 입력된 경우
         if (parentCategoryOid != null) {
-            Category parentCategory = categoryService.getCategory(parentCategoryOid);
+            CategoryDto parentCategory = categoryService.getCategory(parentCategoryOid);
             if (parentCategory == null) {
-                return ODRequestResultBuilder.getFailRequestResult(new ODException("상위 분류가 없습니다"));
+                return ODRequestResultBuilder.getFailRequestResult(new ODException("상위 분류가 없습니다."));
             }
 
             parentCategoryOid = parentCategory.getOid();
@@ -72,9 +73,8 @@ public class ODCategoryResource {
 
         // 상위분류ID가 없는 ITEM인 경우
         if (parentCategoryOid == null && CategoryType.ITEM.equals(categoryType)) {
-            Category noGroupCategory = categoryService.registerCategory(new Category(howType, CategoryType.GROUP, "그룹없음", "",
-                    currentAccountBookOid, null));
-
+            Category noGroupCategory = categoryService.registerCategory(Category
+                    .createDefaultGroup(howType, currentAccountBookOid));
             parentCategoryOid = noGroupCategory.getOid();
         }
 
@@ -97,12 +97,12 @@ public class ODCategoryResource {
     ODRequestResult updateAccountBookCategory(HttpSession session, @RequestParam String name,
             @RequestParam String memo, @RequestParam String categoryId) {
 
-        Category category = categoryService.getCategory(Long.parseLong(categoryId));
+        CategoryDto category = categoryService.getCategory(Long.parseLong(categoryId));
 
         category.setName(name);
         category.setMemo(memo);
 
-        categoryService.registerCategory(category);
+        categoryService.registerCategory(category.toCategory());
 
         return ODRequestResultBuilder.getSuccessRequestResult();
     }
@@ -129,28 +129,16 @@ public class ODCategoryResource {
      * @return
      */
     @RequestMapping(value = "/getAccountBookCategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    ODRequestResult getAccountBookCategories(HttpSession session,
-            @RequestParam(required = false) String howType) {
+    ODRequestResult getAccountBookCategories(HttpSession session, HowType howType) {
 
         Long currentAccountBookOid = (Long) session
                 .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
         if (currentAccountBookOid == null) {
-            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인"));
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요."));
         }
 
-        List<Category> categories = null;
-        if (howType.isEmpty()) {
-            categories = categoryService.findCategories(currentAccountBookOid);
-        } else {
-            categories = categoryService.findGroupCategoriesByAccountBookOidAndHowType(
-                    currentAccountBookOid, HowType.toHowType(howType));
-        }
-        
-        for (Category category : categories) {
-            category.setSubCategories(categoryService.findCategoriesByParentCategoryOid(category.getOid()));
-        }
-
-        return ODRequestResultBuilder.getSuccessRequestResult(categories);
+        return ODRequestResultBuilder.getSuccessRequestResult(categoryService
+                .findCategoriesByHowType(currentAccountBookOid, howType));
     }
 
     /**
@@ -163,24 +151,30 @@ public class ODCategoryResource {
     @RequestMapping(value = "/deleteAccountBookCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult deleteAccoutBookCategory(HttpSession session, long oid) {
 
-        List<Category> subCategories = categoryService.findCategoriesByParentCategoryOid(oid);
+        List<CategoryDto> subCategories = categoryService.findCategoriesByParentCategoryOid(oid);
 
         // 삭제할 대상이 하위분류를 가진 그룹인 경우, 하위분류를 임시분류로 등록 후 삭제
         if (!CollectionUtils.isEmpty(subCategories)) {
-            Category firstSubCategory = subCategories.get(0);
+            CategoryDto firstSubCategory = subCategories.get(0);
             
-            Category noGroupCategory = categoryService
-                    .getCategoryByAccountBookOidAndHowTypeAndCategoryTypeAndName(
+            Long parentCategoryOid = null;
+            CategoryDto noGroupCategory = categoryService
+                    .getCategoryByHowTypeAndCategoryTypeAndName(
                             firstSubCategory.getAccountBookOid(), firstSubCategory.getHowType(),
                             CategoryType.GROUP, "그룹없음");
-            if (noGroupCategory == null) {
-                noGroupCategory = categoryService.registerCategory(new Category(firstSubCategory.getHowType(),
-                        CategoryType.GROUP, "그룹없음", "", firstSubCategory.getAccountBookOid(), null));
+
+            if (noGroupCategory != null) {
+                parentCategoryOid = noGroupCategory.getOid();
+            } else {
+                Category registeredCategory = categoryService.registerCategory(Category
+                        .createDefaultGroup(firstSubCategory.getHowType(),
+                                firstSubCategory.getAccountBookOid()));
+                parentCategoryOid = registeredCategory.getOid();
             }
-            
-            for (Category subCategory : subCategories) {
-                subCategory.setParentCategoryOid(noGroupCategory.getOid());
-                categoryService.modifyCategory(subCategory);
+
+            for (CategoryDto subCategory : subCategories) {
+                subCategory.setParentCategoryOid(parentCategoryOid);
+                categoryService.registerCategory(subCategory.toCategory());
             }
         }
 

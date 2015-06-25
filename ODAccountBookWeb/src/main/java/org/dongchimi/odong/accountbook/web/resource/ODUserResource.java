@@ -1,12 +1,12 @@
 package org.dongchimi.odong.accountbook.web.resource;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
-import org.dongchimi.odong.accountbook.domain.Category;
-import org.dongchimi.odong.accountbook.domain.CategoryType;
-import org.dongchimi.odong.accountbook.domain.HowType;
+import org.dongchimi.odong.accountbook.domain.ODAccountBookAuth;
 import org.dongchimi.odong.accountbook.domain.ODUser;
-import org.dongchimi.odong.accountbook.service.CategoryService;
+import org.dongchimi.odong.accountbook.service.ODAccountBookAuthService;
 import org.dongchimi.odong.accountbook.service.ODUserService;
 import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class ODUserResource {
     private ODUserService odUserService;
 
     @Autowired
-    private CategoryService categoryService;
+    private ODAccountBookAuthService odAccountBookAuthService;
 
     /**
      * 기존 메일이 존재하는가?
@@ -68,15 +69,7 @@ public class ODUserResource {
             return ODRequestResultBuilder.getFailRequestResult(new ODException("존재하는 이메일입니다."));
         }
 
-        ODUser user = odUserService.registerODUser(new ODUser(email, password));
-
-        // 기본 분류 등록
-        categoryService.registerCategory(new Category(HowType.IN, CategoryType.GROUP, "그룹없음", "",
-                user.getAccountBookAuths().get(0).getRelatedBook().getOid(), null));
-        categoryService.registerCategory(new Category(HowType.OUT, CategoryType.GROUP, "그룹없음", "",
-                user.getAccountBookAuths().get(0).getRelatedBook().getOid(), null));
-        categoryService.registerCategory(new Category(HowType.SAVING, CategoryType.GROUP, "그룹없음",
-                "", user.getAccountBookAuths().get(0).getRelatedBook().getOid(), null));
+        odUserService.registerODUser(new ODUser(email, password));
 
         return ODRequestResultBuilder.getSuccessRequestResult();
     }
@@ -99,8 +92,14 @@ public class ODUserResource {
             return ODRequestResultBuilder.getFailRequestResult(new ODException("사용자 정보가 없습니다."));
         }
         session.setAttribute(SessionManager.SESSION_KEY_SIGN_IN_USER, user);
+        
+        List<ODAccountBookAuth> accountBookAuths = odAccountBookAuthService.findAccountBookAuthByUserOid(user.getOid());
+        if (CollectionUtils.isEmpty(accountBookAuths)) {
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("등록된 권한이 없습니다."));
+        }
         session.setAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID,
-                user.getDefaultBookOid());
+                accountBookAuths.get(0).getAccountBookOid());
+        
         return ODRequestResultBuilder.getSuccessRequestResult(user);
     }
 }

@@ -6,13 +6,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity(name = "TB_ODACCOUNT_BOOK_LOG")
-public class ODAccountBookLog { // implements Comparable<ODAccountBookLog>
+public class ODAccountBookLog {
 
     @Id
     @GeneratedValue
@@ -36,14 +33,16 @@ public class ODAccountBookLog { // implements Comparable<ODAccountBookLog>
     private HowType how;
 
     // 자산
-    @ManyToOne
-    @JsonBackReference(value = "ODAccountBookLog-Asset")
-    private Asset relatedAsset;
+    @Column
+    private Long assetOid;
 
     // 분류
-    @ManyToOne
-    @JsonBackReference(value = "ODAccountBookLog-Category")
-    private Category relatedCategory;
+    @Column
+    private Long categoryOid;
+
+    // 하위분류
+    @Column
+    private Long subCategoryOid;
 
     // 가계부ID
     @Column
@@ -60,8 +59,9 @@ public class ODAccountBookLog { // implements Comparable<ODAccountBookLog>
     // 잔액
     @Transient
     private int balance;
-    
-    public ODAccountBookLog() {}
+
+    public ODAccountBookLog() {
+    }
 
     public ODAccountBookLog(Long accountBookOid, HowType how, String whenDate, String what,
             int howmuch, Long userOid) {
@@ -113,20 +113,28 @@ public class ODAccountBookLog { // implements Comparable<ODAccountBookLog>
         this.how = how;
     }
 
-    public Asset getRelatedAsset() {
-        return relatedAsset;
+    public Long getAssetOid() {
+        return assetOid;
     }
 
-    public void setRelatedAsset(Asset relatedAsset) {
-        this.relatedAsset = relatedAsset;
+    public void setAssetOid(Long assetOid) {
+        this.assetOid = assetOid;
     }
 
-    public Category getRelatedCategory() {
-        return relatedCategory;
+    public Long getCategoryOid() {
+        return categoryOid;
     }
 
-    public void setRelatedCategory(Category relatedCategory) {
-        this.relatedCategory = relatedCategory;
+    public void setCategoryOid(Long categoryOid) {
+        this.categoryOid = categoryOid;
+    }
+
+    public Long getSubCategoryOid() {
+        return subCategoryOid;
+    }
+
+    public void setSubCategoryOid(Long subCategoryOid) {
+        this.subCategoryOid = subCategoryOid;
     }
 
     public Long getAccountBookOid() {

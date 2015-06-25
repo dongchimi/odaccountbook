@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ODAccountBookServiceImpl implements ODAccountBookService {
 	
 	@Autowired
-	ODAccountBookRepository bookRepository;
+	private ODAccountBookRepository bookRepository;
 	
 	@Override
 	public ODAccountBook getODAccountBook(long oid) {
@@ -21,4 +21,9 @@ public class ODAccountBookServiceImpl implements ODAccountBookService {
 	public void modifyAccountBook(ODAccountBook accountBook) {
 		bookRepository.save(accountBook);
 	}
+
+    @Override
+    public ODAccountBook registerAccountBook(ODAccountBook book) {
+        return bookRepository.save(book);
+    }
 }

@@ -1,11 +1,13 @@
 package org.dongchimi.odong.accountbook.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dongchimi.odong.accountbook.domain.Category;
 import org.dongchimi.odong.accountbook.domain.CategoryRepository;
 import org.dongchimi.odong.accountbook.domain.CategoryType;
 import org.dongchimi.odong.accountbook.domain.HowType;
+import org.dongchimi.odong.accountbook.dto.CategoryDto;
 import org.dongchimi.odong.accountbook.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,24 +25,59 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategory(long oid) {
-        return categoryRepository.findOne(oid);
+    public void registerDefaultCategory(Long accountBookOid) {
+        categoryRepository.save(Category.createDefaultGroup(HowType.IN, accountBookOid));
+        categoryRepository.save(Category.createDefaultGroup(HowType.OUT, accountBookOid));
+        categoryRepository.save(Category.createDefaultGroup(HowType.SAVING, accountBookOid));
     }
 
     @Override
-    public Category getCategoryByAccountBookOidAndHowTypeAndCategoryTypeAndName(long accountBookOid, HowType howType, CategoryType categoryType, String name) {
-        return categoryRepository.findByAccountBookOidAndHowTypeAndCategoryTypeAndName(accountBookOid, howType, categoryType, name);
+    public CategoryDto getCategory(long oid) {
+        return CategoryDto.toCategoryDto(categoryRepository.findOne(oid));
     }
 
     @Override
-    public List<Category> findCategories(long accountBookOid) {
-        return categoryRepository.findByAccountBookOidAndCategoryTypeOrderBySortNumberAsc(accountBookOid, CategoryType.GROUP);
+    public CategoryDto getCategoryByHowTypeAndCategoryTypeAndName(long accountBookOid,
+            HowType howType, CategoryType categoryType, String name) {
+        return CategoryDto.toCategoryDto(categoryRepository
+                .findByAccountBookOidAndHowTypeAndCategoryTypeAndName(accountBookOid, howType,
+                        categoryType, name));
     }
 
     @Override
-    public List<Category> findGroupCategoriesByAccountBookOidAndHowType(long accountBookOid, HowType howType) {
-        return categoryRepository.findByAccountBookOidAndHowTypeAndCategoryTypeOrderBySortNumberAsc(accountBookOid, howType,
-                CategoryType.GROUP);
+    public List<CategoryDto> findCategoryDtos(long accountBookOid) {
+        List<Category> categories = categoryRepository
+                .findByAccountBookOidAndCategoryTypeOrderBySortNumberAsc(accountBookOid,
+                        CategoryType.GROUP);
+
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+
+        for (Category category : categories) {
+            CategoryDto dto = CategoryDto.toCategoryDto(category);
+
+            dto.setSubCategories(this.findCategoriesByParentCategoryOid(category.getOid()));
+
+            categoryDtos.add(dto);
+        }
+        return categoryDtos;
+    }
+
+    @Override
+    public List<CategoryDto> findCategoriesByHowType(long accountBookOid, HowType howType) {
+        List<Category> categories = categoryRepository
+                .findByAccountBookOidAndHowTypeAndCategoryTypeOrderBySortNumberAsc(accountBookOid,
+                        howType, CategoryType.GROUP);
+
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+
+        for (Category category : categories) {
+            CategoryDto dto = CategoryDto.toCategoryDto(category);
+
+            dto.setSubCategories(this.findCategoriesByParentCategoryOid(category.getOid()));
+
+            categoryDtos.add(dto);
+        }
+        return categoryDtos;
     }
 
     @Override
@@ -49,39 +86,29 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void modifyCategory(Category category) {
-        categoryRepository.save(category);
-    }
-
-    @Override
     public void modifyCategoriesOrder(List<Category> categories) {
-        if (CollectionUtils.isEmpty(categories)) return;
-        
+        if (CollectionUtils.isEmpty(categories))
+            return;
+
         for (Category category : categories) {
-            Category modifyTargetCategory = this.getCategory(category.getOid());
-            
+            CategoryDto modifyTargetCategory = this.getCategory(category.getOid());
+
             modifyTargetCategory.setSortNumber(category.getSortNumber());
             modifyTargetCategory.setParentCategoryOid(category.getParentCategoryOid());
-            
-            categoryRepository.save(modifyTargetCategory);
+
+            categoryRepository.save(modifyTargetCategory.toCategory());
         }
-    }
-    
-    @Override
-    public void removeSubCategories(Category category) {
-        if (CollectionUtils.isEmpty(category.getSubCategories())) return;
-        
-//        for (Category subCategory : category.getSubCategories()) {
-//            subCategory.setParentCategory(null);
-//        }
-        
-        category.setSubCategories(null);
-        categoryRepository.save(category);
     }
 
     @Override
-    public List<Category> findCategoriesByParentCategoryOid(long parentCategoryOid) {
-        return categoryRepository.findByParentCategoryOidOrderBySortNumberAsc(parentCategoryOid);
+    public List<CategoryDto> findCategoriesByParentCategoryOid(long parentCategoryOid) {
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+
+        for (Category category : categoryRepository
+                .findByParentCategoryOidOrderBySortNumberAsc(parentCategoryOid)) {
+            categoryDtos.add(CategoryDto.toCategoryDto(category));
+        }
+        return categoryDtos;
     }
 
 }
