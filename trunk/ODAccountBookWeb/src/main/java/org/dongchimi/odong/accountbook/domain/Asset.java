@@ -34,7 +34,7 @@ public class Asset {
 
     // 가계부ID
     @Column
-    private long accountBookOid;
+    private Long accountBookOid;
 
     // 잔액
     @Transient
