@@ -147,21 +147,21 @@ public class TestSenario {
 	
 	/** 카드별 목록 조회 */
 //	@Test
-	public void testSearchCardByUser() {
-		CardService cardService = new CardService();
-		cardService.makeMock(buildTestSenarioUsers());
-		List<Card> foundCards = cardService.findCardsByUser("dongkyu");
-		// 출력
-		for ( Card card : foundCards) {
-			System.out.println(card.getNickName() + ", " + card.getCompanyName() + ", " + card.getCreditCardCharge());
-		}
-		System.out.println();
-		foundCards = cardService.findCardsByUser("wonmi");
-		// 출력
-		for ( Card card : foundCards) {
-			System.out.println(card.getNickName() + ", " + card.getCompanyName());
-		}
-	}
+//	public void testSearchCardByUser() {
+//		CardService cardService = new CardService();
+//		cardService.makeMock(buildTestSenarioUsers());
+//		List<Card> foundCards = cardService.findCardsByUser("dongkyu");
+//		// 출력
+//		for ( Card card : foundCards) {
+//			System.out.println(card.getNickName() + ", " + card.getCompanyName() + ", " + card.getCreditCardCharge());
+//		}
+//		System.out.println();
+//		foundCards = cardService.findCardsByUser("wonmi");
+//		// 출력
+//		for ( Card card : foundCards) {
+//			System.out.println(card.getNickName() + ", " + card.getCompanyName());
+//		}
+//	}
 	
 //	@Test
 	public void testRegisterNGetODUser() {

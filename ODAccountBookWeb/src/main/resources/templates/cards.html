@@ -1,0 +1,596 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="description" content=""/>
+	    <meta name="author" content=""/>
+
+	    <title>오동가계부</title>
+
+	    <!-- Bootstrap Core CSS -->
+    	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+		<!-- MetisMenu CSS -->
+    	<link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+
+    	<!-- DataTables CSS -->
+	    <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
+
+	    <!-- DataTables Responsive CSS -->
+	    <link href="bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet" />
+
+	    <!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="style/css/sb-admin-2.css" />
+
+		<!-- Custom Fonts -->
+    	<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+  	</head>
+
+	<body>
+
+		<div id="wrapper">
+
+			<!-- Navigation -->
+        	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand" href="index.html">오동가계부</a>
+	            </div>
+	            <!-- /.navbar-header -->
+
+	            <ul class="nav navbar-top-links navbar-right">
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-messages">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <strong>2015.06.09 22:59</strong>
+	                                </div>
+	                                <div>신한체크승인 06/09 22:59 3,000원 씨유대전가장점 잔액94,233원</div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a class="text-center" href="#">
+	                                <strong>SMS 더보기</strong>
+	                                <i class="fa fa-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-messages -->
+	                </li>
+	                <!-- /.dropdown -->
+
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-alerts">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-comment fa-fw"></i> New Comment
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+	                                    <span class="pull-right text-muted small">12 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-tasks fa-fw"></i> New Task
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a class="text-center" href="#">
+	                                <strong>See All Alerts</strong>
+	                                <i class="fa fa-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-alerts -->
+	                </li>
+	                <!-- /.dropdown -->
+
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-user">
+	                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 내정보</a>
+	                        </li>
+	                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li><a href="signin"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+	                        </li>
+	                    </ul>
+	                    <!-- /.dropdown-user -->
+	                </li>
+	                <!-- /.dropdown -->
+	            </ul>
+	            <!-- /.navbar-top-links -->
+
+	            <div class="navbar-default sidebar" role="navigation">
+	                <div class="sidebar-nav navbar-collapse">
+	                    <ul class="nav" id="side-menu">
+	                        <li class="sidebar-search">
+	                            <div class="input-group custom-search-form">
+	                                <input type="text" class="form-control" placeholder="Search..." />
+	                                <span class="input-group-btn">
+		                                <button class="btn btn-default" type="button">
+		                                    <i class="fa fa-search"></i>
+		                                </button>
+		                            </span>
+	                            </div>
+	                            <!-- /input-group -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-table fa-fw"></i> 가계부<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="accountbook">가계부관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">가계부통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li class="active">
+	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> 카드<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li class="active">
+	                                    <a href="#">카드관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">카드통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 예결산<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="flot">결산관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="morris">예산관리</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-won fa-fw"></i> 자산<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a href="assets">자산관리</a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">자산통계</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 설정<span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                            	<li>
+                                        <a href="settings">가계부설정</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">사용자설정</a>
+                                    </li>
+	                                <li>
+	                                    <a href="#">기초자료 <span class="fa arrow"></span></a>
+	                                    <ul class="nav nav-third-level">
+	                                        <li>
+	                                            <a href="#">월고정금액</a>
+	                                        </li>
+	                                        <li>
+	                                            <a href="settings-category">분류</a>
+	                                        </li>
+	                                    </ul>
+	                                    <!-- /.nav-third-level -->
+	                                </li>	                                
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                    </ul>
+	                </div>
+	                <!-- /.sidebar-collapse -->
+	            </div>
+	            <!-- /.navbar-static-side -->
+	        </nav>
+
+	        <div id="page-wrapper">
+                <div class="row">
+	                <div class="col-md-12">
+	                    <h1 class="page-header">카드관리</h1>
+	                </div>
+	                <!-- /.col-lg-12 -->
+	            </div>
+                <!-- /.row -->
+                <div class="row">
+	                <div class="col-lg-4">
+	                    <div class="panel panel-default">
+	                    	<div class="panel-heading">
+	                            카드
+	                            <div class="pull-right">
+	                            	<button type="button" class="btn btn-primary btn-xs btn-modify disabled" data-toggle="modal" data-target="#cardModal">수정</button>
+	                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
+	                            </div>
+	                        </div>
+	                        <div class="panel-body">
+	                        	<div class="dataTable_wrapper">
+	                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
+	                                    <thead>
+	                                        <tr>
+	                                            <th>유형</th>
+	                                            <th>자산명</th>
+	                                            <th>잔액</th>
+	                                        </tr>
+	                                    </thead>
+	                                </table>
+	                            </div>
+	                            <!-- /.table-responsive -->
+
+								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#cardModal">
+	                                <i class="fa fa-plus fa-fw"></i> 등록
+	                            </button>
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-4 -->
+	                <div class="col-lg-8">
+	                    <div class="panel panel-default">
+	                    	<div class="panel-heading" id="dv_asset_name">
+	                        </div>
+	                        <!-- /.panel-heading -->
+	                        <div class="panel-body">
+	                            <div class="dataTable_wrapper">
+	                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+	                                    <thead>
+	                                        <tr>
+	                                            <th>일자</th>
+	                                            <th>내역</th>
+	                                            <th>금액</th>
+	                                            <th>잔액</th>
+	                                            <th>비고</th>
+	                                        </tr>
+	                                    </thead>
+	                                </table>
+	                            </div>
+	                            <!-- /.table-responsive -->
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-8 -->
+
+	                <!-- Modal -->
+                    <div class="modal" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">카드등록</h4>
+                                </div>
+                                <form role="form" id="cardForm">
+                                	<div class="modal-body">
+                                		<div class="container-fluid">
+                                			<div class="row">
+								              	<div class="col-sm-12">
+									                <div class="form-group">
+			                                            <label>카드유형</label>
+			                                            <select class="form-control" id="sel-cardType">
+			                                            </select>
+			                                        </div>
+			                                        <div class="row">
+			                                        	<div class="col-sm-6">
+					                                        <div class="form-group">
+					                                            <label>카드종류</label>
+					                                            <input class="form-control" type="text" id="txt-company"/>
+					                                        </div>
+					                                    </div>
+					                                    <div class="col-sm-6">
+					                                    	<div class="form-group">
+					                                            <label>별칭</label>
+					                                            <input class="form-control" type="text" id="txt-nickName"/>
+					                                        </div>
+					                                    </div>
+			                                        </div>
+			                                        <div class="form-group">
+			                                            <label>결제일</label>
+			                                            <select class="form-control" id="sel-settlementDay">
+			                                            </select>
+			                                        </div>
+			                                        <div class="form-group">
+			                                            <label>할부/일시불 이용기간</label>
+			                                            <div class="form-inline">
+				                                            <select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            		~
+		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+	                                            		</div>
+			                                        </div>
+			                                        <div class="form-group form-inline">
+			                                            <label>현금서비스 이용기간</label>
+			                                            <div class="form-inline">
+				                                            <select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            		~
+		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		</select>
+		                                            	</div>
+			                                        </div>
+			                                        <div class="form-group ">
+			                                            <label>결제계좌</label>
+			                                            <select class="form-control" id="sel-asset">
+			                                            </select>
+			                                        </div>
+			                                        <div class="form-group">
+			                                            <label>메모</label>
+			                                            <input class="form-control" type="text" id="txt_memo" />
+			                                        </div>
+								              	</div>
+								            </div>
+                                		</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                                        <button type="submit" class="btn btn-primary">확인</button>
+                                    </div>
+                                </form>
+                        	</div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+			    </div>
+	            <!-- /.row -->
+	        </div>
+	        <!-- /#page-wrapper -->
+
+		</div>
+		<!-- /#wrapper -->
+
+		<script type="text/javascript" src="style/js/egunUtility.js"></script>
+		
+		<script type="text/javascript" src="style/lib/jquery-1.11.1.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+    	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<!-- Metis Menu Plugin JavaScript -->
+    	<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    	<!-- DataTables JavaScript -->
+	    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	    <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+		<!-- Custom Theme JavaScript -->
+    	<script src="style/js/sb-admin-2.js"></script>
+
+		<script type="text/javascript">
+		<!--//
+
+			$(function() {
+
+				var tb_assets = $('#tb_assets').dataTable({
+					processing : true,
+					serverSide: true,
+			        ordering: false,
+			        searching: false,
+			        info: false,
+			        ajax: function ( data, callback, settings ) {
+						
+						var params = {
+							start : data.start
+						};
+
+						return $.ajax({
+							url : "/apis/assets/getAssets",
+							data : params,
+							dataType: "json",
+							success: function(json) {
+								var result = {
+									draw : data.draw,
+									data : json.value,
+									recordsTotal: json.value.length,
+									recordsFiltered: json.value.length
+								};
+
+								callback(result);
+							}
+						});
+					},
+			        columns : [
+			        	{ "data": "assetType.koreaName" },
+			            { "data": "name" },
+			            { "data": "balance", "sClass": "rigth", render: $.fn.dataTable.render.number( ',', '.', 0, '' ) }
+			        ],
+			        dom: "rtiS",
+			        deferRender: true,
+			        scrollY: 300,
+			        scroller: {
+			            loadingIndicator: true
+			        },
+			        language: {
+			            zeroRecords: "등록된 자산이 없습니다."
+			        }
+				});
+
+				$('#tb_assets tbody').on( 'click', 'tr', function () {
+			        if ( $(this).hasClass('selected') ) {
+			            $(this).removeClass('selected');
+			        }
+			        else {
+			            tb_assets.$('tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+
+			            var selectedIdx = $(this).index();
+			            $('#dv_asset_name').html((tb_assets.fnGetData()[selectedIdx].name));
+
+			            $("button.btn-modify").data("selectedIdx", selectedIdx).removeClass("disabled");
+			            $("button.btn-remove").data("selectedIdx", selectedIdx).removeClass("disabled");
+			        }
+			    } );
+
+				$('#dataTables-example').dataTable({
+					"scrollY": "400px",
+			        "scrollCollapse": true,
+			        "paging": false,
+			        "jQueryUI": true,
+			        "searching" : false,
+			        "ordering" : false,
+			        info : false,
+			        language: {
+			            zeroRecords: "등록된 내역이 없습니다."
+			        }
+				});
+
+				$('#cardModal').on('show.bs.modal', function (event) {
+					var url = "/apis/assets/getAssetTypes";
+					EgunUtility.doGet(url, {}, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+						}
+						$('#sel_assetType').html(html);
+			        });
+				});
+
+				$('#cardModal').on('shown.bs.modal', function (event) {
+					var button = $(event.relatedTarget);
+			        var selectedIdx = button.data('selectedIdx');
+
+			        var modal = $(this);
+			        if (selectedIdx != null) {
+			        	var asset = tb_assets.fnGetData()[selectedIdx];
+			        	
+			        	modal.find('.modal-body #sel_assetType option[value='+asset.assetType.code+']').prop("selected", true);
+					  	modal.find('.modal-body input#name').val(asset.name).data('assetOid', asset.oid);
+					  	modal.find('.modal-body input#balance').val(asset.balance);
+		  				modal.find('.modal-body input#memo').val(asset.memo);
+			        } else {
+			        	modal.find('.modal-body #sel_assetType:first').prop("selected", true);
+					  	modal.find('.modal-body input#name').val('').data('assetOid', '');
+					  	modal.find('.modal-body input#balance').val('');
+		  				modal.find('.modal-body input#memo').val('');
+			        }
+				});
+
+				$('#assetForm').submit(function() {
+
+			    	var url = '/apis/assets/setAsset';
+			    	var param = {
+			    		'assetTypeCode' : $('#assetForm #sel_assetType').val()
+			    		, 'name' : $('#assetForm #name').val()
+			    		, 'balance' : $('#assetForm #balance').val()
+			    		, 'memo' : $('#assetForm #memo').val()
+			    		, 'oid' : $('#assetForm #name').data('assetOid')
+			    	};
+
+			        EgunUtility.doPost(url, param, function() {
+			        	location.href='/assets';
+			        });
+			    });
+
+			    $("button.btn-remove").on('click', function(){
+			    	if (!confirm("삭제하시겠습니까?")) return;
+			    	
+			    	var selectedIdx = $(this).data("selectedIdx");
+			    	var asset = tb_assets.fnGetData()[selectedIdx];
+
+			    	var url = '/apis/assets/deleteAsset';
+			    	var param = {
+			    		'oid' : asset.oid
+			    	};
+
+			        EgunUtility.doPost(url, param, function() {
+			        	location.href='/assets';
+			        });
+			    });
+			});
+
+		//-->
+		</script>
+
+	</body>
+</html>
