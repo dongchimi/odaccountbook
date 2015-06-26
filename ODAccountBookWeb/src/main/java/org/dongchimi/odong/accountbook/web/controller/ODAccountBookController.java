@@ -57,4 +57,9 @@ public class ODAccountBookController {
     public String accountbook(Model model) {
         return "accountbook";
     }
+	
+	@RequestMapping(value = "/cards", method = RequestMethod.GET)
+    public String cards(Model model) {
+        return "cards";
+    }
 }

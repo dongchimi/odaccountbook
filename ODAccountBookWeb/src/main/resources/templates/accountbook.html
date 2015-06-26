@@ -201,7 +201,7 @@
 	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> 카드<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="#">카드관리</a>
+	                                    <a href="cards">카드관리</a>
 	                                </li>
 	                                <li>
 	                                    <a href="#">카드통계</a>
@@ -372,7 +372,7 @@
 			                                        </div>
 			                                        <div class="form-group">
 			                                            <label>메모</label>
-			                                            <input class="form-control" type="text" id="memo" />
+			                                            <input class="form-control" type="text" id="txt_memo" />
 			                                        </div>
 								              	</div>
 								            </div>
@@ -380,10 +380,11 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                                        <button type="button" class="btn btn-info" id="btn-remove">삭제</button>
                                         <button type="submit" class="btn btn-primary">확인</button>
                                     </div>
                                 </form>
-                        	</div>                                        
+                        	</div>
                             <!-- /.modal-content -->
                         </div>
                         <!-- /.modal-dialog -->
@@ -473,10 +474,14 @@
 				});
 
 				$('#tb_accountbook tbody').on( 'dblclick', 'tr', function () {
-			        var selectedIdx = $(this).index();
-		            //tb_accountbook.fnGetData()[selectedIdx]
-
-		            $('#accountbookModal').data('selectedIdx', selectedIdx);
+					if ( $(this).hasClass('selected') ) {
+			            $(this).removeClass('selected');
+			        }
+			        else {
+			            tb_accountbook.$('tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			        }
+			        
 		            $('#accountbookModal').modal('show');
 			    });
 
@@ -500,14 +505,17 @@
 							html += '<option value='+result[i].oid+'>'+result[i].name+'</option>';
 						}
 						$('#sel_assetType').html(html);
-			        });
+			        });			        
+				});
 
-			        var modal = $(this);
+				$('#accountbookModal').on('shown.bs.modal', function (event) {
+					var modal = $(this);
 			        modal.find('.modal-body input#dt_date').val(formatDate(new Date()));
 			        
 			        // 수정
-			        var selectedIdx = $(event.target).data('selectedIdx');
-			        if (selectedIdx != null) {
+			        var button = $(event.relatedTarget);			        
+			        if (button.data() == null) {
+			        	var selectedIdx = tb_accountbook.find('.selected').index();
 			        	url = "/apis/booklogs/getAccountBookLog";
 
 			        	var param = {
@@ -516,26 +524,26 @@
 
 				        EgunUtility.doGet(url, param, function(result) {
 							modal.find('.modal-body #sel_howType option[value='+result.how.code+']').prop("selected", true);
-							modal.find('.modal-body input#dt_date').val(result.whenDate);
-							modal.find('.modal-body input#txt_what').val(result.what);
-							modal.find('.modal-body input#txt_howmuch').val(result.howmuch);							
-				        });
-			        }
+							$('#sel_howType').trigger('change');
 
-			        
-			     //    if (selectedIdx != null) {
-			     //    	var asset = tb_accountbook.fnGetData()[selectedIdx];
-			        	
-			     //    	modal.find('.modal-body #sel_assetType[value='+asset.assetType.code+']').prop("selected", true);
-					  	// modal.find('.modal-body input#name').val(asset.name).data('assetOid', asset.oid);
-					  	// modal.find('.modal-body input#balance').val(asset.balance);
-		  				// modal.find('.modal-body input#memo').val(asset.memo);
-			     //    } else {
-			     //    	modal.find('.modal-body #sel_assetType:first').prop("selected", true);
-					  	// modal.find('.modal-body input#name').val('').data('assetOid', '');
-					  	// modal.find('.modal-body input#balance').val('');
-		  				// modal.find('.modal-body input#memo').val('');
-			     //    }
+							modal.find('.modal-body input#dt_date').val(result.whenDate);
+							modal.find('.modal-body input#txt_what').val(result.what).data('accountBookLogOid', result.oid);
+							modal.find('.modal-body input#txt_howmuch').val(result.howmuch);
+							modal.find('.modal-body #sel_category option[value='+result.categoryOid+']').prop("selected", true);
+							$('#sel_category').trigger('change');
+
+							modal.find('.modal-body #sel_subCategory option[value='+result.subCategoryOid+']').prop("selected", true);
+							modal.find('.modal-body input#txt_memo').val(result.memo);
+				        });
+			        } else {
+			        	modal.find('.modal-body #sel_howType:first').prop("selected", true);
+			        	modal.find('.modal-body #sel_category:first').prop("selected", true);
+			        	modal.find('.modal-body #sel_subCategory:first').prop("selected", true);
+					  	modal.find('.modal-body input#dt_date').val(formatDate(new Date()));
+					  	modal.find('.modal-body input#txt_what').val('').data('accountBookLogOid', '');
+		  				modal.find('.modal-body input#txt_howmuch').val('0');
+		  				modal.find('.modal-body input#txt_memo').val('');
+			        }
 				});
 				
 				var category;
@@ -554,21 +562,21 @@
 
 						category = result;
 						$('#sel_category').trigger('change');
+
+						$('#sel_category').on('change', function() {
+							var html = '';
+							for (var i=0; i<category.length; i++) {
+								var thisCategory = category[i];
+								if (thisCategory.oid != $(this).val()) continue;
+
+								for (var subIdx=0; subIdx<thisCategory.subCategories.length; subIdx++) {
+									html += '<option value='+thisCategory.subCategories[subIdx].oid+'>'+thisCategory.subCategories[subIdx].name+'</option>';
+								}
+							}
+							$('#sel_subCategory').html(html);
+						});
 			        });
-				});
-
-				$('#sel_category').on('change', function() {
-					var html = '';
-					for (var i=0; i<category.length; i++) {
-						var thisCategory = category[i];
-						if (thisCategory.oid != $(this).val()) continue;
-
-						for (var subIdx=0; subIdx<thisCategory.subCategories.length; subIdx++) {
-							html += '<option value='+thisCategory.subCategories[subIdx].oid+'>'+thisCategory.subCategories[subIdx].name+'</option>';
-						}
-					}
-					$('#sel_subCategory').html(html);
-				});
+				});				
 
 				$('#accountbookForm').submit(function() {
 
@@ -578,9 +586,11 @@
 			    		, 'what' : $('#txt_what').val()
 			    		, 'howmuch' : $('#txt_howmuch').val()
 			    		, 'how' : $('#sel_howType').val()
-			    		, 'relatedAsset' : { 'oid' : $('#sel_assetType').val() }
-			    		, 'relatedCategory' : { 'oid' : $('#sel_subCategory').val() }
-			    		, 'memo' : $('#memo').val()
+			    		, 'assetOid' : $('#sel_assetType').val()
+			    		, 'categoryOid' : $('#sel_category').val()
+			    		, 'subCategoryOid' : $('#sel_subCategory').val()
+			    		, 'memo' : $('#txt_memo').val()
+			    		, 'oid' : $('#accountbookForm #txt_what').data('accountBookLogOid')
 			    	};
 
 			        EgunUtility.doNativePost(url, bookLog, function() {
@@ -588,17 +598,16 @@
 			        });
 			    });
 
-			    $("button.btn-remove").on('click', function(){
-			    	var selectedIdx = $(this).data("selectedIdx");
-			    	var asset = tb_accountbook.fnGetData()[selectedIdx];
+			    $("button#btn-remove").on('click', function(){
+			    	if (!confirm("삭제하시겠습니까?")) return;
 
-			    	var url = '/apis/assets/deleteAsset';
+			    	var url = '/apis/booklogs/deleteAccountBookLog';
 			    	var param = {
-			    		'oid' : asset.oid
+			    		'oid' : $('#accountbookForm #txt_what').data('accountBookLogOid')
 			    	};
 
 			        EgunUtility.doPost(url, param, function() {
-			        	location.href='/assets';
+			        	location.href='/accountbook';
 			        });
 			    });
 			});
