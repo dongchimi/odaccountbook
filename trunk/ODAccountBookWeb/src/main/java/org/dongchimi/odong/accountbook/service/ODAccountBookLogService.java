@@ -30,5 +30,12 @@ public interface ODAccountBookLogService {
      * @param oid
      * @return
      */
-    public ODAccountBookLog getAccountBookLog(long oid);
+    public ODAccountBookLogDto getAccountBookLog(long oid);
+
+    /**
+     * 가계부 내역을 삭제한다.
+     * 
+     * @param oid
+     */
+    public void removeAccountBookLog(long oid);
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.dongchimi.odong.accountbook.domain.Category;
 import org.dongchimi.odong.accountbook.domain.HowType;
 import org.dongchimi.odong.accountbook.domain.ODAccountBookLog;
 import org.dongchimi.odong.accountbook.domain.ODUser;
@@ -80,9 +79,28 @@ public class ODAccountBookLogResource {
         return ODRequestResultBuilder.getSuccessRequestResult(accountBookLogs);
     }
     
+    /**
+     * 가계부 조회
+     * 
+     * @param session
+     * @param oid
+     * @return
+     */
     @RequestMapping(value = "/getAccountBookLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ODRequestResult getAccountBookLog(HttpSession session, @RequestParam Long oid) {
-        ODAccountBookLog accountBookLog = accountBookLogService.getAccountBookLog(oid);
-        return ODRequestResultBuilder.getSuccessRequestResult(accountBookLog);
+        return ODRequestResultBuilder.getSuccessRequestResult(accountBookLogService.getAccountBookLog(oid));
+    }
+    
+    /**
+     * 내역 삭제
+     * 
+     * @param session
+     * @param oid
+     * @return
+     */
+    @RequestMapping(value = "/deleteAccountBookLog", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    ODRequestResult deleteAccountBookLog(HttpSession session, long oid) {
+        accountBookLogService.removeAccountBookLog(oid);
+        return ODRequestResultBuilder.getSuccessRequestResult();
     }
 }
