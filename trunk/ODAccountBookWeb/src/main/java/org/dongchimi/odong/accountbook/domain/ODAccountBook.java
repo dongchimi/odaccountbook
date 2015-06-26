@@ -24,7 +24,7 @@ public class ODAccountBook {
 
     /** 기준일 */
     @Column
-    private int baseDay;
+    private Integer baseDay;
 
     /** 휴일시옵션 */
     @Column
@@ -34,28 +34,6 @@ public class ODAccountBook {
     /** 메모 */
     @Column
     private String memo;
-
-    /** 가계부 권한 */
-    // @OneToMany(cascade = CascadeType.ALL, targetEntity =
-    // ODAccountBookAuth.class)
-    // @JsonBackReference
-    // private List<ODAccountBookAuth> auths = new
-    // ArrayList<ODAccountBookAuth>(1);
-
-    // 자산
-    // @OneToMany(cascade = CascadeType.ALL, targetEntity = Asset.class)
-    // @JoinColumn(name="card_oid")
-    // private List<Asset> assets;
-
-    // 카드
-    // @OneToMany(cascade = CascadeType.ALL, targetEntity = Card.class)
-    // @JoinColumn(name="card_oid")
-    // private List<Card> cards;
-
-//    @OneToMany(cascade = CascadeType.ALL, targetEntity = ODAccountBookLog.class)
-//    @JoinColumn(name = "relatedBook_oid", referencedColumnName = "oid")
-//    @JsonManagedReference
-//    private List<ODAccountBookLog> bookLogs;
 
     public ODAccountBook() {
     }
@@ -81,23 +59,11 @@ public class ODAccountBook {
         this.name = name;
     }
 
-    // public void addAuth(ODAccountBookAuth auth) {
-    // auths.add(auth);
-    // }
-    //
-    // public List<ODAccountBookAuth> getAuths() {
-    // return auths;
-    // }
-    //
-    // public void setAuths(List<ODAccountBookAuth> auths) {
-    // this.auths = auths;
-    // }
-
-    public int getBaseDay() {
+    public Integer getBaseDay() {
         return baseDay;
     }
 
-    public void setBaseDay(int baseDay) {
+    public void setBaseDay(Integer baseDay) {
         this.baseDay = baseDay;
     }
 
@@ -116,13 +82,5 @@ public class ODAccountBook {
     public void setMemo(String memo) {
         this.memo = memo;
     }
-
-//    public List<ODAccountBookLog> getBookLogs() {
-//        return bookLogs;
-//    }
-//
-//    public void setBookLogs(List<ODAccountBookLog> bookLogs) {
-//        this.bookLogs = bookLogs;
-//    }
 
 }

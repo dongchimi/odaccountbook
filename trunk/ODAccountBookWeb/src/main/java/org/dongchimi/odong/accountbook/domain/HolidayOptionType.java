@@ -14,9 +14,9 @@ public enum HolidayOptionType {
 
 	public static HolidayOptionType toHolidayOptionType(
 			String holidayOptionTypeName) {
-		if (THE_DAY.toString().equals(holidayOptionTypeName)) {
+		if (holidayOptionTypeName.equals(THE_DAY.toString())) {
 			return HolidayOptionType.THE_DAY;
-		} else if (PREVIOUS_DAY.toString().equals(holidayOptionTypeName)) {
+		} else if (holidayOptionTypeName.equals(PREVIOUS_DAY.toString())) {
 			return HolidayOptionType.PREVIOUS_DAY;
 		} else {
 			return HolidayOptionType.NEXT_DAY;
