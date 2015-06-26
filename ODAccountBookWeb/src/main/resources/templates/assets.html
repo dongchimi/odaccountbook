@@ -533,6 +533,8 @@
 			    });
 
 			    $("button.btn-remove").on('click', function(){
+			    	if (!confirm("삭제하시겠습니까?")) return;
+			    	
 			    	var selectedIdx = $(this).data("selectedIdx");
 			    	var asset = tb_assets.fnGetData()[selectedIdx];
 
