@@ -1,23 +1,31 @@
 package org.dongchimi.odong.accountbook.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CreditCardPaymentMonthType {
 
-    MONTH_BEFORE_LAST("BEFORE_LAST", "전전월", true), //
-    LAST_MONTH("LAST", "전월", true), //
-    MONTH_BEFORE_LAST_PLUS_2("PLUS_2", "전전월결제일+1영업일+1일", false), //
-    MONTH_BEFORE_LAST_PLUS_1("PLUS_1", "전전월결제일+1일", false);
+    MONTH_BEFORE_LAST(-2, "전전월", true, true), //
+    LAST_MONTH(-1, "전월", true, true), //
+    THIS_MONTH(0, "당월", true, false), //
+    LAST_MONTH_SETTLEMENT(1, "전월결제일", false, false), //
+    LAST_MONTH_SETTLEMENT_PLUS_1(2, "전월결제일+1일", false, true), //
+    MONTH_BEFORE_LAST_SETTLEMENT_PLUS_2(3, "전전월결제일+1영업일+1일", false, true);
 
-    private String code;
+    private Integer code;
     private String koreaName;
     private boolean oncePaymentYn;
+    private boolean fromMonthYn;
 
-    private CreditCardPaymentMonthType(String code, String koreaName, boolean oncePaymentYn) {
+    private CreditCardPaymentMonthType(Integer code, String koreaName, boolean oncePaymentYn,
+            boolean fromMonthYn) {
         this.code = code;
         this.koreaName = koreaName;
         this.oncePaymentYn = oncePaymentYn;
+        this.fromMonthYn = fromMonthYn;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
@@ -27,6 +35,10 @@ public enum CreditCardPaymentMonthType {
 
     public boolean isOncePaymentYn() {
         return oncePaymentYn;
+    }
+
+    public boolean isFromMonthYn() {
+        return fromMonthYn;
     }
 
 }

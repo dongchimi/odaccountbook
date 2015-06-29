@@ -276,29 +276,64 @@
 	                <div class="col-lg-4">
 	                    <div class="panel panel-default">
 	                    	<div class="panel-heading">
-	                            카드
-	                            <div class="pull-right">
-	                            	<button type="button" class="btn btn-primary btn-xs btn-modify disabled" data-toggle="modal" data-target="#cardModal">수정</button>
-	                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
-	                            </div>
+	                            카드	                            
 	                        </div>
 	                        <div class="panel-body">
-	                        	<div class="dataTable_wrapper">
-	                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
-	                                    <thead>
-	                                        <tr>
-	                                            <th>유형</th>
-	                                            <th>자산명</th>
-	                                            <th>잔액</th>
-	                                        </tr>
-	                                    </thead>
-	                                </table>
-	                            </div>
-	                            <!-- /.table-responsive -->
+	                        	<!-- Nav tabs -->
+	                            <ul class="nav nav-pills">
+	                                <li class="active"><a href="#credit" data-toggle="tab">신용카드</a>
+	                                </li>
+	                                <li><a href="#check" data-toggle="tab">체크카드</a>
+	                                </li>
+	                            </ul>
 
-								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#cardModal">
-	                                <i class="fa fa-plus fa-fw"></i> 등록
-	                            </button>
+	                            <!-- Tab panes -->
+	                            <div class="tab-content">
+	                                <div class="tab-pane fade in active" id="credit">
+	                                	<div class="pull-right">
+			                            	<button type="button" class="btn btn-primary btn-xs btn-modify disabled" data-toggle="modal" data-target="#creditCardModal">수정</button>
+			                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
+			                            </div>
+	                                    <div class="dataTable_wrapper">
+			                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
+			                                    <thead>
+			                                        <tr>
+			                                            <th>유형</th>
+			                                            <th>자산명</th>
+			                                            <th>잔액</th>
+			                                        </tr>
+			                                    </thead>
+			                                </table>
+			                            </div>
+			                            <!-- /.table-responsive -->
+
+			                            <button class="btn btn-default btn-block" data-toggle="modal" data-target="#creditCardModal">
+			                                <i class="fa fa-plus fa-fw"></i> 등록
+			                            </button>
+	                                </div>
+	                                <div class="tab-pane fade" id="check">
+	                                	<div class="pull-right">
+			                            	<button type="button" class="btn btn-primary btn-xs btn-modify disabled" data-toggle="modal" data-target="#checkCardModal">수정</button>
+			                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
+			                            </div>
+	                                    <div class="dataTable_wrapper">
+			                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
+			                                    <thead>
+			                                        <tr>
+			                                            <th>유형</th>
+			                                            <th>자산명</th>
+			                                            <th>잔액</th>
+			                                        </tr>
+			                                    </thead>
+			                                </table>
+			                            </div>
+			                            <!-- /.table-responsive -->
+
+			                            <button class="btn btn-default btn-block" data-toggle="modal" data-target="#checkCardModal">
+			                                <i class="fa fa-plus fa-fw"></i> 등록
+			                            </button>
+	                                </div>	                                
+	                            </div>								
 	                        </div>
 	                        <!-- /.panel-body -->
 	                    </div>
@@ -333,28 +368,24 @@
 	                <!-- /.col-lg-8 -->
 
 	                <!-- Modal -->
-                    <div class="modal" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal" id="creditCardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">카드등록</h4>
+                                    <h4 class="modal-title" id="myModalLabel">신용카드</h4>
                                 </div>
-                                <form role="form" id="cardForm">
+                                <form role="form" id="creditCardForm">
                                 	<div class="modal-body">
                                 		<div class="container-fluid">
                                 			<div class="row">
 								              	<div class="col-sm-12">
-									                <div class="form-group">
-			                                            <label>카드유형</label>
-			                                            <select class="form-control" id="sel-cardType">
-			                                            </select>
-			                                        </div>
 			                                        <div class="row">
 			                                        	<div class="col-sm-6">
 					                                        <div class="form-group">
-					                                            <label>카드종류</label>
-					                                            <input class="form-control" type="text" id="txt-company"/>
+					                                            <label>카드회사</label>
+					                                            <select class="form-control" id="sel-cardCompanyType">
+			                                            		</select>
 					                                        </div>
 					                                    </div>
 					                                    <div class="col-sm-6">
@@ -372,30 +403,72 @@
 			                                        <div class="form-group">
 			                                            <label>할부/일시불 이용기간</label>
 			                                            <div class="form-inline">
-				                                            <select class="form-control" id="sel-settlementDay">
+				                                            <select class="form-control" id="sel-fromUseMonth">
 		                                            		</select>
-		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		<select class="form-control" id="sel-fromUseDay">
 		                                            		</select>
 		                                            		~
-		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		<select class="form-control" id="sel-toUseMonth">
 		                                            		</select>
-		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		<select class="form-control" id="sel-toUseDay">
 		                                            		</select>
 	                                            		</div>
 			                                        </div>
 			                                        <div class="form-group form-inline">
 			                                            <label>현금서비스 이용기간</label>
 			                                            <div class="form-inline">
-				                                            <select class="form-control" id="sel-settlementDay">
+				                                            <select class="form-control" id="sel-fromCashUseMonth">
 		                                            		</select>
-		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		<select class="form-control" id="sel-fromCashUseDay">
 		                                            		</select>
 		                                            		~
-		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		<select class="form-control" id="sel-toCashUseMonth">
 		                                            		</select>
-		                                            		<select class="form-control" id="sel-settlementDay">
+		                                            		<select class="form-control" id="sel-toCashUseDay">
 		                                            		</select>
 		                                            	</div>
+			                                        </div>
+			                                        <div class="form-group ">
+			                                            <label>결제계좌</label>
+			                                            <select class="form-control" id="sel-asset">
+			                                            </select>
+			                                        </div>
+			                                        <div class="form-group">
+			                                            <label>메모</label>
+			                                            <input class="form-control" type="text" id="txt_memo" />
+			                                        </div>
+								              	</div>
+								            </div>
+                                		</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                                        <button type="submit" class="btn btn-primary">확인</button>
+                                    </div>
+                                </form>
+                        	</div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+                    <!-- Modal -->
+                    <div class="modal" id="checkCardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">체크카드</h4>
+                                </div>
+                                <form role="form" id="checkCardForm">
+                                	<div class="modal-body">
+                                		<div class="container-fluid">
+                                			<div class="row">
+								              	<div class="col-sm-12">
+									                <div class="form-group">
+			                                            <label>별칭</label>
+			                                            <input class="form-control" type="text" id="txt-nickName"/>
 			                                        </div>
 			                                        <div class="form-group ">
 			                                            <label>결제계좌</label>
@@ -525,22 +598,105 @@
 			        }
 				});
 
-				$('#cardModal').on('show.bs.modal', function (event) {
-					var url = "/apis/assets/getAssetTypes";
+				$('#creditCardModal').on('show.bs.modal', function (event) {
+					var url = "/apis/cards/getCardTypes";
 					EgunUtility.doGet(url, {}, function(result) {
 						var html = '';
 						for (var i=0; i<result.length; i++) {
 							html += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
 						}
-						$('#sel_assetType').html(html);
+						$('#sel-cardType').html(html);
+			        });
+
+			        url = "/apis/cards/getCardCompanyTypes";
+					EgunUtility.doGet(url, {}, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+						}
+						$('#sel-cardCompanyType').html(html);
+			        });
+
+			        url = "/apis/cards/getDayTypes";
+					EgunUtility.doGet(url, {}, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+						}
+						$('#sel-settlementDay').html(html);
+						$('#sel-fromUseDay').html(html);
+						$('#sel-toUseDay').html(html);
+						$('#sel-fromCashUseDay').html(html);
+						$('#sel-toCashUseDay').html(html);
+			        });			        
+
+			        url = "/apis/cards/getCreditCardPaymentMonthTypes";
+					EgunUtility.doGet(url, {}, function(result) {
+						var onceFromHtml = '';
+						var onceToHtml = '';
+						var cashFromHtml = '';
+						var cashToHtml = '';
+						for (var i=0; i<result.length; i++) {
+							if (result[i].oncePaymentYn) {
+								if (result[i].fromMonthYn) {
+									onceFromHtml += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+								}
+								onceToHtml += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+							}
+
+							if (result[i].fromMonthYn) {
+								cashFromHtml += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+							}
+							cashToHtml += '<option value='+result[i].code+'>'+result[i].koreaName+'</option>';
+						}
+						$('#sel-fromUseMonth').html(onceFromHtml);
+						$('#sel-toUseMonth').html(onceToHtml);
+						$('#sel-fromCashUseMonth').html(cashFromHtml);
+						$('#sel-toCashUseMonth').html(cashToHtml);
 			        });
 				});
 
-				$('#cardModal').on('shown.bs.modal', function (event) {
+				$('#sel-settlementDay').on('change', function() {
+					var url = "/apis/cards/getCreditCardUsePeriod";
+					var param = {
+						'cardCompanyType' : $('#sel-cardCompanyType').val()
+						, 'settlementDay' : $('#sel-settlementDay').val()
+					};
+					EgunUtility.doGet(url, param, function(result) {
+						var html = '';
+						$('#sel-fromUseMonth option[value='+result.useFromMonthType.code+']').prop('selected', true);
+						$('#sel-fromUseDay option[value='+result.useFromDayType.code+']').prop('selected', true);
+						$('#sel-toUseMonth option[value='+result.useToMonthType.code+']').prop('selected', true);
+						$('#sel-toUseDay option[value='+result.useToDayType.code+']').prop('selected', true);
+						$('#sel-fromCashUseMonth option[value='+result.cashAdvanceUseFromMonthType.code+']').prop('selected', true);						
+						$('#sel-toCashUseMonth option[value='+result.cashAdvanceUseToMonthType.code+']').prop('selected', true);
+
+						if (result.cashAdvanceUseFromDayType != null) {
+							$('#sel-fromCashUseDay option[value='+result.cashAdvanceUseFromDayType.code+']').prop('selected', true);
+						}
+						if (result.cashAdvanceUseToDayType != null) {
+							$('#sel-toCashUseDay option[value='+result.cashAdvanceUseToDayType.code+']').prop('selected', true);
+						}
+
+						$('#sel-fromCashUseMonth, #sel-toCashUseMonth').trigger('change');
+			        });
+				});
+
+				$('#sel-fromCashUseMonth, #sel-toCashUseMonth').on('change', function() {
+					if (Number($(this).val()) > 0) {
+						$(this).next().hide();
+					} else {
+						$(this).next().show();
+					}
+				});
+
+				$('#creditCardModal').on('shown.bs.modal', function (event) {	
 					var button = $(event.relatedTarget);
 			        var selectedIdx = button.data('selectedIdx');
 
 			        var modal = $(this);
+			        $('#sel-settlementDay').trigger('change');
+
 			        if (selectedIdx != null) {
 			        	var asset = tb_assets.fnGetData()[selectedIdx];
 			        	
@@ -556,9 +712,8 @@
 			        }
 				});
 
-				$('#assetForm').submit(function() {
-
-			    	var url = '/apis/assets/setAsset';
+				$('#creditCardForm').submit(function() {
+			    	var url = '/apis/cards/setCard';
 			    	var param = {
 			    		'assetTypeCode' : $('#assetForm #sel_assetType').val()
 			    		, 'name' : $('#assetForm #name').val()
