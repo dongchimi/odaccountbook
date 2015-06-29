@@ -15,9 +15,9 @@ public class Card {
     @GeneratedValue
     private Long oid;
 
-    /** 카드회사명 */
-    @Column
-    private String companyName;
+    /** 카드회사명(신용카드용) */
+    @Column(nullable = true)
+    private CardCompanyType companyName;
 
     /** 별명 */
     @Column
@@ -42,58 +42,53 @@ public class Card {
 
     /** 결제일 (신용카드용) */
     @Column(nullable = true)
-    private Integer settlementDay;
+    private DayType settlementDay;
 
     /** 일시불 할부 시작일 월 (신용카드용) */
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
-    private CreditCardPaymentMonthType oncePaymentMonthType;
+    private CreditCardPaymentMonthType oncePaymentFromMonthType;
 
     /** 일시불 할부 시작일 일 (신용카드용) */
     @Column(nullable = true)
-    private Integer oncePaymentDay;
+    private DayType oncePaymentFromDayType;
 
-    /** 현금서비스 시작일 (신용카드용) */
+    /** 일시불 할부 종료일 월 (신용카드용) */
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
-    private CreditCardPaymentMonthType creditCardCashServiceType;
+    private CreditCardPaymentMonthType oncePaymentToMonthType;
+
+    /** 일시불 할부 종료일 일 (신용카드용) */
+    @Column(nullable = true)
+    private DayType oncePaymentToDayType;
+
+    /** 현금서비스 시작일 월 (신용카드용) */
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private CreditCardPaymentMonthType cashServiceFromMonthType;
+
+    /** 현금서비스 시작일 일 (신용카드용) */
+    @Column(nullable = true)
+    private DayType cashServiceFromDayType;
+
+    /** 현금서비스 종료일 월 (신용카드용) */
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private CreditCardPaymentMonthType cashServiceToMonthType;
+
+    /** 현금서비스 종료일 일 (신용카드용) */
+    @Column(nullable = true)
+    private DayType cashServiceToDayType;
 
     /** 청구금액 (신용카드용) */
     @Transient
     private int creditCardCharge;
 
-    public static Card newCreditCard(String companyName, String nickName, Asset bank,
-            int settlementDay) {
-        return new Card(companyName, nickName, CardType.CREDIT_CARD, bank, settlementDay);
-    }
-
-    public static Card newCheckCard(String companyName, String nickName, Asset bank) {
-        return new Card(companyName, nickName, CardType.CHECK_CARD, bank);
-    }
-
-    private Card(String companyName, String nickName, CardType cardType, Asset bank) {
-        this.companyName = companyName;
-        this.nickName = nickName;
-        this.cardType = cardType;
-        this.creditCardCharge = 0;
-        this.oncePaymentMonthType = CreditCardPaymentMonthType.MONTH_BEFORE_LAST;
-        this.oncePaymentDay = 27;
-        this.creditCardCashServiceType = CreditCardPaymentMonthType.MONTH_BEFORE_LAST_PLUS_2;
-    }
-
-    private Card(String companyName, String nickName, CardType cardType, Asset bank,
-            int settlementDay) {
-        this.companyName = companyName;
-        this.nickName = nickName;
-        this.cardType = cardType;
-        this.settlementDay = settlementDay;
-    }
-
-    public String getCompanyName() {
+    public CardCompanyType getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
+    public void setCompanyName(CardCompanyType companyName) {
         this.companyName = companyName;
     }
 
@@ -113,44 +108,12 @@ public class Card {
         this.cardType = cardType;
     }
 
-    public Integer getSettlementDay() {
-        return settlementDay;
-    }
-
-    public void setSettlementDay(Integer settlementDay) {
-        this.settlementDay = settlementDay;
-    }
-
     public int getCreditCardCharge() {
         return creditCardCharge;
     }
 
     public void setCreditCardCharge(int creditCardCharge) {
         this.creditCardCharge = creditCardCharge;
-    }
-
-    public CreditCardPaymentMonthType getOncePaymentMonthType() {
-        return oncePaymentMonthType;
-    }
-
-    public void setOncePaymentMonthType(CreditCardPaymentMonthType oncePaymentMonthType) {
-        this.oncePaymentMonthType = oncePaymentMonthType;
-    }
-
-    public Integer getOncePaymentDay() {
-        return oncePaymentDay;
-    }
-
-    public void setOncePaymentDay(Integer oncePaymentDay) {
-        this.oncePaymentDay = oncePaymentDay;
-    }
-
-    public CreditCardPaymentMonthType getCreditCardCashServiceType() {
-        return creditCardCashServiceType;
-    }
-
-    public void setCreditCardCashServiceType(CreditCardPaymentMonthType creditCardCashServiceType) {
-        this.creditCardCashServiceType = creditCardCashServiceType;
     }
 
     public Long getOid() {
@@ -183,6 +146,78 @@ public class Card {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public DayType getSettlementDay() {
+        return settlementDay;
+    }
+
+    public void setSettlementDay(DayType settlementDay) {
+        this.settlementDay = settlementDay;
+    }
+
+    public CreditCardPaymentMonthType getOncePaymentFromMonthType() {
+        return oncePaymentFromMonthType;
+    }
+
+    public void setOncePaymentFromMonthType(CreditCardPaymentMonthType oncePaymentFromMonthType) {
+        this.oncePaymentFromMonthType = oncePaymentFromMonthType;
+    }
+
+    public DayType getOncePaymentFromDayType() {
+        return oncePaymentFromDayType;
+    }
+
+    public void setOncePaymentFromDayType(DayType oncePaymentFromDayType) {
+        this.oncePaymentFromDayType = oncePaymentFromDayType;
+    }
+
+    public CreditCardPaymentMonthType getOncePaymentToMonthType() {
+        return oncePaymentToMonthType;
+    }
+
+    public void setOncePaymentToMonthType(CreditCardPaymentMonthType oncePaymentToMonthType) {
+        this.oncePaymentToMonthType = oncePaymentToMonthType;
+    }
+
+    public DayType getOncePaymentToDayType() {
+        return oncePaymentToDayType;
+    }
+
+    public void setOncePaymentToDayType(DayType oncePaymentToDayType) {
+        this.oncePaymentToDayType = oncePaymentToDayType;
+    }
+
+    public CreditCardPaymentMonthType getCashServiceFromMonthType() {
+        return cashServiceFromMonthType;
+    }
+
+    public void setCashServiceFromMonthType(CreditCardPaymentMonthType cashServiceFromMonthType) {
+        this.cashServiceFromMonthType = cashServiceFromMonthType;
+    }
+
+    public DayType getCashServiceFromDayType() {
+        return cashServiceFromDayType;
+    }
+
+    public void setCashServiceFromDayType(DayType cashServiceFromDayType) {
+        this.cashServiceFromDayType = cashServiceFromDayType;
+    }
+
+    public CreditCardPaymentMonthType getCashServiceToMonthType() {
+        return cashServiceToMonthType;
+    }
+
+    public void setCashServiceToMonthType(CreditCardPaymentMonthType cashServiceToMonthType) {
+        this.cashServiceToMonthType = cashServiceToMonthType;
+    }
+
+    public DayType getCashServiceToDayType() {
+        return cashServiceToDayType;
+    }
+
+    public void setCashServiceToDayType(DayType cashServiceToDayType) {
+        this.cashServiceToDayType = cashServiceToDayType;
     }
 
 }

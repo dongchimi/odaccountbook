@@ -1,5 +1,8 @@
 package org.dongchimi.odong.accountbook.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum HolidayOptionType {
 
 	THE_DAY("당일"), //
