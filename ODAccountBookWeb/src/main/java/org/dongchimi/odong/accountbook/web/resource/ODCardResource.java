@@ -7,7 +7,9 @@ import org.dongchimi.odong.accountbook.domain.CardCompanyType;
 import org.dongchimi.odong.accountbook.domain.CardType;
 import org.dongchimi.odong.accountbook.domain.CreditCardPaymentMonthType;
 import org.dongchimi.odong.accountbook.domain.DayType;
+import org.dongchimi.odong.accountbook.dto.CardDtoForRegister;
 import org.dongchimi.odong.accountbook.service.CardService;
+import org.dongchimi.odong.accountbook.web.util.ODException;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResult;
 import org.dongchimi.odong.accountbook.web.util.ODRequestResultBuilder;
 import org.dongchimi.odong.accountbook.web.util.SessionManager;
@@ -86,13 +88,40 @@ public class ODCardResource {
                 DayType.toDayType(settlementDay)));
     }
 
+    /**
+     * 신용카드 등록
+     * 
+     * @param session
+     * @param cardDto
+     * @return
+     */
     @RequestMapping(value = "/setCreditCard", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    ODRequestResult setCard(HttpSession session, @RequestBody Card card) {
+    ODRequestResult setCreditCard(HttpSession session, @RequestBody CardDtoForRegister cardDto) {
+        
+        Long currentAccountBookOid = (Long) session
+                .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
+        
+        Card card = cardDto.toCard();
+        
+        card.setAccountBookOid(currentAccountBookOid);
+        card.setCardType(CardType.CREDIT_CARD);
+        
+        cardService.registerCard(card);
+        
         return ODRequestResultBuilder.getSuccessRequestResult();
     }
 
+    /**
+     * 체크카드 등록
+     * 
+     * @param session
+     * @param nickName
+     * @param memo
+     * @param assetOid
+     * @return
+     */
     @RequestMapping(value = "/setCheckCard", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    ODRequestResult setCard(HttpSession session, @RequestParam String name,
+    ODRequestResult setCheckCard(HttpSession session, @RequestParam String nickName,
             @RequestParam String memo, @RequestParam Long assetOid) {
         
         Long currentAccountBookOid = (Long) session
@@ -100,7 +129,7 @@ public class ODCardResource {
         
         Card checkCard = new Card();
         checkCard.setCardType(CardType.CHECK_CARD);
-        checkCard.setNickName(name);
+        checkCard.setNickName(nickName);
         checkCard.setMemo(memo);
         checkCard.setAssetOid(assetOid);
         checkCard.setAccountBookOid(currentAccountBookOid);
@@ -108,6 +137,46 @@ public class ODCardResource {
         cardService.registerCard(checkCard);
         
         return ODRequestResultBuilder.getSuccessRequestResult();
+    }
+    
+    /**
+     * 신용카드 조회
+     * 
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/getCreditCards", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    ODRequestResult getCreditCards(HttpSession session) {
+
+        Long currentAccountBookOid = (Long) session
+                .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
+
+        if (currentAccountBookOid == null) {
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요."));
+        }
+
+        return ODRequestResultBuilder.getSuccessRequestResult(cardService
+                .findCardDtos(currentAccountBookOid, CardType.CREDIT_CARD));
+    }
+    
+    /**
+     * 체크카드 조회
+     * 
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/getCheckCards", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    ODRequestResult getCheckCards(HttpSession session) {
+
+        Long currentAccountBookOid = (Long) session
+                .getAttribute(SessionManager.SESSION_KEY_CURRENT_ACCOUNT_BOOK_OID);
+
+        if (currentAccountBookOid == null) {
+            return ODRequestResultBuilder.getFailRequestResult(new ODException("로그인하세요."));
+        }
+
+        return ODRequestResultBuilder.getSuccessRequestResult(cardService
+                .findCardDtos(currentAccountBookOid, CardType.CHECK_CARD));
     }
 
 }

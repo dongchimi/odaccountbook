@@ -276,7 +276,7 @@
 	                <div class="col-lg-4">
 	                    <div class="panel panel-default">
 	                    	<div class="panel-heading">
-	                            카드	                            
+	                            카드
 	                        </div>
 	                        <div class="panel-body">
 	                        	<!-- Nav tabs -->
@@ -295,11 +295,10 @@
 			                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
 			                            </div>
 	                                    <div class="dataTable_wrapper">
-			                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
+			                                <table class="table table-striped table-bordered table-hover" id="tb-creditCard">
 			                                    <thead>
 			                                        <tr>
-			                                            <th>유형</th>
-			                                            <th>자산명</th>
+			                                            <th>카드명</th>
 			                                            <th>잔액</th>
 			                                        </tr>
 			                                    </thead>
@@ -317,11 +316,10 @@
 			                            	<button type="button" class="btn btn-primary btn-xs btn-remove disabled">삭제</button>
 			                            </div>
 	                                    <div class="dataTable_wrapper">
-			                                <table class="table table-striped table-bordered table-hover" id="tb_assets">
+			                                <table class="table table-striped table-bordered table-hover" id="tb-checkCard">
 			                                    <thead>
 			                                        <tr>
-			                                            <th>유형</th>
-			                                            <th>자산명</th>
+			                                            <th>카드명</th>
 			                                            <th>잔액</th>
 			                                        </tr>
 			                                    </thead>
@@ -332,8 +330,8 @@
 			                            <button class="btn btn-default btn-block" data-toggle="modal" data-target="#checkCardModal">
 			                                <i class="fa fa-plus fa-fw"></i> 등록
 			                            </button>
-	                                </div>	                                
-	                            </div>								
+	                                </div>
+	                            </div>
 	                        </div>
 	                        <!-- /.panel-body -->
 	                    </div>
@@ -435,7 +433,7 @@
 			                                        </div>
 			                                        <div class="form-group">
 			                                            <label>메모</label>
-			                                            <input class="form-control" type="text" id="txt_memo" />
+			                                            <input class="form-control" type="text" id="txt-memo" />
 			                                        </div>
 								              	</div>
 								            </div>
@@ -477,7 +475,7 @@
 			                                        </div>
 			                                        <div class="form-group">
 			                                            <label>메모</label>
-			                                            <input class="form-control" type="text" id="txt_memo" />
+			                                            <input class="form-control" type="text" id="txt-memo" />
 			                                        </div>
 								              	</div>
 								            </div>
@@ -525,7 +523,7 @@
 
 			$(function() {
 
-				var tb_assets = $('#tb_assets').dataTable({
+				var tb_creditCard = $('#tb-creditCard').dataTable({
 					processing : true,
 					serverSide: true,
 			        ordering: false,
@@ -538,7 +536,7 @@
 						};
 
 						return $.ajax({
-							url : "/apis/assets/getAssets",
+							url : "/apis/cards/getCreditCards",
 							data : params,
 							dataType: "json",
 							success: function(json) {
@@ -554,9 +552,8 @@
 						});
 					},
 			        columns : [
-			        	{ "data": "assetType.koreaName" },
-			            { "data": "name" },
-			            { "data": "balance", "sClass": "rigth", render: $.fn.dataTable.render.number( ',', '.', 0, '' ) }
+			        	{ "data": "nickName" },
+			            { "data": "creditCardCharge", "sClass": "rigth", render: $.fn.dataTable.render.number( ',', '.', 0, '' ) }
 			        ],
 			        dom: "rtiS",
 			        deferRender: true,
@@ -565,20 +562,63 @@
 			            loadingIndicator: true
 			        },
 			        language: {
-			            zeroRecords: "등록된 자산이 없습니다."
+			            zeroRecords: "등록된 내역이 없습니다."
 			        }
 				});
 
-				$('#tb_assets tbody').on( 'click', 'tr', function () {
+				var tb_checkCard = $('#tb-checkCard').dataTable({
+					processing : true,
+					serverSide: true,
+			        ordering: false,
+			        searching: false,
+			        info: false,
+			        ajax: function ( data, callback, settings ) {
+						
+						var params = {
+							start : data.start
+						};
+
+						return $.ajax({
+							url : "/apis/cards/getCheckCards",
+							data : params,
+							dataType: "json",
+							success: function(json) {
+								var result = {
+									draw : data.draw,
+									data : json.value,
+									recordsTotal: json.value.length,
+									recordsFiltered: json.value.length
+								};
+
+								callback(result);
+							}
+						});
+					},
+			        columns : [
+			        	{ "data": "nickName" },
+			            { "data": "creditCardCharge", "sClass": "rigth", render: $.fn.dataTable.render.number( ',', '.', 0, '' ) }
+			        ],
+			        dom: "rtiS",
+			        deferRender: true,
+			        scrollY: 300,
+			        scroller: {
+			            loadingIndicator: true
+			        },
+			        language: {
+			            zeroRecords: "등록된 내역이 없습니다."
+			        }
+				});
+
+				$('#tb-creditCard tbody').on( 'click', 'tr', function () {
 			        if ( $(this).hasClass('selected') ) {
 			            $(this).removeClass('selected');
 			        }
 			        else {
-			            tb_assets.$('tr.selected').removeClass('selected');
+			            tb_creditCard.$('tr.selected').removeClass('selected');
 			            $(this).addClass('selected');
 
 			            var selectedIdx = $(this).index();
-			            $('#dv_asset_name').html((tb_assets.fnGetData()[selectedIdx].name));
+			            $('#dv_asset_name').html((tb_creditCard.fnGetData()[selectedIdx].name));
 
 			            $("button.btn-modify").data("selectedIdx", selectedIdx).removeClass("disabled");
 			            $("button.btn-remove").data("selectedIdx", selectedIdx).removeClass("disabled");
@@ -654,6 +694,26 @@
 						$('#sel-fromCashUseMonth').html(cashFromHtml);
 						$('#sel-toCashUseMonth').html(cashToHtml);
 			        });
+
+			        url = "/apis/assets/getAssets";
+					EgunUtility.doGet(url, {}, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].oid+'>'+result[i].name+'</option>';
+						}
+						$('#creditCardForm #sel-asset').html(html);
+			        });
+				});
+
+				$('#checkCardModal').on('show.bs.modal', function (event) {
+					var url = "/apis/assets/getAssets";
+					EgunUtility.doGet(url, {}, function(result) {
+						var html = '';
+						for (var i=0; i<result.length; i++) {
+							html += '<option value='+result[i].oid+'>'+result[i].name+'</option>';
+						}
+						$('#checkCardForm #sel-asset').html(html);
+			        });
 				});
 
 				$('#sel-settlementDay').on('change', function() {
@@ -698,7 +758,7 @@
 			        $('#sel-settlementDay').trigger('change');
 
 			        if (selectedIdx != null) {
-			        	var asset = tb_assets.fnGetData()[selectedIdx];
+			        	var asset = tb_creditCard.fnGetData()[selectedIdx];
 			        	
 			        	modal.find('.modal-body #sel_assetType option[value='+asset.assetType.code+']').prop("selected", true);
 					  	modal.find('.modal-body input#name').val(asset.name).data('assetOid', asset.oid);
@@ -713,17 +773,42 @@
 				});
 
 				$('#creditCardForm').submit(function() {
-			    	var url = '/apis/cards/setCard';
+			    	var $form = $("#creditCardForm");
+
+			    	var url = '/apis/cards/setCreditCard';
 			    	var param = {
-			    		'assetTypeCode' : $('#assetForm #sel_assetType').val()
-			    		, 'name' : $('#assetForm #name').val()
-			    		, 'balance' : $('#assetForm #balance').val()
-			    		, 'memo' : $('#assetForm #memo').val()
-			    		, 'oid' : $('#assetForm #name').data('assetOid')
+			    		'companyName' : $form.find("#sel-cardCompanyType").val()
+			    		, 'nickName' : $form.find('#txt-nickName').val()
+			    		, 'memo' : $form.find('#txt-memo').val()
+			    		, 'assetOid' : $form.find('#sel-asset').val()
+			    		, 'settlementDay' : $form.find('#sel-settlementDay').val()
+			    		, 'oncePaymentFromMonthType' : $form.find('#sel-fromUseMonth').val()
+			    		, 'oncePaymentFromDayType' : $form.find('#sel-fromUseDay').val()
+			    		, 'oncePaymentToMonthType' : $form.find('#sel-toUseMonth').val()
+			    		, 'oncePaymentToDayType' : $form.find('#sel-toUseDay').val()
+			    		, 'cashServiceFromMonthType' : $form.find('#sel-fromCashUseMonth').val()
+			    		, 'cashServiceFromDayType' : $form.find('#sel-fromCashUseDay').val()
+			    		, 'cashServiceToMonthType' : $form.find('#sel-toCashUseMonth').val()
+			    		, 'cashServiceToDayType' : $form.find('#sel-toCashUseDay').val()
+			    	};
+
+			        EgunUtility.doNativePost(url, param, function() {
+			        	location.href='/cards';
+			        });
+			    });
+
+				$('#checkCardForm').submit(function() {
+			    	var $form = $("#checkCardForm");
+			    	
+			    	var url = '/apis/cards/setCheckCard';
+			    	var param = {
+			    		'nickName' : $form.find('#txt-nickName').val()
+			    		, 'memo' : $form.find('#txt-memo').val()
+			    		, 'assetOid' : $form.find('#sel-asset').val()
 			    	};
 
 			        EgunUtility.doPost(url, param, function() {
-			        	location.href='/assets';
+			        	location.href='/cards';
 			        });
 			    });
 
@@ -731,7 +816,7 @@
 			    	if (!confirm("삭제하시겠습니까?")) return;
 			    	
 			    	var selectedIdx = $(this).data("selectedIdx");
-			    	var asset = tb_assets.fnGetData()[selectedIdx];
+			    	var asset = tb_creditCard.fnGetData()[selectedIdx];
 
 			    	var url = '/apis/assets/deleteAsset';
 			    	var param = {
