@@ -24,6 +24,16 @@ public enum CreditCardPaymentMonthType {
         this.oncePaymentYn = oncePaymentYn;
         this.fromMonthYn = fromMonthYn;
     }
+    
+    public static CreditCardPaymentMonthType toCreditCardPaymentMonthType(Integer code) {
+        for (CreditCardPaymentMonthType type : CreditCardPaymentMonthType.values()) {
+            if (type.getCode() != code) continue;
+            
+            return type;
+        }
+        
+        return MONTH_BEFORE_LAST;
+    }
 
     public Integer getCode() {
         return code;
